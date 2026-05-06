@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Historial del Vehículo - Ruta Mecánica</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Space+Grotesk:wght@700&amp;family=Work+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#e0e5cc",
+                      "tertiary-container": "#6f6f5a",
+                      "surface-variant": "#f5decd",
+                      "secondary-container": "#fdc6a9",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#fbe4d2",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#25190f",
+                      "on-primary": "#ffffff",
+                      "surface": "#fff8f5",
+                      "surface-dim": "#ecd6c4",
+                      "on-error": "#ffffff",
+                      "tertiary": "#565743",
+                      "on-primary-fixed": "#191d0e",
+                      "tertiary-fixed": "#e5e4ca",
+                      "primary-fixed-dim": "#c4c9b1",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#f1bb9e",
+                      "inverse-surface": "#3b2e22",
+                      "surface-container-highest": "#f5decd",
+                      "tertiary-fixed-dim": "#c8c8af",
+                      "surface-container-low": "#fff1e8",
+                      "on-secondary-fixed": "#301403",
+                      "on-primary-container": "#eff4db",
+                      "primary": "#535845",
+                      "surface-tint": "#5c614d",
+                      "outline-variant": "#c7c7bd",
+                      "on-surface-variant": "#464740",
+                      "surface-bright": "#fff8f5",
+                      "secondary-fixed": "#ffdbc9",
+                      "on-tertiary-fixed-variant": "#474835",
+                      "inverse-on-surface": "#ffeee1",
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#1c1d0c",
+                      "surface-container": "#ffeada",
+                      "on-secondary-container": "#795039",
+                      "primary-container": "#6b705c",
+                      "inverse-primary": "#c4c9b1",
+                      "on-secondary-fixed-variant": "#633e28",
+                      "background": "#fff8f5",
+                      "on-error-container": "#93000a",
+                      "outline": "#77786f",
+                      "on-primary-fixed-variant": "#444937",
+                      "secondary": "#7e553e",
+                      "on-tertiary-container": "#f4f3d8",
+                      "on-background": "#25190f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "xl": "40px",
+                      "sm": "8px",
+                      "gutter": "20px",
+                      "container-max": "1200px",
+                      "md": "16px",
+                      "lg": "24px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Noto Serif"
+                      ],
+                      "label-caps": [
+                              "Space Grotesk"
+                      ],
+                      "body-md": [
+                              "Work Sans"
+                      ],
+                      "headline-md": [
+                              "Noto Serif"
+                      ],
+                      "title-sm": [
+                              "Noto Serif"
+                      ],
+                      "body-sm": [
+                              "Work Sans"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+          },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.03%22/%3E%3C/svg%3E');
+        }
+        .mechanical-shadow {
+            box-shadow: 0 2px 0 0 rgba(107,112,92,0.15);
+        }
+        .inset-dashboard {
+            box-shadow: inset 0 2px 4px 0 rgba(107,112,92,0.1);
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface-container dark:bg-surface-container-highest font-display-lg text-display-lg uppercase sticky full-width top-0 border-b-2 border-outline-variant dark:border-outline shadow-[0_2px_0_0_rgba(107,112,92,0.15)] z-40">
+<div class="flex justify-between items-center w-full px-gutter py-sm max-w-container-max mx-auto">
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-bright dark:hover:bg-surface-dim transition-colors active:scale-95 duration-100 p-2 rounded-DEFAULT">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg text-title-sm font-bold text-on-surface dark:text-on-surface-variant tracking-[0.2em]">RUTA MECÁNICA</h1>
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-bright dark:hover:bg-surface-dim transition-colors active:scale-95 duration-100 p-2 rounded-DEFAULT">
+<div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden border border-outline">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A vintage styled portrait photo of a mechanic or car enthusiast, sepia or warm toned, wearing a classic work shirt. Soft lighting, high quality, retro aesthetic matching a classic garage brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdJ5PcVhH6kyc2ra5e_5lv5e81l2G4LushUkS6VHQhIV3HkYNNwQ_zDAXuNDAsArVuWq4ef_ZdDpLujYXmhHi_n36qvWDEwyreb8SsZD4p2WKO1C9qeJ0UMDwRTtO0LzYZHYPqbPAVw01znWOoGPRlDSYut22E9Dly0CPnkA57axGvukRV5u1AbSwjiB15AapM4e2ZoMAtG3MJI3Bv_MCkx7Yd9R6az3nGM1Vusq6eWPgqa83QhwlxPQA7fcKeGbgs2s_2Q6t9Tsk"/>
+</div>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="px-gutter py-xl max-w-container-max mx-auto">
+<!-- Header Section -->
+<div class="mb-xl text-center">
+<h2 class="font-headline-md text-headline-md text-primary mb-sm">Registro de Mantenimiento</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Historial detallado de servicios, repostajes y cuidados para Porsche 911 Carrera (1984).</p>
+</div>
+<!-- Vehicle Summary Card -->
+<div class="bg-surface-container-low border border-outline-variant mechanical-shadow rounded-DEFAULT p-md mb-xl flex flex-col md:flex-row items-center gap-lg">
+<div class="w-full md:w-1/3 aspect-[4/3] rounded-DEFAULT overflow-hidden border border-outline-variant relative">
+<img alt="Classic Car" class="w-full h-full object-cover" data-alt="A classic vintage sports car, possibly a 1980s Porsche, parked inside a well-lit classic mechanical garage. The lighting is warm and cinematic, highlighting the curves of the vehicle against a backdrop of vintage tools and brick walls. The color palette emphasizes warm earth tones and faded metallic shades." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRygFmUmVXnFgh1LZPjeOZZpsGxL-oHYZycxSUPdp9MPeeJEBiTXRYO9foMr9w5MygVkcvDnRbgYhFRY-92uvLcX59UyxVsdy-nBc3NK6TUp1khKWOm2wuyGHF2Rfdn1HVmkMwVxiEa4ho24sPkjhhNiufOwK5EFJrH_KLU_a5i4pbZPGoqB0VhHzyL0i-0Og2gb-RfZfZWF2x-jvygsN2uku6zN6znw06k4rpuCteDqxtfMLXqfW-ujlkaIEbr-1MxATtYtRTPr0"/>
+<div class="absolute bottom-sm right-sm bg-primary text-on-primary px-sm py-xs font-label-caps text-label-caps rounded-DEFAULT opacity-90 border border-outline">CHASIS: WPOZZZ91ZE</div>
+</div>
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-md w-full">
+<div class="bg-surface inset-dashboard p-sm rounded-DEFAULT border border-surface-variant flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-primary mb-xs" data-icon="speed">speed</span>
+<span class="font-label-caps text-label-caps text-outline mb-xs">KILOMETRAJE</span>
+<span class="font-title-sm text-title-sm text-on-surface">142,050 km</span>
+</div>
+<div class="bg-surface inset-dashboard p-sm rounded-DEFAULT border border-surface-variant flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-secondary mb-xs" data-icon="oil_barrel">oil_barrel</span>
+<span class="font-label-caps text-label-caps text-outline mb-xs">ÚLTIMO ACEITE</span>
+<span class="font-title-sm text-title-sm text-on-surface">Hace 2m</span>
+</div>
+<div class="bg-surface inset-dashboard p-sm rounded-DEFAULT border border-surface-variant flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-tertiary mb-xs" data-icon="build_circle">build_circle</span>
+<span class="font-label-caps text-label-caps text-outline mb-xs">ESTADO</span>
+<span class="font-title-sm text-title-sm text-on-surface">Óptimo</span>
+</div>
+<div class="bg-surface inset-dashboard p-sm rounded-DEFAULT border border-surface-variant flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-primary-container mb-xs" data-icon="payments">payments</span>
+<span class="font-label-caps text-label-caps text-outline mb-xs">INVERSIÓN YTD</span>
+<span class="font-title-sm text-title-sm text-on-surface">€ 1,240</span>
+</div>
+</div>
+</div>
+<!-- Filter/Controls (Toggle Switch Style) -->
+<div class="flex justify-center mb-lg gap-sm">
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-md py-sm rounded-DEFAULT border border-outline-variant mechanical-shadow active:shadow-none active:translate-y-[2px] transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="filter_list">filter_list</span> TODOS
+            </button>
+<button class="bg-surface text-on-surface-variant font-label-caps text-label-caps px-md py-sm rounded-DEFAULT border border-outline-variant hover:bg-surface-variant transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="build">build</span> TALLER
+            </button>
+<button class="bg-surface text-on-surface-variant font-label-caps text-label-caps px-md py-sm rounded-DEFAULT border border-outline-variant hover:bg-surface-variant transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="local_gas_station">local_gas_station</span> REPOSTAJE
+            </button>
+</div>
+<!-- Vertical Timeline -->
+<div class="relative max-w-3xl mx-auto">
+<!-- Central Line (The 'Drive Shaft') -->
+<div class="absolute left-md md:left-1/2 top-0 bottom-0 w-px bg-outline-variant -ml-px md:ml-0 border-l border-dashed border-outline-variant z-0"></div>
+<!-- Event Item 1: Revisión General -->
+<div class="relative flex flex-col md:flex-row items-start mb-xl group z-10">
+<!-- Timeline Node -->
+<div class="absolute left-md md:left-1/2 -ml-[12px] md:-ml-[12px] top-md w-6 h-6 rounded-full bg-surface border-2 border-primary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-primary group-hover:scale-150 transition-transform"></div>
+</div>
+<!-- Date/Meta (Left side on desktop) -->
+<div class="ml-xl md:ml-0 md:w-1/2 md:pr-xl md:text-right pt-sm pb-sm">
+<div class="font-label-caps text-label-caps text-primary mb-xs">15 OCT 2023</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center md:justify-end gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="speed">speed</span> 142,000 km
+                    </div>
+</div>
+<!-- Content Card (Right side on desktop) -->
+<div class="ml-xl md:ml-0 md:w-1/2 md:pl-xl w-full mt-sm md:mt-0">
+<div class="bg-surface-container border border-outline-variant mechanical-shadow rounded-DEFAULT overflow-hidden relative">
+<!-- Top Dashed Separator -->
+<div class="border-b-2 border-dashed border-outline-variant bg-surface-container-high px-md py-sm flex justify-between items-center">
+<h3 class="font-title-sm text-title-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="car_repair">car_repair</span>
+                                Revisión General
+                            </h3>
+<span class="font-label-caps text-label-caps text-secondary bg-surface px-xs py-[2px] rounded-DEFAULT border border-outline-variant">€ 450.00</span>
+</div>
+<div class="p-md flex gap-md">
+<div class="flex-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md">Cambio de aceite sintético 10W-40, filtro de aceite, filtro de aire y revisión de bujías. Ajuste de válvulas según manual de taller.</p>
+<div class="inline-flex items-center gap-xs font-label-caps text-label-caps text-tertiary bg-tertiary-container/10 px-sm py-xs border border-tertiary/20 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[14px]" data-icon="garage">garage</span> Taller Clásico Motors
+                                </div>
+</div>
+<div class="w-20 h-24 border border-outline-variant p-[2px] bg-white rounded-sm shrink-0 shadow-sm rotate-2 hover:rotate-0 transition-transform">
+<img alt="Receipt Thumbnail" class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A close up shot of an old paper receipt or vintage invoice with typed text and faded ink stamps. The paper texture is visible, with a slightly worn and authentic mechanical garage feel. Soft overhead lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChK6tnfPwlBnTm1CyqmfgANceqPK4vBGGS_hChmw-ZebjaTbcnArp0AwgWh9zj71JfF0vbXihT-RB3uzExGtu1SucN7m9e7cumMRa3JOOQgMv4qaxndgVpbbqIeIec13IMGQDiVIzeCPJz1npakorIoTpBygbJIgUgBOxlQ7qgyH5bC4z_p6AMDE1kIgWG00xgLmOXN2zPPO9Yrw0abewwQYKXLihkWv_9apd__GTPBeDspxOF7XtR-biOG4bPdroEvcoHBsEyneA"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Item 2: Repostaje -->
+<div class="relative flex flex-col md:flex-row-reverse items-start mb-xl group z-10">
+<!-- Timeline Node -->
+<div class="absolute left-md md:left-1/2 -ml-[12px] md:-ml-[12px] top-md w-6 h-6 rounded-full bg-surface border-2 border-secondary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-secondary group-hover:scale-150 transition-transform"></div>
+</div>
+<!-- Date/Meta -->
+<div class="ml-xl md:ml-0 md:w-1/2 md:pl-xl md:text-left pt-sm pb-sm">
+<div class="font-label-caps text-label-caps text-secondary mb-xs">02 OCT 2023</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center md:justify-start gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="speed">speed</span> 141,820 km
+                    </div>
+</div>
+<!-- Content Card -->
+<div class="ml-xl md:ml-0 md:w-1/2 md:pr-xl w-full mt-sm md:mt-0">
+<div class="bg-surface-container border border-outline-variant mechanical-shadow rounded-DEFAULT overflow-hidden relative">
+<div class="border-b-2 border-dashed border-outline-variant bg-surface-container-high px-md py-sm flex justify-between items-center">
+<h3 class="font-title-sm text-title-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="local_gas_station">local_gas_station</span>
+                                Repostaje
+                            </h3>
+<span class="font-label-caps text-label-caps text-secondary bg-surface px-xs py-[2px] rounded-DEFAULT border border-outline-variant">€ 85.50</span>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-end border-b border-outline-variant/30 pb-sm mb-sm">
+<div>
+<span class="font-label-caps text-label-caps text-outline block mb-xs">COMBUSTIBLE</span>
+<span class="font-body-md text-body-md text-on-surface">Gasolina 98 Octanos</span>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-outline block mb-xs">LITROS</span>
+<span class="font-body-md text-body-md text-on-surface font-bold">45.2 L</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Consumo medio calculado: 11.2 L/100km. Llenado antes de ruta de fin de semana.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Item 3: Lavado -->
+<div class="relative flex flex-col md:flex-row items-start mb-xl group z-10">
+<!-- Timeline Node -->
+<div class="absolute left-md md:left-1/2 -ml-[12px] md:-ml-[12px] top-md w-6 h-6 rounded-full bg-surface border-2 border-tertiary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-tertiary group-hover:scale-150 transition-transform"></div>
+</div>
+<!-- Date/Meta -->
+<div class="ml-xl md:ml-0 md:w-1/2 md:pr-xl md:text-right pt-sm pb-sm">
+<div class="font-label-caps text-label-caps text-tertiary mb-xs">28 SEP 2023</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center md:justify-end gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="speed">speed</span> 141,600 km
+                    </div>
+</div>
+<!-- Content Card -->
+<div class="ml-xl md:ml-0 md:w-1/2 md:pl-xl w-full mt-sm md:mt-0">
+<div class="bg-surface-container border border-outline-variant mechanical-shadow rounded-DEFAULT overflow-hidden relative">
+<div class="border-b-2 border-dashed border-outline-variant bg-surface-container-high px-md py-sm flex justify-between items-center">
+<h3 class="font-title-sm text-title-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary" data-icon="local_car_wash">local_car_wash</span>
+                                Detailing y Lavado
+                            </h3>
+<span class="font-label-caps text-label-caps text-secondary bg-surface px-xs py-[2px] rounded-DEFAULT border border-outline-variant">€ 120.00</span>
+</div>
+<div class="p-md flex gap-md flex-col-reverse sm:flex-row">
+<div class="flex-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md">Lavado exterior a mano, descontaminación de pintura y aplicación de cera de carnauba. Limpieza interior y acondicionamiento de cueros.</p>
+</div>
+<div class="w-full sm:w-24 aspect-square border border-outline-variant p-1 bg-surface-container-lowest rounded-sm shrink-0">
+<img alt="Car Detail Photo" class="w-full h-full object-cover sepia-[.3]" data-alt="A close up macro shot of water droplets beading perfectly on the polished, waxed metallic surface of a classic vintage car. The reflections show warm ambient lighting, emphasizing the deep rich color of the automotive paint and the high-end detailing work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9XDoOn-2oaDLBXihH4oMm_mES_ydnSe_IQa97hkeqbk2fkZCocb0J-aJM5oJ0CgEDlknYiCdPI6-JbVr0ZoEWGWF07cz6WGJGADMJgwNp5QDxxQBOf3YZVdYax3PKubazOScL7uUwl1oo9wsZBjNCTcIAfUcSFXniEAc0rqtYkQUfe-81-U5DAkGg-CWZjwwnOQXww6BGPhoEtnyBBQKcdh-YsphjoxHgSMQtHoAxCG1EZnEVp2gB63rgYda-SEFGbZEshZJNW3Y"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More Button -->
+<div class="relative flex justify-center mt-xl z-10">
+<button class="bg-surface-container-high text-on-surface font-label-caps text-label-caps px-xl py-sm rounded-full border border-outline-variant hover:bg-surface-variant transition-colors flex items-center gap-xs mechanical-shadow">
+<span class="material-symbols-outlined text-[16px]" data-icon="history">history</span> CARGAR REGISTROS ANTERIORES
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface-dim dark:bg-inverse-surface border-t-2 border-outline-variant dark:border-outline shadow-[0_-2px_0_0_rgba(107,112,92,0.1)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="home_storage">home_storage</span>
+<span class="font-label-caps text-label-caps mt-1">INICIO</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-1 border-b-2 border-on-secondary-container hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75" href="#">
+<span class="material-symbols-outlined" data-icon="garage">garage</span>
+<span class="font-label-caps text-label-caps mt-1">GARAJE</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="add_box">add_box</span>
+<span class="font-label-caps text-label-caps mt-1">AÑADIR</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="person_config">person</span>
+<span class="font-label-caps text-label-caps mt-1">PERFIL</span>
+</a>
+</nav>
+</body></html>
