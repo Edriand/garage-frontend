@@ -25,27 +25,20 @@ NEXT_PUBLIC_ASSETS_BUCKET=...     # CloudFormation output: AssetsBucketName
 
 **Estética:** vintage automovilístico, táctil/esquemórfico refinado. Evoca talleres mecánicos clásicos, tableros analógicos y cuadernos de bitácora de carrera.
 
-### Paleta de colores
+### Paleta de colores (Stitch — "Ruta Mecánica")
 
-| Token | Hex | Uso |
+Los colores de la app son los generados por Stitch. La paleta de referencia visual es:
+
+| Color | Hex | Rol visual |
 |---|---|---|
-| `primary` | `#535845` | Acción principal, CTA, elementos interactivos |
-| `primary-container` | `#6b705c` | Fondos de secciones primarias, nav activa |
-| `secondary` | `#7e553e` | Acento terracota, iconos, highlights |
-| `secondary-container` | `#fdc6a9` | Fondos de chips, badges de estado |
-| `background` | `#fff8f5` | Fondo global de la app |
-| `surface` | `#fff8f5` | Superficies de tarjetas y paneles |
-| `surface-container` | `#ffeada` | Contenedores anidados |
-| `surface-container-high` | `#fbe4d2` | Contenedores elevados |
-| `surface-variant` | `#f5decd` | Fondos alternativos, filas alternas |
-| `on-surface` | `#25190f` | Texto principal sobre fondos claros |
-| `on-surface-variant` | `#464740` | Texto secundario, labels, placeholders |
-| `outline` | `#77786f` | Bordes de inputs, divisores |
-| `outline-variant` | `#c7c7bd` | Bordes sutiles, separadores |
-| `error` | `#ba1a1a` | Errores, validaciones fallidas |
-| `error-container` | `#ffdad6` | Fondo de mensajes de error |
+| Primario | `#6b705c` | Verde oliva industrial — acciones principales, nav activa, bordes de énfasis |
+| Secundario | `#cb997e` | Terracota/cuero — highlights, badges, iconos de acento |
+| Fondo | `#ffe8d6` | Crema cálido — fondo global y base de la app |
+| Acento neutro | `#a5a58d` | Gris oliva — superficies secundarias, separadores |
+| Acento claro | `#b7b7a4` | Gris arena — bordes de componentes, fondos alternativos |
+| `#ddbea9` | `#ddbea9` | Rosa pálido — `secondary-container`, chips, estados suaves |
 
-> **Referencia completa con todos los tokens** (surface-dim, inverse-*, fixed-*, etc.): [`docs/designs/DESIGN.md`](docs/designs/DESIGN.md)
+> Los tokens completos del sistema de diseño (con variantes `on-*`, `surface-*`, `inverse-*`, etc.) están en [`docs/designs/DESIGN.md`](docs/designs/DESIGN.md). Usar siempre los tokens del YAML como referencia de implementación.
 
 ### Tipografía
 
