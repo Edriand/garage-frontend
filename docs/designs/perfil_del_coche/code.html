@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Perfil de Coche - Ruta Mecánica</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Space+Grotesk:wght@400;700&amp;family=Work+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e0e5cc",
+                        "tertiary-container": "#6f6f5a",
+                        "surface-variant": "#f5decd",
+                        "secondary-container": "#fdc6a9",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#fbe4d2",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#25190f",
+                        "on-primary": "#ffffff",
+                        "surface": "#fff8f5",
+                        "surface-dim": "#ecd6c4",
+                        "on-error": "#ffffff",
+                        "tertiary": "#565743",
+                        "on-primary-fixed": "#191d0e",
+                        "tertiary-fixed": "#e5e4ca",
+                        "primary-fixed-dim": "#c4c9b1",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#f1bb9e",
+                        "inverse-surface": "#3b2e22",
+                        "surface-container-highest": "#f5decd",
+                        "tertiary-fixed-dim": "#c8c8af",
+                        "surface-container-low": "#fff1e8",
+                        "on-secondary-fixed": "#301403",
+                        "on-primary-container": "#eff4db",
+                        "primary": "#535845",
+                        "surface-tint": "#5c614d",
+                        "outline-variant": "#c7c7bd",
+                        "on-surface-variant": "#464740",
+                        "surface-bright": "#fff8f5",
+                        "secondary-fixed": "#ffdbc9",
+                        "on-tertiary-fixed-variant": "#474835",
+                        "inverse-on-surface": "#ffeee1",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#1c1d0c",
+                        "surface-container": "#ffeada",
+                        "on-secondary-container": "#795039",
+                        "primary-container": "#6b705c",
+                        "inverse-primary": "#c4c9b1",
+                        "on-secondary-fixed-variant": "#633e28",
+                        "background": "#fff8f5",
+                        "on-error-container": "#93000a",
+                        "outline": "#77786f",
+                        "on-primary-fixed-variant": "#444937",
+                        "secondary": "#7e553e",
+                        "on-tertiary-container": "#f4f3d8",
+                        "on-background": "#25190f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "xl": "40px",
+                        "sm": "8px",
+                        "gutter": "20px",
+                        "container-max": "1200px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Noto Serif"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-md": ["Work Sans"],
+                        "headline-md": ["Noto Serif"],
+                        "title-sm": ["Noto Serif"],
+                        "body-sm": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "title-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base subtle grain texture to simulate paper/physical surface */
+        body {
+            background-color: #fff8f5;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface font-body-md antialiased pb-[100px] md:pb-xl">
+<!-- TopAppBar -->
+<header class="bg-surface-container dark:bg-surface-container-highest border-b-2 border-outline-variant dark:border-outline shadow-[0_2px_0_0_rgba(107,112,92,0.15)] sticky top-0 z-40 w-full">
+<div class="flex justify-between items-center w-full px-gutter py-sm max-w-container-max mx-auto">
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-bright dark:hover:bg-surface-dim transition-colors active:scale-95 duration-100 flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-display-lg text-title-sm font-bold text-on-surface dark:text-on-surface-variant tracking-[0.2em] uppercase">RUTA MECÁNICA</h1>
+<button class="hover:bg-surface-bright dark:hover:bg-surface-dim transition-colors active:scale-95 duration-100 rounded-full border border-outline-variant overflow-hidden w-8 h-8 flex items-center justify-center">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A portrait of a rugged mechanic looking off-camera, wearing a faded denim work shirt with oil smudges. The lighting is warm and dramatic, highlighting facial textures against a blurred, dimly lit vintage garage background filled with classic tools and metal cabinets. The overall tone is authentic, gritty, and nostalgic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzL7OX1WeaePWA7W09_2oUuqalBRUhE0ctO0BbRj1iyK78aTL_H65H3FVycT9zJyIjbh_GUjR6HPHmesLYgn82zHN2I5lwNQlNMwU82fpghWEJXn_5tu2TsiJqXBcQRog2GNNaPD74CHkQf54tzDLrqfAOsOZSYsU8Tp6MVe4_roCi4boLnReamaJTvB5y8hbsgDYZUACz46iJUYRzmdAqmOhvJRIFjJnHetrx2W6vpeRwDt9ya1lGsbL_IAWDxWg2Sft83qP1VAw"/>
+</button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-xl flex flex-col gap-xl">
+<!-- Hero Component: Car Profile Badge -->
+<section class="relative rounded-xl border border-outline-variant bg-surface-container-low overflow-hidden shadow-[0_4px_0_0_rgba(107,112,92,0.1)] group">
+<div class="h-64 sm:h-80 w-full bg-surface-variant relative border-b-2 border-outline-variant">
+<img class="w-full h-full object-cover object-center" data-alt="A perfectly restored classic 1967 Ford Mustang painted in a deep, glossy dark green, parked diagonally inside a spacious, dimly lit vintage garage. Warm sunlight streams through dusty upper windows, illuminating dust motes in the air and highlighting the chrome bumpers and sleek, muscular lines of the car. The floor is cracked, stained concrete, and the background walls are lined with old wooden tool cabinets, weathered automotive enamel signs, and stacks of vintage tires. The mood is timeless and reverent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlweGyZD0CaBxkTBq_GRIff8UiLYj6QDjsmjrcx0mPG96DGHc7EeM5qVCUO7lAhZnjMqH8X1Gbu2HH7FwB_URrE3dmkhYXoaz3O9tBDyH4fnvZUp5sNDEWTHl7TXWJwyR3EWmEeNRnO4kRlbuDfXJ4mTzeynOSvutoiOwDRgVEbVZg-YgU9K-dxFLG7h6GSQ2tn0A3xd_pmwM5s-MUzMlSH_mLg_yVS8xRIpWGkh0ax4e33C3WJ4eo22LtNLnw6zRzJmQX6TTjOP0"/>
+<!-- Overlay gradient for text readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-[#25190f]/80 via-[#25190f]/20 to-transparent"></div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-md sm:p-lg flex flex-col sm:flex-row justify-between items-start sm:items-end gap-sm">
+<div>
+<span class="font-label-caps text-label-caps text-surface-container-high tracking-widest block mb-1">CHASIS NO. 8F02J102839</span>
+<h2 class="font-display-lg text-display-lg text-surface-container-lowest" style="text-shadow: 0 2px 4px rgba(37,25,15,0.8);">Mustang '67</h2>
+</div>
+<!-- Mechanical Plate Badge -->
+<div class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-4 py-2 rounded-DEFAULT border-2 border-primary-fixed shadow-[0_2px_0_0_rgba(37,25,15,0.4)] flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim block"></span>
+                    V8 289ci
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim block"></span>
+</div>
+</div>
+</section>
+<!-- Mechanical Switches (Tabs) -->
+<div class="flex justify-center w-full">
+<div class="inline-flex gap-1 p-1 bg-surface-variant rounded-lg border border-outline-variant shadow-inner">
+<button class="px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps bg-surface text-on-surface shadow-[0_1px_0_0_rgba(107,112,92,0.3)] border border-outline-variant transition-transform active:scale-95 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary block shadow-inner"></span>
+                    RESUMEN
+                </button>
+<button class="px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline-variant block shadow-inner inset"></span>
+                    HISTORIAL
+                </button>
+</div>
+</div>
+<!-- Bento Grid Dashboard -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-md sm:gap-lg">
+<!-- Total Investment (Large Ticket/Badge) -->
+<div class="col-span-2 md:col-span-4 bg-surface-container border-2 border-outline rounded-xl p-lg relative overflow-hidden flex flex-col md:flex-row items-center justify-between shadow-[0_4px_0_0_rgba(107,112,92,0.15)] gap-lg">
+<!-- Screws/Rivets -->
+<div class="absolute top-3 left-3 w-2 h-2 rounded-full bg-outline-variant border border-outline shadow-sm"></div>
+<div class="absolute top-3 right-3 w-2 h-2 rounded-full bg-outline-variant border border-outline shadow-sm"></div>
+<div class="absolute bottom-3 left-3 w-2 h-2 rounded-full bg-outline-variant border border-outline shadow-sm"></div>
+<div class="absolute bottom-3 right-3 w-2 h-2 rounded-full bg-outline-variant border border-outline shadow-sm"></div>
+<div class="flex flex-col text-center md:text-left z-10 w-full md:w-auto">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest mb-1 flex items-center justify-center md:justify-start gap-2">
+<span class="material-symbols-outlined text-[16px]">account_balance</span>
+                        INVERSIÓN TOTAL
+                    </span>
+<span class="font-display-lg text-display-lg text-primary">€ 24.500</span>
+</div>
+<!-- Breakdown Divider (Responsive) -->
+<div class="hidden md:block w-px h-16 border-r-2 border-dashed border-outline-variant"></div>
+<div class="block md:hidden w-full h-px border-t-2 border-dashed border-outline-variant my-2"></div>
+<div class="flex gap-lg w-full md:w-auto justify-around md:justify-end z-10">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-label-caps text-[10px] text-outline tracking-wider">COSTO COCHE</span>
+<span class="font-headline-md text-title-sm text-on-surface mt-1">€ 18.000</span>
+</div>
+<div class="flex flex-col items-center md:items-start">
+<span class="font-label-caps text-[10px] text-outline tracking-wider">ARREGLOS</span>
+<span class="font-headline-md text-title-sm text-secondary mt-1">€ 6.500</span>
+</div>
+</div>
+</div>
+<!-- Total KM (Analog Gauge Style) -->
+<div class="col-span-2 md:col-span-1 bg-surface-container-high border border-outline-variant rounded-xl p-md flex flex-col items-center justify-between shadow-[0_2px_0_0_rgba(107,112,92,0.1)] relative">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-6 w-full text-left">ODÓMETRO</span>
+<!-- Analog Gauge simulation -->
+<div class="w-32 h-16 border-t-[6px] border-l-[6px] border-r-[6px] border-primary-container rounded-t-full relative overflow-hidden mb-4 bg-surface-variant">
+<!-- Gauge ticks -->
+<div class="absolute bottom-0 left-2 w-1 h-3 bg-outline rounded-t"></div>
+<div class="absolute top-2 left-1/2 w-1 h-3 bg-outline rounded-t -translate-x-1/2"></div>
+<div class="absolute bottom-0 right-2 w-1 h-3 bg-outline rounded-t"></div>
+<!-- Needle -->
+<div class="absolute bottom-0 left-1/2 w-1.5 h-14 bg-error origin-bottom rotate-[15deg] -ml-[3px] rounded-t-full shadow-sm z-10"></div>
+<!-- Center pin -->
+<div class="absolute bottom-0 left-1/2 w-4 h-4 bg-on-surface rounded-full -translate-x-1/2 translate-y-1/2 z-20 shadow-md border-2 border-outline-variant"></div>
+</div>
+<!-- Mechanical Counter Readout -->
+<div class="bg-surface-container-lowest border-t-2 border-l-2 border-outline-variant border-b border-r border-surface px-4 py-1.5 rounded font-label-caps text-on-surface shadow-inner flex items-center gap-1 tracking-widest text-[14px]">
+                    124<span class="text-outline">082</span> <span class="text-[10px] text-on-surface-variant ml-1">KM</span>
+</div>
+</div>
+<!-- Gastos Mecánicos (Receipt style) -->
+<div class="col-span-1 bg-surface-container border border-outline-variant border-t-[3px] border-t-secondary rounded-xl p-md flex flex-col justify-between shadow-[0_2px_0_0_rgba(107,112,92,0.1)] relative">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">MECÁNICA</span>
+<span class="material-symbols-outlined text-outline-variant text-[20px]">build</span>
+</div>
+<div class="mt-8 flex flex-col">
+<span class="font-label-caps text-[10px] text-outline mb-1">12 ÓRDENES</span>
+<span class="font-headline-md text-headline-md text-on-surface">€ 3.240</span>
+</div>
+</div>
+<!-- Gasolina (Fuel Level style) -->
+<div class="col-span-1 bg-surface-container border border-outline-variant border-t-[3px] border-t-primary rounded-xl p-md flex flex-col justify-between shadow-[0_2px_0_0_rgba(107,112,92,0.1)]">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">GASOLINA</span>
+<span class="material-symbols-outlined text-outline-variant text-[20px]" style="font-variation-settings: 'FILL' 1;">local_gas_station</span>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<span class="font-headline-md text-[24px] text-on-surface">€ 1.850</span>
+<!-- Progress bar embedded like a slot -->
+<div class="w-full bg-surface-variant h-3 rounded-full overflow-hidden border-t border-l border-outline-variant shadow-inner relative">
+<div class="bg-primary h-full w-[80%] rounded-r-full shadow-sm"></div>
+<div class="absolute inset-0 border border-outline/20 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Lavados (Small Tag style) -->
+<div class="col-span-2 md:col-span-1 bg-surface-container border border-outline-variant rounded-xl p-md flex flex-row md:flex-col items-center md:items-start justify-between md:justify-between shadow-[0_2px_0_0_rgba(107,112,92,0.1)]">
+<span class="font-label-caps text-label-caps text-on-surface-variant">LAVADOS</span>
+<div class="flex items-center gap-3 mt-0 md:mt-6">
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-outline-variant text-secondary-container flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+<span class="font-headline-md text-[24px] text-on-surface">€ 120</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Hidden on desktop, visible on mobile) -->
+<nav class="md:hidden bg-surface-dim dark:bg-inverse-surface border-t-2 border-outline-variant dark:border-outline shadow-[0_-2px_0_0_rgba(107,112,92,0.1)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2">
+<!-- INICIO -->
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-lg">
+<span class="material-symbols-outlined mb-1">home_storage</span>
+<span class="font-label-caps text-label-caps text-[10px]">INICIO</span>
+</button>
+<!-- GARAJE (Active State) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-1 border-b-2 border-on-secondary-container transition-all active:translate-y-0.5 duration-75">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">garage</span>
+<span class="font-label-caps text-label-caps text-[10px] font-bold">GARAJE</span>
+</button>
+<!-- AÑADIR -->
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-lg">
+<span class="material-symbols-outlined mb-1">add_box</span>
+<span class="font-label-caps text-label-caps text-[10px]">AÑADIR</span>
+</button>
+<!-- PERFIL -->
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-lg">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-caps text-label-caps text-[10px]">PERFIL</span>
+</button>
+</nav>
+</body></html>
