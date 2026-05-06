@@ -1,12 +1,5 @@
 import Link from 'next/link'
-
-const tabs = [
-  { href: '/', label: 'INICIO', icon: 'home_storage' },
-  { href: '/garage', label: 'GARAJE', icon: 'garage' },
-  { href: '/cars/new', label: 'AÑADIR', icon: 'add_box' },
-  { href: '/explore', label: 'EXPLORAR', icon: 'explore' },
-  { href: '/profile', label: 'PERFIL', icon: 'person' },
-]
+import { NAV_LINKS } from '@/lib/nav'
 
 interface BottomNavProps {
   activePath?: string
@@ -15,7 +8,7 @@ interface BottomNavProps {
 export function BottomNav({ activePath = '/' }: BottomNavProps) {
   return (
     <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-dim border-t-2 border-outline-variant shadow-[0_-2px_0_0_rgba(107,112,92,0.1)] md:hidden">
-      {tabs.map(({ href, label, icon }) => {
+      {NAV_LINKS.map(({ href, label, icon }) => {
         const isActive = activePath === href
         return (
           <Link

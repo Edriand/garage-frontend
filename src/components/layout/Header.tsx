@@ -1,12 +1,5 @@
 import Link from 'next/link'
-
-const navLinks = [
-  { href: '/', label: 'INICIO', icon: 'home_storage' },
-  { href: '/garage', label: 'GARAJE', icon: 'garage' },
-  { href: '/cars/new', label: 'AÑADIR', icon: 'add_box' },
-  { href: '/explore', label: 'EXPLORAR', icon: 'explore' },
-  { href: '/profile', label: 'PERFIL', icon: 'person' },
-]
+import { NAV_LINKS } from '@/lib/nav'
 
 interface HeaderProps {
   activePath?: string
@@ -32,7 +25,7 @@ export function Header({ activePath = '/' }: HeaderProps) {
       {/* Desktop nav — hidden on mobile */}
       <nav className="hidden md:block w-full bg-surface-container-highest border-t border-outline-variant/50">
         <ul className="flex justify-center items-center gap-10 max-w-[1200px] mx-auto px-5 h-12">
-          {navLinks.map(({ href, label, icon }) => {
+          {NAV_LINKS.map(({ href, label, icon }) => {
             const isActive = activePath === href
             return (
               <li

@@ -1,6 +1,10 @@
 import { Amplify } from 'aws-amplify'
 
+let configured = false
+
 export function configureAmplify() {
+  if (configured) return
+  configured = true
   Amplify.configure({
     Auth: {
       Cognito: {
