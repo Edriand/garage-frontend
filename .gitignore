@@ -1,0 +1,8 @@
+# Local environment variables — never commit real secrets
+.env.local
+.env.*.local
+
+# Next.js (when scaffolded)
+.next/
+out/
+node_modules/

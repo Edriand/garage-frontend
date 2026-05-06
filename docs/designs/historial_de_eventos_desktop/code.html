@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Historial de Eventos - Ruta Mecánica</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400..900;1,400..900&amp;family=Space+Grotesk:wght@300..700&amp;family=Work+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "secondary": "#7e553e",
+                    "surface": "#fff8f5",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e0e5cc",
+                    "primary": "#535845",
+                    "on-primary-fixed": "#191d0e",
+                    "inverse-surface": "#3b2e22",
+                    "on-background": "#25190f",
+                    "secondary-fixed": "#ffdbc9",
+                    "surface-variant": "#f5decd",
+                    "inverse-primary": "#c4c9b1",
+                    "background": "#fff8f5",
+                    "on-secondary-fixed": "#301403",
+                    "on-surface": "#25190f",
+                    "inverse-on-surface": "#ffeee1",
+                    "tertiary": "#565743",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fff8f5",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#77786f",
+                    "on-tertiary-container": "#f4f3d8",
+                    "on-primary-fixed-variant": "#444937",
+                    "surface-container-high": "#fbe4d2",
+                    "primary-fixed-dim": "#c4c9b1",
+                    "surface-tint": "#5c614d",
+                    "tertiary-container": "#6f6f5a",
+                    "on-surface-variant": "#464740",
+                    "tertiary-fixed": "#e5e4ca",
+                    "surface-dim": "#ecd6c4",
+                    "surface-container-low": "#fff1e8",
+                    "on-primary-container": "#eff4db",
+                    "tertiary-fixed-dim": "#c8c8af",
+                    "secondary-fixed-dim": "#f1bb9e",
+                    "surface-container": "#ffeada",
+                    "on-tertiary-fixed-variant": "#474835",
+                    "outline-variant": "#c7c7bd",
+                    "on-secondary-container": "#795039",
+                    "surface-container-highest": "#f5decd",
+                    "secondary-container": "#fdc6a9",
+                    "error": "#ba1a1a",
+                    "primary-container": "#6b705c",
+                    "on-tertiary-fixed": "#1c1d0c",
+                    "on-secondary-fixed-variant": "#633e28",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "lg": "24px",
+                    "gutter": "20px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "xl": "40px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-caps": [
+                            "Space Grotesk"
+                    ],
+                    "headline-md": [
+                            "Noto Serif"
+                    ],
+                    "title-sm": [
+                            "Noto Serif"
+                    ],
+                    "display-lg": [
+                            "Noto Serif"
+                    ],
+                    "body-md": [
+                            "Work Sans"
+                    ],
+                    "body-sm": [
+                            "Work Sans"
+                    ]
+            },
+            "fontSize": {
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "title-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Analog styling elements */
+        body {
+            background-color: #fff8f5; /* surface */
+        }
+        .tactile-border {
+            border-bottom-width: 3px;
+            border-bottom-color: #c7c7bd; /* outline-variant */
+        }
+        .tactile-active:active {
+            border-bottom-width: 1px;
+            transform: translateY(2px);
+        }
+        .dashed-divider {
+            background-image: linear-gradient(to right, #c7c7bd 50%, transparent 50%);
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar (Web Desktop Version) -->
+<header class="bg-surface-container shadow-[0_2px_0_0_rgba(107,112,92,0.15)] sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-gutter py-sm max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-md">
+<button class="md:hidden text-primary hover:bg-surface-bright active:scale-95 transition-transform duration-100 p-sm rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="font-display-lg text-title-sm font-bold text-on-surface tracking-[0.2em] uppercase">RUTA MECÁNICA</h1>
+</div>
+<!-- Desktop Navigation (Synthesized from BottomNavBar for Web) -->
+<nav class="hidden md:flex items-center gap-xl">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors py-sm" href="#">INICIO</a>
+<!-- Active Nav: Historial relates to GARAJE -->
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary py-sm" href="#">GARAJE</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors py-sm" href="#">AÑADIR</a>
+</nav>
+<!-- Trailing Profile -->
+<div class="flex items-center">
+<button class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden hover:bg-surface-bright active:scale-95 transition-all">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-gutter py-xl flex flex-col md:flex-row gap-xl items-start">
+<!-- Sidebar Filters (Analog Dashboard Switchboard Vibe) -->
+<aside class="w-full md:w-64 shrink-0 bg-surface-container-low border border-outline-variant rounded p-lg shadow-[0_2px_4px_rgba(107,112,92,0.05)] sticky top-[100px]">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-md tracking-widest border-b border-outline-variant pb-xs">FILTROS DE EVENTO</h2>
+<div class="flex flex-col gap-sm">
+<!-- Checkbox styling as tactical switches -->
+<label class="flex items-center gap-md p-sm bg-surface rounded border border-outline-variant cursor-pointer hover:bg-surface-bright transition-colors">
+<input checked="" class="w-4 h-4 text-primary bg-surface-container-highest border-outline-variant focus:ring-primary rounded-sm" type="checkbox"/>
+<span class="font-label-caps text-label-caps text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-size: 18px;">build</span>
+                        Taller
+                    </span>
+</label>
+<label class="flex items-center gap-md p-sm bg-surface rounded border border-outline-variant cursor-pointer hover:bg-surface-bright transition-colors">
+<input checked="" class="w-4 h-4 text-primary bg-surface-container-highest border-outline-variant focus:ring-primary rounded-sm" type="checkbox"/>
+<span class="font-label-caps text-label-caps text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-size: 18px;">local_gas_station</span>
+                        Repostaje
+                    </span>
+</label>
+<label class="flex items-center gap-md p-sm bg-surface rounded border border-outline-variant cursor-pointer hover:bg-surface-bright transition-colors">
+<input class="w-4 h-4 text-primary bg-surface-container-highest border-outline-variant focus:ring-primary rounded-sm" type="checkbox"/>
+<span class="font-label-caps text-label-caps text-on-surface flex items-center gap-sm opacity-70">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 18px;">local_car_wash</span>
+                        Lavado
+                    </span>
+</label>
+<label class="flex items-center gap-md p-sm bg-surface rounded border border-outline-variant cursor-pointer hover:bg-surface-bright transition-colors">
+<input checked="" class="w-4 h-4 text-primary bg-surface-container-highest border-outline-variant focus:ring-primary rounded-sm" type="checkbox"/>
+<span class="font-label-caps text-label-caps text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-size: 18px;">receipt_long</span>
+                        Piezas
+                    </span>
+</label>
+</div>
+<div class="mt-xl pt-md border-t dashed-divider h-[1px] w-full"></div>
+<button class="mt-md w-full py-sm bg-primary-container text-on-primary-container font-label-caps text-label-caps rounded border border-primary tactile-border tactile-active transition-all flex justify-center items-center gap-xs">
+<span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span>
+                APLICAR
+            </button>
+</aside>
+<!-- Vertical Timeline Area -->
+<section class="flex-1 relative w-full pb-xl">
+<!-- The Continuous Analog Line -->
+<div class="absolute left-4 md:left-[28px] top-2 bottom-0 w-[2px] bg-outline-variant"></div>
+<!-- Event Card 1: Major Repair (Expanded) -->
+<article class="relative pl-12 md:pl-20 mb-xl group">
+<!-- Timeline Node -->
+<div class="absolute left-[11px] md:left-[21px] top-6 w-4 h-4 rounded-full bg-secondary border-2 border-surface z-10 shadow-[0_0_0_2px_#c7c7bd]"></div>
+<!-- Date Label (Floating left on wide screens) -->
+<div class="hidden md:block absolute left-[-80px] top-5 w-24 text-right">
+<span class="font-label-caps text-label-caps text-secondary">12 OCT 23</span>
+</div>
+<!-- Card Content -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg shadow-[0_4px_8px_rgba(107,112,92,0.1)] relative overflow-hidden transition-all hover:border-outline">
+<!-- Decorative corner rivets -->
+<div class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline-variant opacity-50"></div>
+<div class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline-variant opacity-50"></div>
+<!-- Header -->
+<header class="flex justify-between items-start mb-md">
+<div>
+<div class="flex items-center gap-sm mb-xs md:hidden">
+<span class="font-label-caps text-label-caps text-secondary">12 OCT 23</span>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-background flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-xs rounded" style="font-variation-settings: 'FILL' 1;">build</span>
+                                Cambio de Distribución Completo
+                            </h3>
+</div>
+<span class="font-label-caps text-label-caps px-sm py-xs bg-surface-container-high border border-outline-variant rounded text-on-surface-variant">TALLER</span>
+</header>
+<!-- Meta Tags (Analog Badges) -->
+<div class="flex flex-wrap gap-sm mb-lg">
+<div class="flex items-center gap-xs px-sm py-[2px] bg-surface border border-outline-variant rounded-sm font-label-caps text-label-caps text-on-surface-variant shadow-[0_1px_0_0_#c7c7bd]">
+<span class="material-symbols-outlined" style="font-size: 14px;">speed</span>
+                            124,500 KM
+                        </div>
+<div class="flex items-center gap-xs px-sm py-[2px] bg-surface border border-outline-variant rounded-sm font-label-caps text-label-caps text-on-surface-variant shadow-[0_1px_0_0_#c7c7bd]">
+<span class="material-symbols-outlined" style="font-size: 14px;">payments</span>
+                            450.00 €
+                        </div>
+<div class="flex items-center gap-xs px-sm py-[2px] bg-surface border border-outline-variant rounded-sm font-label-caps text-label-caps text-on-surface-variant shadow-[0_1px_0_0_#c7c7bd]">
+<span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            Garaje Paco, Madrid
+                        </div>
+</div>
+<!-- Split Content (Text & Media) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg border-t dashed-divider pt-lg">
+<div class="space-y-4">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Sustitución completa del kit de distribución por kilometraje. Se cambió bomba de agua, correas auxiliares y tensores. El mecánico notó un ligero desgaste en el retén del cigüeñal, programado para próxima revisión.
+                            </p>
+<p class="font-body-sm text-body-sm text-outline italic">
+                                Notas técnicas: Usar refrigerante orgánico G12+ para rellenar si es necesario.
+                            </p>
+</div>
+<!-- Skeuomorphic Photo Attachment -->
+<div class="relative bg-surface p-sm border border-outline-variant shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] rounded">
+<!-- Paper clip effect -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-4 rounded-full border-2 border-outline-variant bg-transparent z-10 rotate-3"></div>
+<img alt="Piezas sustituidas" class="w-full h-48 object-cover grayscale-[20%] sepia-[10%] rounded-sm" data-alt="A close-up, slightly desaturated photograph of an old, worn automotive timing belt and water pump resting on a greasy, dark metal workbench in a classic garage. The lighting is warm and directional, emphasizing the texture of the rubber and the metallic sheen of the engine parts. The color palette features deep olive greens, dirty silvers, and warm leather browns, reinforcing a tactile, skeuomorphic mechanic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAaosYr-_un_ce6EtOawZOwe61mcwooVE2wafAbP1SpQdK5npRMk2cuLS8CXwQ62KYceatvzoCqSvLxooiLzHOwT4VPtdA32W439PJ-JRzRR-VgFB8HN10fQWO4TQujby65dOGDCMJUmN7qnzuZegBTKoI3-0MsVxcULfzGwlf1rrMkAAFNis9caQTv30YlWsP0qyZuTs6JpdPCy9PVxYcuHliashWREYJUOy-RN5GkyM_ci_sD__kYVA5aEqTHXslP2q0nK4TKWo"/>
+<div class="mt-xs text-right">
+<span class="font-label-caps text-label-caps text-outline text-[10px]">ADJUNTO: IMG_8842.JPG</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Event Card 2: Gas/Refuel (Compact) -->
+<article class="relative pl-12 md:pl-20 mb-xl group">
+<!-- Timeline Node -->
+<div class="absolute left-[13px] md:left-[23px] top-6 w-3 h-3 rounded-full bg-outline-variant border-2 border-surface z-10"></div>
+<div class="hidden md:block absolute left-[-80px] top-5 w-24 text-right">
+<span class="font-label-caps text-label-caps text-outline-variant">05 OCT 23</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-md shadow-sm relative overflow-hidden">
+<header class="flex justify-between items-center">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-outline-variant bg-surface-container p-xs rounded-full">local_gas_station</span>
+<div>
+<h3 class="font-title-sm text-[16px] text-on-background">Llenado Completo (SP98)</h3>
+<div class="flex gap-md mt-xs">
+<span class="font-label-caps text-label-caps text-outline flex items-center gap-xs"><span class="material-symbols-outlined" style="font-size: 12px;">speed</span> 124,100 KM</span>
+<span class="font-label-caps text-label-caps text-outline flex items-center gap-xs"><span class="material-symbols-outlined" style="font-size: 12px;">payments</span> 65.40 €</span>
+</div>
+</div>
+</div>
+<button class="text-secondary hover:bg-surface-bright p-xs rounded transition-colors">
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</header>
+</div>
+</article>
+<!-- Event Card 3: Parts Purchase (Expanded) -->
+<article class="relative pl-12 md:pl-20 mb-xl group">
+<!-- Timeline Node -->
+<div class="absolute left-[13px] md:left-[23px] top-6 w-3 h-3 rounded-full bg-primary border-2 border-surface z-10"></div>
+<div class="hidden md:block absolute left-[-80px] top-5 w-24 text-right">
+<span class="font-label-caps text-label-caps text-primary">28 SEP 23</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg shadow-[0_2px_0_0_#c7c7bd] relative overflow-hidden">
+<header class="flex justify-between items-start mb-md">
+<div>
+<div class="flex items-center gap-sm mb-xs md:hidden">
+<span class="font-label-caps text-label-caps text-primary">28 SEP 23</span>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-background flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary bg-secondary-container p-xs rounded" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                                Compra de Materiales
+                            </h3>
+</div>
+<span class="font-label-caps text-label-caps px-sm py-xs bg-surface-container border border-outline-variant rounded text-on-surface-variant">PIEZAS</span>
+</header>
+<div class="flex flex-wrap gap-sm mb-md">
+<div class="flex items-center gap-xs px-sm py-[2px] bg-surface border border-outline-variant rounded-sm font-label-caps text-label-caps text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 14px;">payments</span>
+                            85.00 €
+                        </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md border-t border-outline-variant pt-md">
+<div class="md:col-span-2">
+<p class="font-body-md text-body-md text-on-surface-variant mb-sm">
+                                Pedido de consumibles para mantenimiento rutinario de invierno.
+                            </p>
+<ul class="font-body-sm text-body-sm text-on-surface-variant space-y-1 ml-4 list-disc marker:text-outline-variant">
+<li>4x Bujías NGK Iridium BKR6EIX</li>
+<li>1x Filtro de aire MANN-FILTER</li>
+<li>Líquido de frenos DOT 4 (1L)</li>
+</ul>
+</div>
+<div class="bg-surface-container-low p-sm border border-outline-variant rounded flex items-center justify-center">
+<img alt="Recibo de compra" class="w-full h-24 object-cover rounded-sm mix-blend-multiply" data-alt="A stylized, top-down shot of a crisp, white paper receipt for auto parts lying on a textured, vintage dark wooden table. A classic brass fountain pen rests beside the receipt. The lighting is moody and warm, creating soft shadows that emphasize the skeuomorphic, tactile quality of the paper and wood. The palette is dominated by warm off-whites, deep browns, and subtle brass metallic tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF53853H_mK5WfxmUGenwcSR-stsUNi1Iq8lzZLsYvprpZiKO1HSO2rtxHp9biP4HpbqeDL2_C7ke_HA2QiGQQ4F0nq1tVqeN74RksOiiT9TyVUlA4PptLdMktjOvkzCkBHRS7cSkL8RHbIE-Gg2T25PP4jhGPtFb6IHVinu3J-EJh_E5Iws4DOHFBQqGbh1DQrqbZQF8gnUjp8H_rjOVhNBg0D_ALalDQmIa0FC85WvrdvIO1mHPWdipUdexoll3wapK48ddy4nU"/>
+</div>
+</div>
+</div>
+</article>
+<!-- Load More Indicator -->
+<div class="pl-12 md:pl-20 mt-xl flex justify-center">
+<button class="font-label-caps text-label-caps text-primary border-b border-primary hover:text-primary-container transition-colors pb-xs">
+                    CARGAR EVENTOS ANTERIORES
+                </button>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mi Garaje - Ruta Mecánica</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400..700;1,400..700&amp;family=Space+Grotesk:wght@300..700&amp;family=Work+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "secondary": "#7e553e",
+                    "surface": "#fff8f5",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e0e5cc",
+                    "primary": "#535845",
+                    "on-primary-fixed": "#191d0e",
+                    "inverse-surface": "#3b2e22",
+                    "on-background": "#25190f",
+                    "secondary-fixed": "#ffdbc9",
+                    "surface-variant": "#f5decd",
+                    "inverse-primary": "#c4c9b1",
+                    "background": "#fff8f5",
+                    "on-secondary-fixed": "#301403",
+                    "on-surface": "#25190f",
+                    "inverse-on-surface": "#ffeee1",
+                    "tertiary": "#565743",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fff8f5",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#77786f",
+                    "on-tertiary-container": "#f4f3d8",
+                    "on-primary-fixed-variant": "#444937",
+                    "surface-container-high": "#fbe4d2",
+                    "primary-fixed-dim": "#c4c9b1",
+                    "surface-tint": "#5c614d",
+                    "tertiary-container": "#6f6f5a",
+                    "on-surface-variant": "#464740",
+                    "tertiary-fixed": "#e5e4ca",
+                    "surface-dim": "#ecd6c4",
+                    "surface-container-low": "#fff1e8",
+                    "on-primary-container": "#eff4db",
+                    "tertiary-fixed-dim": "#c8c8af",
+                    "secondary-fixed-dim": "#f1bb9e",
+                    "surface-container": "#ffeada",
+                    "on-tertiary-fixed-variant": "#474835",
+                    "outline-variant": "#c7c7bd",
+                    "on-secondary-container": "#795039",
+                    "surface-container-highest": "#f5decd",
+                    "secondary-container": "#fdc6a9",
+                    "error": "#ba1a1a",
+                    "primary-container": "#6b705c",
+                    "on-tertiary-fixed": "#1c1d0c",
+                    "on-secondary-fixed-variant": "#633e28",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "lg": "24px",
+                    "gutter": "20px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "xl": "40px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-caps": [
+                            "Space Grotesk"
+                    ],
+                    "headline-md": [
+                            "Noto Serif"
+                    ],
+                    "title-sm": [
+                            "Noto Serif"
+                    ],
+                    "display-lg": [
+                            "Noto Serif"
+                    ],
+                    "body-md": [
+                            "Work Sans"
+                    ],
+                    "body-sm": [
+                            "Work Sans"
+                    ]
+            },
+            "fontSize": {
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "title-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen relative pb-20 md:pb-0">
+<!-- TopAppBar (from JSON + Desktop Nav Extension) -->
+<header class="sticky top-0 z-50 w-full bg-surface-container border-b-2 border-outline-variant shadow-[0_2px_0_0_rgba(107,112,92,0.15)]">
+<div class="flex justify-between items-center w-full px-gutter py-sm max-w-container-max mx-auto">
+<button class="text-primary hover:bg-surface-bright transition-colors active:scale-95 duration-100 rounded-full p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<div class="font-display-lg text-title-sm font-bold text-on-surface tracking-[0.2em] uppercase">RUTA MECÁNICA</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant shadow-sm">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close-up, softly lit portrait of an older man with weathered features, suggesting a lifetime of mechanical experience. He wears a subtle, grease-smudged vintage canvas jacket. The background is a deeply blurred, warm-toned workshop interior with hints of metallic tools and amber lighting. The overarching style is a tactile, nostalgic aesthetic heavily utilizing deep browns and classic automotive greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVtgvDwUXYSCPJUSPpN2LIn5IgSBvslhV80IplQuOtzTgEI1zgxXwwbfoxiKhbD8JdPWoU4bwOVAdSeDcE6BXBV8a_bkeS0C9JSIzi9NtuEul3jiyvbIjNddgPp_QxaPaN0dyAC_bZ-A1Nrjy4chdyqE9EtuEorHHCDxFYVcUye_2vRy8_g93McfjnAgbSHHT9h8t_VF5Z-kZbFCczGU4wNam_iYD47yzdamPFYpz9is9qqyCdAdcNWzp-8LoxzX_GFn58EG4__z4"/>
+</div>
+</div>
+<!-- Desktop Nav Cluster (Mapped from BottomNav logic for md+ screens) -->
+<nav class="hidden md:block w-full bg-surface-container-highest border-t border-outline-variant/50">
+<ul class="flex justify-center items-center space-x-xl max-w-container-max mx-auto px-gutter h-12">
+<li><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs" href="#"><span class="material-symbols-outlined text-[18px]">home_storage</span> INICIO</a></li>
+<!-- ACTIVE TAB -->
+<li class="h-full flex items-center border-b-2 border-primary">
+<a class="font-label-caps text-label-caps text-primary flex items-center gap-xs" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">garage</span> GARAJE
+                    </a>
+</li>
+<li><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs" href="#"><span class="material-symbols-outlined text-[18px]">add_box</span> AÑADIR</a></li>
+<li><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-xs" href="#"><span class="material-symbols-outlined text-[18px]">Person</span> PERFIL</a></li>
+</ul>
+</nav>
+</header>
+<!-- Main Content Layout -->
+<main class="max-w-container-max mx-auto px-gutter py-xl flex flex-col md:flex-row gap-xl">
+<!-- Left Column: Car Grid (Main Canvas) -->
+<div class="flex-1 space-y-lg">
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b-2 border-outline-variant pb-sm gap-4">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Mi Garaje</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Gestión de flota y registros de mantenimiento.</p>
+</div>
+<!-- Tactical Add Button -->
+<button class="bg-gradient-to-b from-surface to-surface-variant text-on-surface font-label-caps text-label-caps px-md py-sm rounded border border-outline-variant border-b-4 shadow-sm hover:from-surface-variant hover:to-surface-dim transition-all active:border-b active:translate-y-1 flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+                    NUEVO VEHÍCULO
+                </button>
+</div>
+<!-- Bento Grid for Vehicles -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Vehicle Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-[0_2px_0_0_rgba(107,112,92,0.15)] relative group">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-outline-variant opacity-50 z-10 border-t border-dashed border-background"></div>
+<div class="aspect-[4/3] relative overflow-hidden bg-surface-variant">
+<img alt="Porsche 911" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A vintage 1970s classic sports car parked diagonally inside a dimly lit, high-end classic car storage facility. Overhead industrial pendant lights cast a warm, directional glow onto the glossy metallic paint, highlighting its timeless curves. The surroundings feature subtle brickwork and worn concrete floors. The overall aesthetic perfectly captures a nostalgic, classic motorsport vibe characterized by rich, moody contrasts and deep, earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALAGVd8sekE_nTONd27APVBJndHNbyFv8ffGI9Naq28-s8NsKBj0A1QiMHVYQYSDSbsaXd22tK2g9H11j6Ja1oydw-_CEdzb9oxcJJ49xFV1n2zqXmzmws1QAxg2PDGxQV4xrYjcwwRmqloCdXBlf5NUWIU5GnOaBk42rcsMzmGuvU_YzYv54hKTN2Hz1JttmOl3NqXPdZmP64JFlHP1B20I56cJB6B-We04WpS5SEvwyzbbfEaMVzqioIbs7nXQmiKsYNaphZgEg"/>
+<!-- Inventory Badge -->
+<div class="absolute top-sm right-sm bg-surface/90 backdrop-blur-sm text-on-surface font-label-caps text-[10px] px-2 py-1 border border-outline-variant rounded shadow-sm flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div> ACTIVO
+                        </div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h2 class="font-title-sm text-title-sm text-on-surface truncate">Porsche 911 Carrera</h2>
+<span class="font-label-caps text-label-caps text-secondary">1973</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md font-mono text-[12px]">VIN: #9113600001</p>
+<div class="w-full h-px bg-outline-variant opacity-50 mb-md relative">
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-surface-container-lowest border border-outline-variant rotate-45"></div>
+</div>
+<div class="flex justify-between items-center bg-surface p-2 rounded border border-outline-variant/50 shadow-inner">
+<div class="flex items-center gap-2 text-primary-fixed-variant">
+<span class="material-symbols-outlined text-[18px]">build</span>
+<span class="font-label-caps text-[10px]">MANTENIMIENTO AL DÍA</span>
+</div>
+<button class="text-outline hover:text-primary transition-colors flex items-center">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Vehicle Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-[0_2px_0_0_rgba(107,112,92,0.15)] relative group">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-outline-variant opacity-50 z-10 border-t border-dashed border-background"></div>
+<div class="aspect-[4/3] relative overflow-hidden bg-surface-variant">
+<img alt="Alfa Romeo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A meticulously restored vintage Italian sports car resting in an immaculate, old-school mechanic's bay. Sunlight streams through a dusty side window, illuminating dust motes in the air and reflecting off the car's rich crimson paintwork. In the background, out-of-focus wooden workbenches and classic metal toolboxes are visible. The scene is saturated with a tactile, analog warmth, adhering strictly to a nostalgic golden-age automotive aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDVzcOVZIw1hL695bm-9Dqnv49NYlaKozdmuf0-culHacSMuB1ILH0vpfbBmywZe7to31qCoFUSejTTfV9RU1dNXjA0yoTrkfSiFSwQK7RJR-6V5jJqchzKmWSpW5R-tOMMQ8mXAt0XCEiLErt_EzQrA_CKn1aoHuuW3HVGyVhwOBUS0x0ASG5HaxQktJApCgPxHXvYF1AOfSVfR1I5kaZJHRDRCR1j0BZD1Sn-LbSquBW-rboFJgVtQyP4ZGI4uacW_-cF1AW65E"/>
+<!-- Inventory Badge -->
+<div class="absolute top-sm right-sm bg-surface/90 backdrop-blur-sm text-on-surface font-label-caps text-[10px] px-2 py-1 border border-outline-variant rounded shadow-sm flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-outline"></div> EN TALLER
+                        </div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h2 class="font-title-sm text-title-sm text-on-surface truncate">Alfa Romeo GTV</h2>
+<span class="font-label-caps text-label-caps text-secondary">1968</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md font-mono text-[12px]">VIN: #AR1053629</p>
+<div class="w-full h-px bg-outline-variant opacity-50 mb-md relative">
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-surface-container-lowest border border-outline-variant rotate-45"></div>
+</div>
+<div class="flex justify-between items-center bg-surface p-2 rounded border border-outline-variant/50 shadow-inner">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="font-label-caps text-[10px]">REVISIÓN PENDIENTE</span>
+</div>
+<button class="text-outline hover:text-primary transition-colors flex items-center">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Right Column: Sidebar (Summary & Controls) -->
+<aside class="w-full md:w-80 flex-shrink-0 space-y-lg">
+<!-- Control Panel: Public/Private Toggle -->
+<div class="bg-surface-container border border-outline-variant p-md rounded-lg shadow-[0_2px_0_0_rgba(107,112,92,0.15)] relative">
+<!-- Mechanical rivet details -->
+<div class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline-variant shadow-inner"></div>
+<div class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline-variant shadow-inner"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-sm border-b border-outline-variant/50 pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">settings_input_component</span> VISIBILIDAD DEL GARAJE
+                </h3>
+<!-- Analogue Rocker Switch -->
+<div class="bg-surface-dim p-1.5 rounded border border-outline-variant shadow-inner flex mt-4">
+<!-- Active State (Pushed in) -->
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] rounded-l py-2 font-label-caps text-[11px] text-primary flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">public</span> PÚBLICO
+                    </button>
+<!-- Inactive State (Sticking out) -->
+<button class="flex-1 bg-gradient-to-b from-surface to-surface-variant border-y border-r border-outline-variant rounded-r py-2 font-label-caps text-[11px] text-on-surface-variant hover:from-surface-variant hover:to-surface-dim transition-all border-b-2 flex items-center justify-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">lock</span> PRIVADO
+                    </button>
+</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant mt-3 leading-tight italic border-l-2 border-primary pl-2">
+                    Actualmente tu colección es visible para la comunidad.
+                </p>
+</div>
+<!-- Summary Dashboard -->
+<div class="bg-surface-container border border-outline-variant p-md rounded-lg shadow-[0_2px_0_0_rgba(107,112,92,0.15)] relative overflow-hidden">
+<!-- Double top line effect -->
+<div class="absolute top-0 left-0 w-full h-1 border-t-2 border-outline-variant opacity-40"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">speed</span> RESUMEN TÉCNICO
+                </h3>
+<div class="space-y-sm">
+<!-- Gauge/Stat Item 1 -->
+<div class="bg-surface border border-outline-variant p-sm flex justify-between items-center shadow-inner rounded-sm">
+<span class="font-label-caps text-[11px] text-on-surface">VEHÍCULOS TOTALES</span>
+<div class="bg-primary text-on-primary font-mono text-[14px] px-2 py-0.5 rounded border border-primary-container shadow-sm">
+                            02
+                        </div>
+</div>
+<!-- Gauge/Stat Item 2 -->
+<div class="bg-surface border border-outline-variant p-sm flex justify-between items-center shadow-inner rounded-sm">
+<span class="font-label-caps text-[11px] text-on-surface">VALOR ESTIMADO</span>
+<div class="text-secondary font-mono text-[14px] font-bold">
+                            $245K
+                        </div>
+</div>
+</div>
+</div>
+<!-- Filters -->
+<div class="bg-surface-container border border-outline-variant p-md rounded-lg shadow-[0_2px_0_0_rgba(107,112,92,0.15)]">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tune</span> FILTRAR INVENTARIO
+                 </h3>
+<div class="space-y-md">
+<!-- Inset Input Group -->
+<div>
+<label class="block font-label-caps text-[10px] text-on-surface-variant mb-1">MARCA</label>
+<div class="bg-surface border border-outline-variant shadow-inner rounded-sm overflow-hidden flex relative">
+<select class="w-full bg-transparent border-none text-body-sm font-body-md text-on-surface focus:ring-0 py-2 pl-3 pr-8 appearance-none cursor-pointer">
+<option>Todas las marcas</option>
+<option>Porsche</option>
+<option>Alfa Romeo</option>
+</select>
+<div class="absolute right-0 top-0 bottom-0 px-2 flex items-center text-outline bg-surface-dim border-l border-outline-variant pointer-events-none">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile Only, from JSON logic) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-dim border-t-2 border-outline-variant shadow-[0_-2px_0_0_rgba(107,112,92,0.1)]">
+<!-- INICIO -->
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined text-[24px]">home_storage</span>
+<span class="font-label-caps text-[10px] mt-1">INICIO</span>
+</a>
+<!-- GARAJE (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-4 py-1 border-b-2 border-on-secondary-container transition-all active:translate-y-0.5 duration-75" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">garage</span>
+<span class="font-label-caps text-[10px] mt-1">GARAJE</span>
+</a>
+<!-- AÑADIR -->
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined text-[24px]">add_box</span>
+<span class="font-label-caps text-[10px] mt-1">AÑADIR</span>
+</a>
+<!-- PERFIL -->
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined text-[24px]">Person</span>
+<span class="font-label-caps text-[10px] mt-1">PERFIL</span>
+</a>
+</nav>
+</body></html>

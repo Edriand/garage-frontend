@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mi Garaje - Ruta Mecánica</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Space+Grotesk:wght@700&amp;family=Work+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from Style Guidance -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#e0e5cc",
+                    "tertiary-container": "#6f6f5a",
+                    "surface-variant": "#f5decd",
+                    "secondary-container": "#fdc6a9",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#fbe4d2",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#25190f",
+                    "on-primary": "#ffffff",
+                    "surface": "#fff8f5",
+                    "surface-dim": "#ecd6c4",
+                    "on-error": "#ffffff",
+                    "tertiary": "#565743",
+                    "on-primary-fixed": "#191d0e",
+                    "tertiary-fixed": "#e5e4ca",
+                    "primary-fixed-dim": "#c4c9b1",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#f1bb9e",
+                    "inverse-surface": "#3b2e22",
+                    "surface-container-highest": "#f5decd",
+                    "tertiary-fixed-dim": "#c8c8af",
+                    "surface-container-low": "#fff1e8",
+                    "on-secondary-fixed": "#301403",
+                    "on-primary-container": "#eff4db",
+                    "primary": "#535845",
+                    "surface-tint": "#5c614d",
+                    "outline-variant": "#c7c7bd",
+                    "on-surface-variant": "#464740",
+                    "surface-bright": "#fff8f5",
+                    "secondary-fixed": "#ffdbc9",
+                    "on-tertiary-fixed-variant": "#474835",
+                    "inverse-on-surface": "#ffeee1",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#1c1d0c",
+                    "surface-container": "#ffeada",
+                    "on-secondary-container": "#795039",
+                    "primary-container": "#6b705c",
+                    "inverse-primary": "#c4c9b1",
+                    "on-secondary-fixed-variant": "#633e28",
+                    "background": "#fff8f5",
+                    "on-error-container": "#93000a",
+                    "outline": "#77786f",
+                    "on-primary-fixed-variant": "#444937",
+                    "secondary": "#7e553e",
+                    "on-tertiary-container": "#f4f3d8",
+                    "on-background": "#25190f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "xl": "40px",
+                    "sm": "8px",
+                    "gutter": "20px",
+                    "container-max": "1200px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "display-lg": [
+                            "Noto Serif"
+                    ],
+                    "label-caps": [
+                            "Space Grotesk"
+                    ],
+                    "body-md": [
+                            "Work Sans"
+                    ],
+                    "headline-md": [
+                            "Noto Serif"
+                    ],
+                    "title-sm": [
+                            "Noto Serif"
+                    ],
+                    "body-sm": [
+                            "Work Sans"
+                    ]
+            },
+            "fontSize": {
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "title-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Tactical/Analog UI Elements */
+        .analog-shadow {
+            box-shadow: 0 2px 0 0 rgba(107,112,92,0.15);
+        }
+        .inset-dashboard {
+            box-shadow: inset 0 2px 4px rgba(107,112,92,0.1);
+        }
+        .mechanical-button {
+            background: linear-gradient(to bottom, var(--tw-colors-surface-container), var(--tw-colors-surface-dim));
+            border: 1px solid var(--tw-colors-outline-variant);
+            border-bottom-width: 2px;
+            box-shadow: 0 1px 0 0 rgba(107,112,92,0.1);
+        }
+        .mechanical-button:active {
+            border-bottom-width: 1px;
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+        .dashed-divider {
+            border-top: 1px dashed var(--tw-colors-outline-variant);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pt-[72px] pb-[90px] md:pb-0 md:pt-[72px] selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface-container border-b-2 border-outline-variant shadow-[0_2px_0_0_rgba(107,112,92,0.15)] flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto left-1/2 -translate-x-1/2 bg-surface-container">
+<button class="text-on-surface hover:bg-surface-bright transition-colors p-2 rounded active:scale-95 transition-transform duration-100 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="font-display-lg text-title-sm font-bold text-on-surface tracking-[0.2em] uppercase">
+            RUTA MECÁNICA
+        </div>
+<button class="text-on-surface hover:bg-surface-bright transition-colors p-2 rounded active:scale-95 transition-transform duration-100 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-container-max mx-auto px-gutter py-xl space-y-xl">
+<!-- Header & Controls -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md border-b-2 border-outline-variant pb-md border-dashed">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Mi Garaje</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Gestión de inventario de vehículos</p>
+</div>
+<!-- Global Privacy Toggle (Skeuomorphic Track) -->
+<div class="bg-surface-dim border border-outline-variant rounded-full p-1 inline-flex items-center inset-dashboard w-max">
+<button class="font-label-caps text-label-caps px-4 py-2 rounded-full bg-primary-container text-on-primary-container shadow-sm transition-all border border-outline-variant/50">
+                    PÚBLICO
+                </button>
+<button class="font-label-caps text-label-caps px-4 py-2 rounded-full text-on-surface-variant hover:text-on-surface transition-all">
+                    PRIVADO
+                </button>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex justify-start">
+<button class="mechanical-button font-label-caps text-label-caps text-on-surface uppercase px-6 py-3 rounded flex items-center gap-2 transition-colors hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span>
+                Añadir Coche
+            </button>
+</div>
+<!-- Garage Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Car Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg analog-shadow overflow-hidden relative group flex flex-col">
+<!-- Image Header -->
+<div class="relative h-48 bg-surface-dim border-b border-outline-variant">
+<img alt="Classic silver sports car parked in a dimly lit, vintage-style mechanic garage." class="w-full h-full object-cover" data-alt="A meticulously restored classic silver sports car, reminiscent of a vintage Porsche, parked inside a spacious, dimly lit mechanic garage. The setting features exposed brick walls, warm incandescent hanging lights, and an array of well-used analog tools scattered on workbenches. The lighting is cinematic, casting soft reflections on the car's polished metal surface, emphasizing its curves. The overall aesthetic is highly tactical, analog, and rooted in a mid-century automotive nostalgia, with a color palette dominated by warm rusts, deep greys, and silver." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEvB4QRgoZmgDvzWU7ViaU40W_U4Nd2UPA5Xm86s2sn85SiAo4ib18fiDtDWoelprQhXg9WCUNl5FaUqP3ijdlUcZ6xws0Oynl2zc6NevmZGbhc8Phh5Ghrg2ZY_-OkyOIRWU_64nhIjYIud2vM8i_fXYaU0QotnZPHHLiWe7eQEFV0SAMluFjfx1wYgFrEEgPbS_rGegu6SKrGP87TVqY87lyQIKm8MNVfqxtxT7FFjZm9U8NZc40hGpyqtiQ2Qx8KnbVGiJAlvU"/>
+<!-- Visibility Toggle (Mechanical Switch Style) -->
+<button aria-label="Toggle visibility" class="absolute top-3 right-3 bg-surface border border-outline-variant text-on-surface rounded p-1.5 shadow-sm active:translate-y-px transition-transform flex items-center justify-center hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+<!-- Card Content -->
+<div class="p-md flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface font-bold">1982 Porsche 911 SC</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Motor: 3.0L Flat-Six</p>
+</div>
+</div>
+<div class="dashed-divider my-sm"></div>
+<div class="mt-auto flex flex-wrap gap-2">
+<!-- Inventory Badges -->
+<span class="bg-surface-variant border border-outline-variant text-on-surface-variant font-label-caps text-[10px] px-2 py-1 rounded-sm uppercase tracking-wider">
+                            Chasis: #WP0ZZZ91Z
+                        </span>
+<span class="bg-secondary-container/30 border border-secondary/20 text-on-secondary-container font-label-caps text-[10px] px-2 py-1 rounded-sm uppercase tracking-wider">
+                            Mantenimiento al día
+                        </span>
+</div>
+</div>
+</article>
+<!-- Car Card 2 (Hidden State Example) -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg analog-shadow overflow-hidden relative group flex flex-col opacity-80">
+<div class="relative h-48 bg-surface-dim border-b border-outline-variant grayscale-[0.5]">
+<img alt="Front view of a classic red American muscle car in a workshop." class="w-full h-full object-cover" data-alt="A striking front-angle view of a classic red American muscle car, specifically a vintage Ford Mustang, resting in a meticulously organized vintage workshop. The scene is illuminated by overhead industrial lights that create dramatic shadows over the car's aggressive hood scoop and chrome grille. The workshop walls feature faded vintage racing signs and neatly arranged metal tool chests. The mood is powerful and nostalgic, with an analog visual style characterized by rich, warm reds, metallic greys, and the textured feel of an old-school garage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4X6oIWBqHeZcdlOHDzbmFJfaRfVAACxIrtQ6WbH5Cc3vyE_EL8L7jqqkZUE3V8ONVb1ee-STLyvpSnPahui6q2R0F03wHzIO03FpdXhSQphniO3r9vRKcHnkReeUcw3bdJDIobx8FJC_Ne9fAcFRQYSRqTI7wWtVBC_D5kigbo74D8lRGN37McBbZhJdzWakVSLtCKT6hJ6DzI3kRSnGUolxy2oqW_naqy7T-mQe4QtM35LrNfdeZFXTSNlejNFeEy9PFKXybb_w"/>
+<!-- Visibility Toggle (Hidden State) -->
+<button aria-label="Toggle visibility" class="absolute top-3 right-3 bg-surface-dim border border-outline-variant text-on-surface-variant rounded p-1.5 shadow-sm active:translate-y-px transition-transform flex items-center justify-center inset-dashboard">
+<span class="material-symbols-outlined text-[18px]" data-icon="visibility_off">visibility_off</span>
+</button>
+<!-- Overlay for hidden state -->
+<div class="absolute inset-0 bg-inverse-surface/10 pointer-events-none"></div>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface font-bold text-on-surface/80">1969 Ford Mustang Boss</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Motor: 429 cu in V8</p>
+</div>
+</div>
+<div class="dashed-divider my-sm"></div>
+<div class="mt-auto flex flex-wrap gap-2">
+<span class="bg-surface-variant border border-outline-variant text-on-surface-variant font-label-caps text-[10px] px-2 py-1 rounded-sm uppercase tracking-wider opacity-70">
+                            Chasis: #9F02Z
+                        </span>
+<span class="bg-surface border border-outline-variant text-on-surface-variant font-label-caps text-[10px] px-2 py-1 rounded-sm uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="lock">lock</span> Privado
+                        </span>
+</div>
+</div>
+</article>
+<!-- Car Card 3 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg analog-shadow overflow-hidden relative group flex flex-col">
+<div class="relative h-48 bg-surface-dim border-b border-outline-variant">
+<img alt="Classic green British roadster parked near an old stone building." class="w-full h-full object-cover" data-alt="A beautifully maintained classic dark green British roadster, similar to a vintage MG or Triumph, parked on a cobblestone driveway adjacent to a weathered stone building that serves as an old-school garage. Soft, diffused daylight filters through the trees, highlighting the glossy deep green paint and the polished wire wheels. The setting evokes a sense of timeless elegance and analog mechanics. The color palette emphasizes rich greens, earthy stone greys, and tactile, natural textures, fitting perfectly into a refined skeuomorphic automotive aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3kBz84wreNYAjpO79T-BAnj2hiKlV4iI1UYuSlYIDOWTQqKw2sy8i3DKZ5kfpByUWgbyiIT6wjh40xf4X4cjZGFPYNdafUjqogHEw8ukJck2lY9_CXnyZPD3PdINzTE_lKS-6J6zhq0xCvuiVdM4rRyp4IrvidnGX4p-PAi6MIM3kHYS_EzgP3VTtBEfp-un_9B_xCX-YuR0ZE57Qn5LA33JXnSvw4s7fXT3eduKzqI4VF78pcP5tv12bBVfAdBxa8R5C-kfIRhk"/>
+<button aria-label="Toggle visibility" class="absolute top-3 right-3 bg-surface border border-outline-variant text-on-surface rounded p-1.5 shadow-sm active:translate-y-px transition-transform flex items-center justify-center hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface font-bold">1965 MGB Roadster</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Motor: 1.8L B-Series</p>
+</div>
+</div>
+<div class="dashed-divider my-sm"></div>
+<div class="mt-auto flex flex-wrap gap-2">
+<span class="bg-surface-variant border border-outline-variant text-on-surface-variant font-label-caps text-[10px] px-2 py-1 rounded-sm uppercase tracking-wider">
+                            Chasis: #GHN3
+                        </span>
+<span class="bg-primary-container/20 border border-primary/20 text-primary font-label-caps text-[10px] px-2 py-1 rounded-sm uppercase tracking-wider">
+                            Restauración Activa
+                        </span>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) - Rendered only on mobile via md:hidden, but following JSON layout rules -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-dim border-t-2 border-outline-variant shadow-[0_-2px_0_0_rgba(107,112,92,0.1)] md:hidden">
+<!-- Inactive: INICIO -->
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home_storage">home_storage</span>
+<span class="font-label-caps text-label-caps text-[10px]">INICIO</span>
+</a>
+<!-- Active: GARAJE -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-4 py-1 border-b-2 border-on-secondary-container hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 w-20" href="#">
+<span class="material-symbols-outlined fill-icon mb-1" data-icon="garage">garage</span>
+<span class="font-label-caps text-label-caps text-[10px] font-bold">GARAJE</span>
+</a>
+<!-- Inactive: AÑADIR -->
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="add_box">add_box</span>
+<span class="font-label-caps text-label-caps text-[10px]">AÑADIR</span>
+</a>
+<!-- Inactive: PERFIL -->
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 p-2 rounded-lg w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person_config">person</span>
+<span class="font-label-caps text-label-caps text-[10px]">PERFIL</span>
+</a>
+</nav>
+</body></html>
