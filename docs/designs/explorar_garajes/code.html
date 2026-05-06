@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ruta Mecánica - Inicio</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Space+Grotesk:wght@700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e0e5cc",
+                        "tertiary-container": "#6f6f5a",
+                        "surface-variant": "#f5decd",
+                        "secondary-container": "#fdc6a9",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#fbe4d2",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#25190f",
+                        "on-primary": "#ffffff",
+                        "surface": "#fff8f5",
+                        "surface-dim": "#ecd6c4",
+                        "on-error": "#ffffff",
+                        "tertiary": "#565743",
+                        "on-primary-fixed": "#191d0e",
+                        "tertiary-fixed": "#e5e4ca",
+                        "primary-fixed-dim": "#c4c9b1",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#f1bb9e",
+                        "inverse-surface": "#3b2e22",
+                        "surface-container-highest": "#f5decd",
+                        "tertiary-fixed-dim": "#c8c8af",
+                        "surface-container-low": "#fff1e8",
+                        "on-secondary-fixed": "#301403",
+                        "on-primary-container": "#eff4db",
+                        "primary": "#535845",
+                        "surface-tint": "#5c614d",
+                        "outline-variant": "#c7c7bd",
+                        "on-surface-variant": "#464740",
+                        "surface-bright": "#fff8f5",
+                        "secondary-fixed": "#ffdbc9",
+                        "on-tertiary-fixed-variant": "#474835",
+                        "inverse-on-surface": "#ffeee1",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#1c1d0c",
+                        "surface-container": "#ffeada",
+                        "on-secondary-container": "#795039",
+                        "primary-container": "#6b705c",
+                        "inverse-primary": "#c4c9b1",
+                        "on-secondary-fixed-variant": "#633e28",
+                        "background": "#fff8f5",
+                        "on-error-container": "#93000a",
+                        "outline": "#77786f",
+                        "on-primary-fixed-variant": "#444937",
+                        "secondary": "#7e553e",
+                        "on-tertiary-container": "#f4f3d8",
+                        "on-background": "#25190f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "xl": "40px",
+                        "sm": "8px",
+                        "gutter": "20px",
+                        "container-max": "1200px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Noto Serif"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-md": ["Work Sans"],
+                        "headline-md": ["Noto Serif"],
+                        "title-sm": ["Noto Serif"],
+                        "body-sm": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "title-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Analog texture emulation */
+        body {
+            background-color: theme('colors.background');
+            background-image: radial-gradient(theme('colors.outline-variant') 0.5px, transparent 0.5px);
+            background-size: 8px 8px;
+            background-attachment: fixed;
+        }
+        
+        /* Custom scrollbar for horizontal lists */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Skeuomorphic utilities */
+        .mech-card {
+            box-shadow: 4px 4px 0px 0px rgba(107,112,92,0.15);
+        }
+        .mech-input {
+            box-shadow: inset 0px 2px 4px 0px rgba(107,112,92,0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-surface-container shadow-[0_2px_0_0_rgba(107,112,92,0.15)] border-b-[1px] border-outline-variant">
+<div class="flex justify-between items-center w-full px-gutter py-sm max-w-container-max mx-auto">
+<!-- Mobile Menu & Brand -->
+<div class="flex items-center gap-sm">
+<button class="md:hidden text-primary hover:bg-surface-bright active:scale-95 transition-transform duration-100 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<h1 class="font-display-lg text-title-sm font-bold text-on-surface tracking-[0.2em] uppercase">RUTA MECÁNICA</h1>
+</div>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1 tracking-[0.1em] transition-colors" href="#">INICIO</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors tracking-[0.1em]" href="#">GARAJE</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors tracking-[0.1em]" href="#">AÑADIR</a>
+</nav>
+<!-- Trailing Avatar -->
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-variant border-[1px] border-outline-variant overflow-hidden p-0.5 mech-input">
+<div class="w-full h-full bg-tertiary-container rounded-[2px] flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-xl flex flex-col gap-xl pb-[120px] md:pb-xl">
+<!-- Banner / Hero Section -->
+<section class="w-full bg-surface-container-high border-[1px] border-outline-variant border-t-4 border-t-primary rounded-DEFAULT p-md md:p-lg flex flex-col md:flex-row gap-md items-center mech-card relative overflow-hidden">
+<!-- Decorative mechanical lines -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, theme('colors.primary') 0, theme('colors.primary') 1px, transparent 1px, transparent 10px);"></div>
+<div class="flex-1 z-10">
+<span class="font-label-caps text-label-caps text-secondary tracking-widest uppercase bg-surface-variant px-2 py-1 rounded-sm border-[1px] border-outline-variant inline-block mb-2">Destacado Semanal</span>
+<h2 class="font-display-lg text-headline-md text-on-surface mb-2">El Arte de la Restauración</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 max-w-md">Descubre cómo la comunidad está devolviendo a la vida motores que marcaron una época. Explora los garajes más activos.</p>
+<button class="font-label-caps text-label-caps bg-primary text-on-primary border-[1px] border-on-surface border-b-[3px] rounded-sm px-lg py-sm uppercase tracking-[0.1em] hover:bg-tertiary active:border-b-[1px] active:translate-y-[2px] transition-all flex items-center gap-2">
+                    Explorar Taller
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="w-full md:w-[400px] aspect-[4/3] bg-surface border-[1px] border-outline p-2 rounded-sm shadow-inner z-10 bg-surface-variant">
+<div class="w-full h-full relative overflow-hidden border-[1px] border-outline-variant rounded-[2px]">
+<img alt="Engine restoration" class="w-full h-full object-cover grayscale-[15%] sepia-[10%]" data-alt="A highly detailed photograph of a classic vintage car engine bay, mid-restoration, inside a dimly lit, authentic mechanic's workshop. The image focuses on the intricate metallic parts, carburetors, and wiring, bathed in warm, directional lighting that highlights the grease and history. The visual style is deeply skeuomorphic and tactile, evoking the smell of oil and the golden era of analog automotive engineering. Colors are dominated by deep bronzes, oily blacks, and warm tungsten light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyrWyyiQSupE8n5IW70qP6y-z-ix1ai1SvVJBdOBAVPEWKv52pke0onu2lTBesniQsgeG-iK-X7rhnhg9blW7iWGg3LfXTEV3nI7CeZQcEKpe4-wsS87BeArC6soyIXBiSxubsL7Suu44-FN0fZO36WWcAfZXewCGJiaX-KS8HuhsPrZSMPKLnbum2fWcwbYNwiHqK7ihUvpF2MSMc6wiLvvYM22pTSCaOABy8J2UNpuQWoQBR8XhabIk7QeGOtNzmFiZaU3jPCus"/>
+</div>
+</div>
+</section>
+<!-- Divider -->
+<div class="w-full flex items-center gap-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant tracking-[0.2em] uppercase whitespace-nowrap">TENDENCIAS EN EL GARAJE</h3>
+<div class="flex-grow h-[1px] bg-outline-variant relative">
+<div class="absolute top-1/2 left-0 -translate-y-1/2 w-1.5 h-1.5 bg-surface border-[1px] border-outline rounded-full"></div>
+<div class="absolute top-1/2 right-0 -translate-y-1/2 w-1.5 h-1.5 bg-surface border-[1px] border-outline rounded-full"></div>
+</div>
+</div>
+<!-- Section: Tendencias (Horizontal Scroll / Bento) -->
+<section class="w-full overflow-x-auto hide-scrollbar pb-sm -mx-gutter px-gutter md:mx-0 md:px-0">
+<div class="flex gap-md md:grid md:grid-cols-3 md:gap-lg w-max md:w-full">
+<!-- Card 1 -->
+<article class="w-[280px] md:w-auto bg-surface-container-lowest border-[1px] border-outline-variant border-t-2 border-t-dashed border-t-outline-variant rounded-DEFAULT flex flex-col flex-shrink-0 mech-card">
+<div class="p-2 pb-0">
+<div class="aspect-[4/3] bg-surface-variant rounded-[2px] overflow-hidden border-[1px] border-outline/30 relative">
+<img alt="Vintage Datsun" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="A front three-quarter view of a pristine, vintage 1970s Datsun 240Z parked on a concrete floor inside a sunlit, retro garage. The car features a glossy mustard-yellow paint job that reflects the warm, natural light pouring in through large industrial windows. The aesthetic is warm, nostalgic, and analog, emphasizing the tactile quality of the metal bodywork and classic chrome bumpers against the textured concrete environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzpKrG42PGxyFNhzi1jmeNnmY4tHgXUsiv_AmCtoU_okm05v-3SMzKMA95A6Z1MoNfaoztbFD0hmHBBqqQG5Ul_a7NYvEfiUwNb_axk2lS3f7KgNtgA_mV4Ol6mTTI-a634mFLoE5ih1mALNFWs2CllYrvybk6rquoc0tfuM2pzbabVNVNrEHU_9eORK3SS3ojvg9sN2H4Fc80oOVUfzKd0FD5OrQXpYqRC_gE0JWhYoAFeuq3N5Qclry4Rv-JS_y7ry62J2FcTy0"/>
+<div class="absolute top-2 right-2 bg-surface/95 border-[1px] border-outline px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-label-caps text-on-surface">2.4K</span>
+</div>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-1">Datsun 240Z</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> @retro_racer
+                            </p>
+</div>
+<div class="flex gap-2 mt-4 pt-3 border-t-[1px] border-outline-variant/50">
+<span class="font-label-caps text-[10px] bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded-sm border-[1px] border-tertiary tracking-widest uppercase">1971</span>
+<span class="font-label-caps text-[10px] bg-surface text-on-surface-variant px-2 py-1 rounded-sm border-[1px] border-outline-variant tracking-widest uppercase">JDM</span>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="w-[280px] md:w-auto bg-surface-container-lowest border-[1px] border-outline-variant border-t-2 border-t-dashed border-t-outline-variant rounded-DEFAULT flex flex-col flex-shrink-0 mech-card">
+<div class="p-2 pb-0">
+<div class="aspect-[4/3] bg-surface-variant rounded-[2px] overflow-hidden border-[1px] border-outline/30 relative">
+<img alt="Shelby GT500" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="A dramatic side profile shot of a classic 1960s Ford Mustang Shelby GT500 resting on an old, cracked asphalt road during golden hour. Long, warm shadows stretch across the ground, highlighting the car's muscular, analog design and metallic paint. The visual style is rooted in a refined, skeuomorphic aesthetic with a slight film grain texture, evoking a deep sense of timeless American automotive muscle and heritage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtGF8WNCqRt2NNP133VxBvIb_0gMZSKWZQTz7ijIl5YJEKi-ipYQ1HTnCGTrENHbAoJeg8jmEBMjcE5uDh9GWpg_Xkd-VMajqs3Bb_r07VLskgziSzcYxjdw2NIdPKrBK0Qj6_UhLkAFXGh_3feymwTO2fsBbm8tr3bRqnXOnBzXKCePJR3z7WhAPhn21wfsH9g_9L-e51AFG6x6WXVZUaIm1Gqq5rLj-1GH5_8kf2RtdQJAp9iWyOjL_DtvbRMUy8CZhoWc_OwaQ"/>
+<div class="absolute top-2 right-2 bg-surface/95 border-[1px] border-outline px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-label-caps text-on-surface">1.8K</span>
+</div>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-1">Shelby GT500</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> @v8_collector
+                            </p>
+</div>
+<div class="flex gap-2 mt-4 pt-3 border-t-[1px] border-outline-variant/50">
+<span class="font-label-caps text-[10px] bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded-sm border-[1px] border-tertiary tracking-widest uppercase">1967</span>
+<span class="font-label-caps text-[10px] bg-surface text-on-surface-variant px-2 py-1 rounded-sm border-[1px] border-outline-variant tracking-widest uppercase">MUSCLE</span>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="w-[280px] md:w-auto bg-surface-container-lowest border-[1px] border-outline-variant border-t-2 border-t-dashed border-t-outline-variant rounded-DEFAULT flex flex-col flex-shrink-0 mech-card">
+<div class="p-2 pb-0">
+<div class="aspect-[4/3] bg-surface-variant rounded-[2px] overflow-hidden border-[1px] border-outline/30 relative">
+<img alt="Porsche 911" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="A close-up, low-angle photograph of an early 1980s Porsche 911 parked outside a weathered brick building. The car is finished in a deep, glossy forest green, reflecting the overcast sky. The lighting is soft and diffused, bringing out the solid, mechanical build quality of the vehicle. The overall aesthetic mimics a vintage automotive print catalog, utilizing earthy tones and a distinctly tactile, refined skeuomorphic vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNKShG16wn--gKT_bpNXq1cUubj4lYlSkPHcM5Ei5nChoxyKY7cy7vXFhQZqxAhu36m2q2eljY6wpaekLOTPYC1dWFqEeacm2fvK0Sstxiw-iuI-v1yU_Nunk0iSVsQ3g4HrlxrWvwVPKnEBnO8ZvwX4kWOdZx_nzXSdXpXD51XCHCtpeneFV3B6l90LQiHLGsPJnLAg7wNXOlorJkOxMl6F4VJTtOaz6lG6S61SOUllLR8LeJ19E1_KqbgtwmRwvCZbMU3xtwBlc"/>
+<div class="absolute top-2 right-2 bg-surface/95 border-[1px] border-outline px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-label-caps text-on-surface">1.5K</span>
+</div>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-1">Porsche 911 SC</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> @luft_gekuhlt
+                            </p>
+</div>
+<div class="flex gap-2 mt-4 pt-3 border-t-[1px] border-outline-variant/50">
+<span class="font-label-caps text-[10px] bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded-sm border-[1px] border-tertiary tracking-widest uppercase">1982</span>
+<span class="font-label-caps text-[10px] bg-surface text-on-surface-variant px-2 py-1 rounded-sm border-[1px] border-outline-variant tracking-widest uppercase">EURO</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Divider -->
+<div class="w-full flex items-center gap-4 mt-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant tracking-[0.2em] uppercase whitespace-nowrap">RECIÉN LLEGADOS</h3>
+<div class="flex-grow h-[1px] bg-outline-variant relative">
+<div class="absolute top-1/2 left-0 -translate-y-1/2 w-1.5 h-1.5 bg-surface border-[1px] border-outline rounded-full"></div>
+<div class="absolute top-1/2 right-0 -translate-y-1/2 w-1.5 h-1.5 bg-surface border-[1px] border-outline rounded-full"></div>
+</div>
+</div>
+<!-- Section: Recién Llegados (Vertical List) -->
+<section class="flex flex-col gap-md">
+<!-- List Item 1 -->
+<article class="bg-surface-container border-[1px] border-outline-variant rounded-DEFAULT p-2 flex gap-4 items-center mech-card hover:bg-surface-container-high transition-colors">
+<div class="w-[100px] h-[80px] md:w-[160px] md:h-[100px] flex-shrink-0 bg-surface-variant rounded-sm border-[1px] border-outline-variant/50 overflow-hidden relative mech-input">
+<img alt="Classic Chevy Truck" class="w-full h-full object-cover" data-alt="A rustic, atmospheric shot of an old, patina-covered Chevrolet pickup truck parked in front of a weathered wooden barn. The truck shows signs of age with surface rust blending into its original faded blue paint. The lighting is natural, suggesting late afternoon, casting warm, nostalgic shadows. The aesthetic relies heavily on organic textures, earthy tones, and a robust, mechanical feel typical of classic American workhorses." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvXso4ehXbfvVGI4ZaagUWPwiYPAcVvCIjpd67YRCBgJ-JvriVSKa8Iyk-VV4OvPEhrFUJSplGJFdgcaJjmBf4xhE2JHHr1Q5wCSO0BslqwTCpfgPEIYb9jMtQCktJvURVkxSsnx7BW-U248mpIL-H8Y0Zbtk0cxe3qGu0aaEdvmPeo7QWNEoH4b9iugoOF_KgB-WDP9KNT08sdIumWhceBAS0njeDHRAAivW9LhHU0Tt2JDQn4rw08T7Ogx9ba6tNhIb_9et67LQ"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-full py-1">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-title-sm text-[16px] md:text-title-sm text-on-surface leading-tight mb-1">Chevrolet C10 Stepside</h4>
+<button class="text-outline hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]">bookmark_add</span>
+</button>
+</div>
+<p class="font-body-sm text-[12px] md:text-body-sm text-on-surface-variant">Añadido hace 2 horas por @rusty_gold</p>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">favorite</span>
+<span class="font-label-caps text-[10px]">12</span>
+</span>
+<span class="font-label-caps text-[10px] bg-surface text-on-surface-variant px-1.5 py-0.5 rounded-sm border-[1px] border-outline-variant/50 uppercase">PROYECTO</span>
+</div>
+</div>
+</article>
+<!-- List Item 2 -->
+<article class="bg-surface-container border-[1px] border-outline-variant rounded-DEFAULT p-2 flex gap-4 items-center mech-card hover:bg-surface-container-high transition-colors">
+<div class="w-[100px] h-[80px] md:w-[160px] md:h-[100px] flex-shrink-0 bg-surface-variant rounded-sm border-[1px] border-outline-variant/50 overflow-hidden relative mech-input">
+<img alt="BMW 2002" class="w-full h-full object-cover" data-alt="A clean, clinical photograph of a meticulously restored BMW 2002 sitting in a bright, modern garage bay. The car's pristine white paint contrasts sharply with black trim and gleaming chrome accents. The scene uses bright, high-key lighting to emphasize the precision and technical perfection of the restoration. The overall aesthetic is refined, skeuomorphic, and precise, capturing the essence of German automotive engineering history." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBONJsBPm4oklI7JiX7hfaP1sTU3_OWXZ62R8NnMJhULhmPEb5nIrNI8qeM67Z00t9E9wNRhGG7C2bOp65QgUAjTMAz8tSUpj-ytMC4oS2612UGriNoIfQnL4B_D6CapVVtwn9_vASaaYe1cb2Sqx3Ho1psWe1gNEJQ7ca97OY3_8H-MPUCY_Xec5wHYBCLUrf8lF7qTLplb36z38iHyqbW2h61Rxtd8oZK0vFKhu8jq3P0vBkuRHDpkh18kuOEIcSWt06HFjG1nGE"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-full py-1">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-title-sm text-[16px] md:text-title-sm text-on-surface leading-tight mb-1">BMW 2002 Tii</h4>
+<button class="text-outline hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]">bookmark_add</span>
+</button>
+</div>
+<p class="font-body-sm text-[12px] md:text-body-sm text-on-surface-variant">Añadido hace 5 horas por @bimmer_classic</p>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">favorite</span>
+<span class="font-label-caps text-[10px]">45</span>
+</span>
+<span class="font-label-caps text-[10px] bg-surface text-on-surface-variant px-1.5 py-0.5 rounded-sm border-[1px] border-outline-variant/50 uppercase">RESTAURADO</span>
+</div>
+</div>
+</article>
+</section>
+<!-- Load More (Mechanical Button style) -->
+<div class="flex justify-center mt-lg">
+<button class="font-label-caps text-label-caps bg-surface-container-low text-on-surface border-[1px] border-outline border-b-[3px] rounded-sm px-xl py-sm uppercase tracking-[0.1em] hover:bg-surface-container active:border-b-[1px] active:translate-y-[2px] transition-all flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">autorenew</span>
+                Cargar Más Registros
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-dim border-t-2 border-outline-variant shadow-[0_-2px_0_0_rgba(107,112,92,0.1)]">
+<!-- INICIO (Active) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl px-4 py-1 border-b-2 border-on-secondary-container active:translate-y-0.5 transition-all duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home_storage</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest uppercase">INICIO</span>
+</button>
+<!-- GARAJE (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 px-4 py-1 rounded-xl">
+<span class="material-symbols-outlined">garage</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest uppercase">GARAJE</span>
+</button>
+<!-- AÑADIR (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 px-4 py-1 rounded-xl">
+<span class="material-symbols-outlined">add_box</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest uppercase">AÑADIR</span>
+</button>
+<!-- PERFIL (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant dark:text-outline-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all active:translate-y-0.5 duration-75 px-4 py-1 rounded-xl">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest uppercase">PERFIL</span>
+</button>
+</nav>
+</body></html>
