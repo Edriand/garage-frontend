@@ -106,11 +106,10 @@ El estilo visual es **Táctil / Esquemórfico refinado**, fusionando elementos d
 
 ## Colores
 La paleta se inspira en los tonos terrosos y metálicos de las carrocerías clásicas y el cuero envejecido. 
-- **Primario (`primary: #535845`):** Verde oliva oscuro e industrial que evoca uniformes de trabajo y maquinaria pesada. Se usa en acciones principales y CTA.
-- **Primario-container (`primary-container: #6b705c`):** Variante más clara del primario, para fondos de secciones activas y nav.
-- **Secundario (`secondary: #7e553e`):** Tono terracota/cuero que imita los asientos y detalles en óxido estético.
-- **Fondo (`background: #fff8f5`):** Crema cálido que actúa como papel antiguo o pintura decapada, proporcionando una base legible.
-- **Superficies (`surface-container: #ffeada`, `surface-variant: #f5decd`):** Tonos arena para contenedores anidados y filas alternas.
+- **Primario (#6b705c):** Un verde oliva industrial que evoca uniformes de trabajo y maquinaria pesada.
+- **Secundario (#cb997e):** Tono terracota que imita el cuero de los asientos y detalles en óxido estético.
+- **Fondo (#ffe8d6):** Un color crema que actúa como papel antiguo o pintura decapada, proporcionando una base cálida y legible.
+- **Acentos (#a5a58d, #b7b7a4):** Tonos metálicos neutros para superficies secundarias y bordes de componentes.
 
 ## Tipografía
 La jerarquía visual utiliza una combinación de autoridad clásica y precisión técnica:
