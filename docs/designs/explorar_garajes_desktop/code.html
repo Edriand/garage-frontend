@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RUTA MECÁNICA - Explorar Garajes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&amp;family=Noto+Serif:wght@400;600;700&amp;family=Work+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#ffffff",
+                        "secondary": "#7e553e",
+                        "surface": "#fff8f5",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#e0e5cc",
+                        "primary": "#535845",
+                        "on-primary-fixed": "#191d0e",
+                        "inverse-surface": "#3b2e22",
+                        "on-background": "#25190f",
+                        "secondary-fixed": "#ffdbc9",
+                        "surface-variant": "#f5decd",
+                        "inverse-primary": "#c4c9b1",
+                        "background": "#fff8f5",
+                        "on-secondary-fixed": "#301403",
+                        "on-surface": "#25190f",
+                        "inverse-on-surface": "#ffeee1",
+                        "tertiary": "#565743",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f5",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#77786f",
+                        "on-tertiary-container": "#f4f3d8",
+                        "on-primary-fixed-variant": "#444937",
+                        "surface-container-high": "#fbe4d2",
+                        "primary-fixed-dim": "#c4c9b1",
+                        "surface-tint": "#5c614d",
+                        "tertiary-container": "#6f6f5a",
+                        "on-surface-variant": "#464740",
+                        "tertiary-fixed": "#e5e4ca",
+                        "surface-dim": "#ecd6c4",
+                        "surface-container-low": "#fff1e8",
+                        "on-primary-container": "#eff4db",
+                        "tertiary-fixed-dim": "#c8c8af",
+                        "secondary-fixed-dim": "#f1bb9e",
+                        "surface-container": "#ffeada",
+                        "on-tertiary-fixed-variant": "#474835",
+                        "outline-variant": "#c7c7bd",
+                        "on-secondary-container": "#795039",
+                        "surface-container-highest": "#f5decd",
+                        "secondary-container": "#fdc6a9",
+                        "error": "#ba1a1a",
+                        "primary-container": "#6b705c",
+                        "on-tertiary-fixed": "#1c1d0c",
+                        "on-secondary-fixed-variant": "#633e28",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "lg": "24px",
+                        "gutter": "20px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "container-max": "1200px",
+                        "xl": "40px",
+                        "md": "16px"
+                    },
+                    fontFamily: {
+                        "label-caps": ["Space Grotesk"],
+                        "headline-md": ["Noto Serif"],
+                        "title-sm": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"],
+                        "body-md": ["Work Sans"],
+                        "body-sm": ["Work Sans"]
+                    },
+                    fontSize: {
+                        "label-caps": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "700" }],
+                        "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+                        "title-sm": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        .inset-shadow {
+            box-shadow: inset 0 2px 4px 0 rgba(107, 112, 92, 0.15);
+        }
+        .relief-border {
+            border: 1px solid var(--tw-colors-outline-variant);
+            border-bottom-width: 2px;
+            border-bottom-color: var(--tw-colors-outline);
+        }
+        .vintage-shadow {
+            box-shadow: 2px 4px 0 0 rgba(107, 112, 92, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen noise-bg flex flex-col font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface-container docked full-width top-0 border-b-2 border-outline-variant shadow-[0_2px_0_0_rgba(107,112,92,0.15)] z-40 relative">
+<div class="flex justify-between items-center w-full px-gutter py-sm max-w-container-max mx-auto">
+<button class="text-primary hover:bg-surface-bright transition-colors active:scale-95 transition-transform duration-100 p-2 rounded-DEFAULT flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="font-display-lg text-title-sm font-bold text-on-surface tracking-[0.2em] text-center flex-1">
+                RUTA MECÁNICA
+            </div>
+<!-- Desktop Navigation Links (Hidden on Mobile) -->
+<nav class="hidden md:flex gap-lg mr-lg">
+<a class="text-primary font-label-caps text-label-caps border-b-2 border-primary pb-1" href="#">INICIO</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">GARAJE</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors" href="#">AÑADIR</a>
+</nav>
+<button class="w-10 h-10 rounded-full bg-surface-variant border-2 border-outline flex items-center justify-center overflow-hidden shrink-0">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a rugged mechanic with a slight stubble and warm, friendly eyes, set against a blurred background of a vintage workshop. Warm, natural lighting highlights the texture of his skin and the sturdy fabric of his work shirt. The overall aesthetic leans towards nostalgic, tactile realism with deep earth tones and a sense of reliable craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF7L7OV02urXPLu0qfOIyaaR1hFIocTCR7zU1Jw3L82gjc4cRTH65s8i7kmtHVNJZ8gt4P2laF-ZC8YeQp5hzBb7j9Ft99_PCtXiCMGa8ix1JmAR7QVmyLNcWO0KOprO76PBhYWGIujoWA1_fQo_U6HLwSjvdw4TI1xzJJ1usykUDQnMkJxNej6u2IfJlh1L6qDro_thvtT-1Di8bd0XHDrhvmYruNTqXHfXGQdmUnKlHe3eOA4OUFOneLxvHAvCD9eHZRaZrl49A"/>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-gutter py-xl flex flex-col gap-xl">
+<!-- Hero Section: Featured Restoration Story -->
+<section class="w-full relative bg-surface-variant rounded-lg overflow-hidden relief-border vintage-shadow min-h-[400px] flex items-end">
+<img class="absolute inset-0 w-full h-full object-cover opacity-80" data-alt="A stunning, wide-angle shot of a classic 1960s Porsche 911 mid-restoration inside a dimly lit, authentic vintage garage. Golden hour sunlight filters through dusty workshop windows, casting long, dramatic shadows across the exposed metal chassis and scattered tools. The scene evokes a deep sense of tactile craftsmanship, nostalgia, and mechanical grit, utilizing a warm palette of rusted oranges, deep sepia, and muted metallic greys." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChzceJiLcbW3oVYh5QV60TH1-ybeMoI6Ai3Lm8oYtBm1ChW8v4lOmaM3xF3BI5SHs9lbK8dzctvGTrf4WiZQtR5YfIg_sAQd4phwi0WQWNIUFfGTnly6ZN4RLrMxRF7IOdRQdJSSN-owWKhqDCKvEmcNSguAsjz5HLflQBxkXNvaefjyKtrLLrOsJLRq7pDpnKBIruODUTk-XBsoyW0NWdBQdkJJQrGGxKw2jomq7d7PFfJDmLyJlnM843Qw2ctUyT3LWhcNdx8Ss"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/40 to-transparent"></div>
+<div class="relative z-10 p-lg w-full md:w-2/3 lg:w-1/2 flex flex-col gap-sm">
+<div class="flex items-center gap-xs text-secondary-fixed">
+<span class="material-symbols-outlined text-sm">build_circle</span>
+<span class="font-label-caps text-label-caps">PROYECTO DESTACADO</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-surface-bright">Resurrección del 911T '71</h1>
+<p class="font-body-md text-body-md text-surface-variant line-clamp-2">Después de 20 años en un granero de Baviera, este chasis oxidado vuelve a rugir. Descubre el proceso de reconstrucción del motor bóxer pieza por pieza.</p>
+<div class="mt-sm">
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-lg py-sm rounded-DEFAULT relief-border hover:bg-tertiary active:shadow-none active:translate-y-[2px] transition-all inline-flex items-center gap-xs">
+<span>LEER HISTORIA</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Stats / Quick Nav Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm md:gap-lg">
+<div class="bg-surface-container rounded-DEFAULT p-sm flex items-center gap-sm relief-border">
+<div class="bg-primary-container text-on-primary-container w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-outline">GARAJES ACTIVOS</div>
+<div class="font-title-sm text-title-sm">1,248</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-DEFAULT p-sm flex items-center gap-sm relief-border">
+<div class="bg-secondary-container text-on-secondary-container w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">handyman</span>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-outline">PROYECTOS HOY</div>
+<div class="font-title-sm text-title-sm">56</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-DEFAULT p-sm flex items-center gap-sm relief-border">
+<div class="bg-tertiary-container text-on-tertiary-container w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">forum</span>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-outline">CONSEJOS COMPARTIDOS</div>
+<div class="font-title-sm text-title-sm">8,930</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-DEFAULT p-sm flex items-center gap-sm relief-border">
+<div class="bg-error-container text-on-error-container w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">local_fire_department</span>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-outline">EN TENDENCIA</div>
+<div class="font-title-sm text-title-sm">Motores V8</div>
+</div>
+</div>
+</div>
+<hr class="border-t-2 border-dashed border-outline-variant my-md"/>
+<!-- Tendencias en el Garaje (Bento Grid) -->
+<section class="flex flex-col gap-lg">
+<div class="flex justify-between items-end border-b-2 border-outline-variant pb-xs">
+<div>
+<h2 class="font-headline-md text-title-sm text-primary">Tendencias en el Garaje</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Los proyectos mecánicos más seguidos esta semana.</p>
+</div>
+<button class="text-secondary font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-xs">
+                    VER TODOS <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Large Featured Card -->
+<article class="md:col-span-2 bg-surface-container-lowest rounded-DEFAULT relief-border vintage-shadow flex flex-col md:flex-row overflow-hidden group hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="md:w-1/2 h-48 md:h-auto relative border-b md:border-b-0 md:border-r border-outline-variant border-dashed">
+<img class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="A close-up shot of a mechanic's hands adjusting a complex carburetor setup on a vintage muscle car engine block. The lighting is focused and warm, highlighting the polished metal, grease smudges, and intricate linkages. The aesthetic is heavily tactile and nostalgic, emphasizing analog craftsmanship and the raw beauty of mechanical engineering in a classic garage setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBUnVqkUAuPmPwfl5je_1TIDMD09lgbfXWOM36rqlW76Of2Phwrqzwkbt6CtZ8T95wFsTC1nFkZJfKdGlLj8gCgUKUqUDEwYHRYCZf28py3CNlCQ_DsOV3iklRCDq5IbX8Y81n5Jp7cMF6yA46c2gAK6xa0Ft8i3Bj-CCHqTayoZCNUl4Ssk1WCqRBI2PnJe8BwB-HeDxSMci0ebTNNIxDygKxj5r8tpmA8YDCo5wc2hr-omdbcfNVSKAeliUCShcHH8SkAI1Yx0A"/>
+<div class="absolute top-sm right-sm bg-surface/90 text-on-surface font-label-caps text-[10px] px-2 py-1 rounded-sm border border-outline-variant shadow-sm backdrop-blur-sm">
+                            ACTUALIZADO HACE 2H
+                        </div>
+</div>
+<div class="p-md flex flex-col justify-between md:w-1/2">
+<div>
+<div class="flex items-center gap-xs mb-xs">
+<span class="bg-secondary-container text-on-secondary-container font-label-caps text-[10px] px-2 py-0.5 rounded-sm">CARBURACIÓN</span>
+<span class="text-outline text-xs">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Taller Norte</span>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-sm">Sincronización de Carburadores Weber dobles</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">Ajuste fino de la mezcla en vacío para estabilizar el ralentí. Un proceso delicado que requiere paciencia y buen oído mecánico.</p>
+</div>
+<div class="mt-md pt-sm border-t border-dashed border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-sm">
+<img class="w-6 h-6 rounded-full border border-outline grayscale" data-alt="A small, circular avatar portrait of an older mechanic with a grizzled beard, wearing a classic newsboy cap. Shot in high contrast black and white to emphasize wrinkles and character, evoking a sense of deep experience and vintage workshop wisdom." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPU-PEe5GbGxux2zGFpTv0VHDJZ0pFxT3xjzsrlvNNa9CTP379fTYJlGCrcR8UJQCZufyofYZ5lLIM6K6uxBg-dz9_gkJQsdrsz4-lxpJsMXQjwPO68HDDDrO6K1aiVoO_uNcCrUnOkSCawmJGMLB1hmehggIxUTZszTACqw0L42LAjNNiXBA0M4U3_6ybY1yOHYndyJx5VJv5P1anw7_KyvuLdpRjeTwc0CpwNINRCmaAEC8A-9kG2WLcHlPPfxFXDVhQHg63feI"/>
+<span class="font-label-caps text-[10px] text-on-surface">POR CARLOS M.</span>
+</div>
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+<span class="font-label-caps text-[10px]">342</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Smaller Stacked Cards -->
+<div class="flex flex-col gap-lg">
+<article class="bg-surface-container-lowest rounded-DEFAULT relief-border vintage-shadow p-sm flex flex-col gap-sm group hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="h-32 relative rounded-sm overflow-hidden border border-outline-variant border-dashed">
+<img class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="A detailed view of a vintage car dashboard featuring classic analog gauges, including a speedometer and tachometer with worn, yellowed numbering and chrome bezels. The soft, ambient light reflects off the scratched glass of the instruments, creating a mood of enduring history and timeless mechanical design. Earthy brown and muted metallic tones dominate the palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCptzsaaTbL8oQHMja9CKh4rDHMn2mpi2gXEVGzHA0SrcJ1FI4orj9LhQtADH1qsZ5W0u-qcaOKMbjraZnpsx1CqCbP2h3uvFHeA50Nd3XjsaFAhxQk30GOkjyIXf1i56K19mYf78JGRDSMxZ1HSC0gRhioHHSP1yqptW0yH2sfKbeiI_x4h3KjfynFboMTUAPE4n00Ycun6RgYZfdZfz8DMa6LNf2ZUTx3THJEBw6usYFgoD1L2tev8iN94VY2jvdGXh29EA6fc1Q"/>
+</div>
+<div>
+<div class="flex items-center gap-xs mb-xs">
+<span class="text-tertiary font-label-caps text-[10px]">ELÉCTRICO</span>
+</div>
+<h3 class="font-title-sm text-[16px] text-on-surface leading-snug">Restauración de Cuadro de Instrumentos Analógico</h3>
+</div>
+</article>
+<article class="bg-surface-container-lowest rounded-DEFAULT relief-border vintage-shadow p-sm flex flex-col gap-sm group hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="h-32 relative rounded-sm overflow-hidden border border-outline-variant border-dashed">
+<img class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="A gritty close-up of a greasy, heavily used suspension spring and shock absorber assembly laid out on a scarred wooden workbench. Various worn mechanic's tools surround the parts. The lighting is moody and directional, casting strong shadows that highlight the textures of rust, grease, and worn metal, fitting a raw, vintage workshop aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx3zU1bOY6ONFnq6AhumYLPqy_2gkf0GeWtX0p2HdLmRnPeyXLzZ7nojKJ6dHJb-2BlL1dretyoMZZ-hyVgK--LZ4Q6Sgm17Bo8TAsFbsKb9d350IqR_t0QQgLdH-SRdh3JQ1X7g3VBZGbGZiycALoQBqGed5ZZUCcZirRVNNf5fyZW2BMRUOX2Vufhs8Na4zBGVoW0aSBdivYz-yMQcoQZSH79Zm47401XRHn_ii0mhT4gKXT9JKYS_o_O2JVHagFF2lam0paF2w"/>
+</div>
+<div>
+<div class="flex items-center gap-xs mb-xs">
+<span class="text-tertiary font-label-caps text-[10px]">SUSPENSIÓN</span>
+</div>
+<h3 class="font-title-sm text-[16px] text-on-surface leading-snug">Cambio de Muelles y Amortiguadores Clásicos</h3>
+</div>
+</article>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-dim docked full-width bottom-0 border-t-2 border-outline-variant shadow-[0_-2px_0_0_rgba(107,112,92,0.1)] fixed left-0 w-full z-50 flex justify-around items-center px-4 py-2">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-4 py-1 border-b-2 border-on-secondary-container active:translate-y-0.5 transition-all duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home_storage</span>
+<span class="font-label-caps text-label-caps mt-1">INICIO</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all rounded-xl px-4 py-1 active:translate-y-0.5 duration-75" href="#">
+<span class="material-symbols-outlined">garage</span>
+<span class="font-label-caps text-label-caps mt-1">GARAJE</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all rounded-xl px-4 py-1 active:translate-y-0.5 duration-75" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span class="font-label-caps text-label-caps mt-1">AÑADIR</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-tertiary-fixed-variant opacity-80 hover:bg-secondary-fixed-dim/20 transition-all rounded-xl px-4 py-1 active:translate-y-0.5 duration-75" href="#">
+<span class="material-symbols-outlined">Person</span>
+<span class="font-label-caps text-label-caps mt-1">PERFIL</span>
+</a>
+</nav>
+<!-- Spacer for mobile nav -->
+<div class="h-20 md:h-0 w-full"></div>
+</body></html>
