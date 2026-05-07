@@ -54,7 +54,16 @@ export default function LoginPage() {
         setError(`Paso adicional requerido: ${nextStep.signInStep}`)
       }
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Código incorrecto')
+      const msg = err instanceof Error ? err.message : ''
+      if (msg.toLowerCase().includes('auth state') || msg.toLowerCase().includes('not authorized')) {
+        setStep('email')
+        setOtp('')
+        setError('La sesión ha expirado. Por favor, solicita un nuevo código.')
+      } else if (msg.toLowerCase().includes('code mismatch') || msg.toLowerCase().includes('invalid code')) {
+        setError('Código incorrecto. Comprueba el correo e inténtalo de nuevo.')
+      } else {
+        setError(msg || 'Código incorrecto')
+      }
     } finally {
       setLoading(false)
     }
