@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Noto_Serif, Work_Sans, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { AmplifyProvider } from './AmplifyProvider'
+import { AuthProvider } from '@/lib/auth-context'
 
 const notoSerif = Noto_Serif({
   subsets: ['latin'],
@@ -49,7 +50,9 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-on-surface font-body-md antialiased">
         <AmplifyProvider />
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )
