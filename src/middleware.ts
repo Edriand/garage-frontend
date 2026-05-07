@@ -1,21 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const AUTH_COOKIE = 'garage-auth-session'
-const PROTECTED_PREFIXES = ['/garage', '/cars']
+
+const PUBLIC_ROUTES = [
+  '/login',
+  '/register',
+  '/verify',
+  '/forgot-password',
+  '/reset-password',
+]
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const isAuthenticated = request.cookies.has(AUTH_COOKIE)
 
-  const isProtected = PROTECTED_PREFIXES.some(
-    prefix => pathname === prefix || pathname.startsWith(prefix + '/'),
+  const isPublic = PUBLIC_ROUTES.some(
+    r => pathname === r || pathname.startsWith(r + '/'),
   )
 
-  if (isProtected && !isAuthenticated) {
+  if (!isAuthenticated && !isPublic) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  if (pathname === '/login' && isAuthenticated) {
+  if (isAuthenticated && pathname === '/login') {
     return NextResponse.redirect(new URL('/garage', request.url))
   }
 
@@ -23,5 +30,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/garage/:path*', '/cars/:path*', '/login'],
+  // Run on all routes except Next.js internals and static assets
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }
