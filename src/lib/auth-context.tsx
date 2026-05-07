@@ -1,9 +1,9 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { getCurrentUser, signOut as amplifySignOut } from 'aws-amplify/auth'
 import { configureAmplify } from '@/lib/amplify'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface AuthUser {
   username: string
@@ -21,6 +21,18 @@ const AuthContext = createContext<AuthContextType | null>(null)
 const AUTH_COOKIE = 'garage-auth-session'
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30 // 30 days
 
+const PUBLIC_ROUTES = [
+  '/login',
+  '/register',
+  '/verify',
+  '/forgot-password',
+  '/reset-password',
+]
+
+function isPublicRoute(pathname: string) {
+  return PUBLIC_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
+}
+
 export function setAuthCookie() {
   const secure = location.protocol === 'https:' ? '; Secure' : ''
   document.cookie = `${AUTH_COOKIE}=1; path=/; SameSite=Strict; max-age=${COOKIE_MAX_AGE}${secure}`
@@ -34,6 +46,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const pathname = usePathname()
+  const pathnameRef = useRef(pathname)
+  pathnameRef.current = pathname
 
   useEffect(() => {
     checkSession()
@@ -45,9 +60,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const current = await getCurrentUser()
       setUser({ username: current.username, userId: current.userId })
       setAuthCookie()
+      if (pathnameRef.current === '/login') {
+        router.replace('/garage')
+      }
     } catch {
       setUser(null)
       clearAuthCookie()
+      if (!isPublicRoute(pathnameRef.current)) {
+        router.replace('/login')
+      }
     } finally {
       setIsLoading(false)
     }
