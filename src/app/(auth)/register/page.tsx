@@ -14,7 +14,6 @@ type Step = 'form' | 'otp'
 export default function RegisterPage() {
   const router = useRouter()
   const [step, setStep] = useState<Step>('form')
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [otp, setOtp] = useState('')
   const [error, setError] = useState('')
@@ -27,10 +26,8 @@ export default function RegisterPage() {
     try {
       await signUp({
         username: email,
-        // Random password the user never knows — auth is always via OTP
-        password: crypto.randomUUID(),
         options: {
-          userAttributes: { email, name },
+          userAttributes: { email },
           autoSignIn: true,
         },
       })
@@ -53,7 +50,6 @@ export default function RegisterPage() {
         setAuthCookie()
         router.push('/garage')
       } else {
-        // autoSignIn requires additional step — fall back to login
         router.push('/login')
       }
     } catch (err: unknown) {
@@ -98,14 +94,6 @@ export default function RegisterPage() {
       <CardBody>
         <h2 className="font-title-sm text-title-sm text-on-surface mb-6">Crear cuenta</h2>
         <form onSubmit={handleRegister} className="flex flex-col gap-4">
-          <Input
-            label="Nombre completo"
-            type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            required
-            autoComplete="name"
-          />
           <Input
             label="Correo electrónico"
             type="email"
