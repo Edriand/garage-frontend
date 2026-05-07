@@ -24,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       <input
         ref={ref}
         id={inputId}
+        suppressHydrationWarning
         className={[
           'bg-surface-container-low text-on-surface',
           'border border-outline-variant rounded px-3 py-2',

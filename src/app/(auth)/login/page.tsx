@@ -54,15 +54,13 @@ export default function LoginPage() {
         setError(`Paso adicional requerido: ${nextStep.signInStep}`)
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : ''
-      if (msg.toLowerCase().includes('auth state') || msg.toLowerCase().includes('not authorized')) {
+      const name = (err as { name?: string }).name ?? ''
+      if (name === 'SignInException') {
         setStep('email')
         setOtp('')
         setError('La sesión ha expirado. Por favor, solicita un nuevo código.')
-      } else if (msg.toLowerCase().includes('code mismatch') || msg.toLowerCase().includes('invalid code')) {
-        setError('Código incorrecto. Comprueba el correo e inténtalo de nuevo.')
       } else {
-        setError(msg || 'Código incorrecto')
+        setError('Código incorrecto o expirado. Usa "Cambiar correo" para pedir uno nuevo.')
       }
     } finally {
       setLoading(false)
@@ -82,15 +80,15 @@ export default function LoginPage() {
               label="Código"
               type="text"
               inputMode="numeric"
-              maxLength={6}
+              maxLength={8}
               value={otp}
               onChange={e => setOtp(e.target.value.replace(/\D/g, ''))}
               required
-              placeholder="000000"
+              placeholder="00000000"
               autoFocus
             />
             {error && <p className="font-body-sm text-body-sm text-error">{error}</p>}
-            <Button type="submit" disabled={loading || otp.length !== 6} className="w-full mt-2">
+            <Button type="submit" disabled={loading || otp.length < 6} className="w-full mt-2">
               {loading ? 'Verificando...' : 'Entrar al garaje'}
             </Button>
           </form>
