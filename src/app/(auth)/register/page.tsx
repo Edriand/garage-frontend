@@ -28,7 +28,7 @@ export default function RegisterPage() {
         username: email,
         options: {
           userAttributes: { email },
-          autoSignIn: true,
+          autoSignIn: { authFlowType: 'USER_AUTH' },
         },
       })
       setStep('otp')
