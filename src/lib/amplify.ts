@@ -4,8 +4,8 @@ let configured = false
 
 function requireEnv(name: string): string {
   const value = process.env[name]
-  if (!value && process.env.NODE_ENV === 'development') {
-    console.warn(`[Amplify] Missing env var: ${name}. Check your .env.local file.`)
+  if (!value) {
+    console.error(`[Amplify] Missing required env var: ${name}`)
   }
   return value ?? ''
 }

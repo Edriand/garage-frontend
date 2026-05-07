@@ -33,7 +33,12 @@ export default function RegisterPage() {
       })
       setStep('otp')
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Error al registrarse')
+      const msg = err instanceof Error ? err.message : 'Error al registrarse'
+      setError(
+        msg.toLowerCase().includes('userpool not configured')
+          ? 'Servicio de autenticación no disponible. Contacta con el administrador.'
+          : msg,
+      )
     } finally {
       setLoading(false)
     }
