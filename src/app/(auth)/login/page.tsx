@@ -21,10 +21,12 @@ export default function LoginPage() {
     setError('')
     setLoading(true)
     try {
-      const { isSignedIn } = await signIn({ username: email, password })
+      const { isSignedIn, nextStep } = await signIn({ username: email, password })
       if (isSignedIn) {
         setAuthCookie()
         router.push('/garage')
+      } else {
+        setError(`Paso adicional requerido: ${nextStep.signInStep}`)
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Credenciales incorrectas')

@@ -22,7 +22,8 @@ const AUTH_COOKIE = 'garage-auth-session'
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30 // 30 days
 
 export function setAuthCookie() {
-  document.cookie = `${AUTH_COOKIE}=1; path=/; SameSite=Strict; max-age=${COOKIE_MAX_AGE}`
+  const secure = location.protocol === 'https:' ? '; Secure' : ''
+  document.cookie = `${AUTH_COOKIE}=1; path=/; SameSite=Strict; max-age=${COOKIE_MAX_AGE}${secure}`
 }
 
 export function clearAuthCookie() {
