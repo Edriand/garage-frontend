@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
@@ -27,6 +27,13 @@ export default function NewCarPage() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [serverError, setServerError] = useState<string | null>(null)
 
+  // Revoke blob URL on change and on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (photoPreview) URL.revokeObjectURL(photoPreview)
+    }
+  }, [photoPreview])
+
   function validate() {
     const e: Record<string, string> = {}
     if (!brand.trim()) e.brand = 'La marca es obligatoria'
@@ -49,12 +56,7 @@ export default function NewCarPage() {
   function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null
     setPhotoFile(file)
-    if (file) {
-      const url = URL.createObjectURL(file)
-      setPhotoPreview(url)
-    } else {
-      setPhotoPreview(null)
-    }
+    setPhotoPreview(file ? URL.createObjectURL(file) : null)
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -195,7 +197,7 @@ export default function NewCarPage() {
                   <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
                   <button
                     type="button"
-                    onClick={() => { setPhotoFile(null); setPhotoPreview(null) }}
+                    onClick={() => { setPhotoFile(null); setPhotoPreview(null) }}  /* revoking handled by useEffect */
                     className="absolute top-2 right-2 bg-inverse-surface text-inverse-on-surface rounded p-1 text-[12px] font-label-caps text-label-caps"
                   >
                     QUITAR

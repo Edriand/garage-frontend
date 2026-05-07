@@ -38,25 +38,26 @@ function CarPhoto({ photoUrl, alt }: { photoUrl: string | null; alt: string }) {
 }
 
 export function CarCard({ car, onToggleVisibility }: CarCardProps) {
+  const href = `/cars/${car.carId}`
+
   return (
     <article className="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden shadow-[0_2px_0_0_rgba(107,112,92,0.15)] relative group flex flex-col">
       {/* Dashed top accent */}
       <div className="absolute top-0 left-0 w-full h-0 border-t-2 border-dashed border-outline-variant/50 z-10" />
 
-      {/* Photo */}
-      <Link href={`/cars/${car.carId}`} className="relative h-48 bg-surface-dim border-b border-outline-variant block flex-shrink-0 overflow-hidden">
-        <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
+      {/* Photo section — Link and button are siblings inside the div, never nested */}
+      <div className="relative h-48 bg-surface-dim border-b border-outline-variant flex-shrink-0 overflow-hidden">
+        <Link href={href} className="absolute inset-0 block" tabIndex={-1} aria-hidden>
+          <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
+        </Link>
 
-        {/* Visibility badge */}
         {onToggleVisibility && (
           <button
-            aria-label="Toggle visibility"
-            onClick={e => {
-              e.preventDefault()
-              onToggleVisibility(car.carId, !car.isPublic)
-            }}
+            type="button"
+            aria-label={car.isPublic ? 'Marcar como privado' : 'Marcar como público'}
+            onClick={() => onToggleVisibility(car.carId, !car.isPublic)}
             className={[
-              'absolute top-3 right-3 rounded p-1.5 shadow-sm',
+              'absolute top-3 right-3 z-10 rounded p-1.5 shadow-sm',
               'active:translate-y-px transition-transform flex items-center justify-center',
               car.isPublic
                 ? 'bg-surface border border-outline-variant text-on-surface hover:bg-surface-bright'
@@ -68,17 +69,16 @@ export function CarCard({ car, onToggleVisibility }: CarCardProps) {
             </span>
           </button>
         )}
-      </Link>
+      </div>
 
       {/* Content */}
-      <Link href={`/cars/${car.carId}`} className="p-4 flex-1 flex flex-col">
+      <Link href={href} className="p-4 flex-1 flex flex-col">
         <div className="flex justify-between items-start mb-2">
           <div className="min-w-0 flex-1">
             <h2 className="font-title-sm text-title-sm text-on-surface font-bold truncate">
               {car.year} {car.brand} {car.model}
             </h2>
           </div>
-          {/* Like count */}
           <div className="flex items-center gap-1 text-secondary ml-2 flex-shrink-0">
             <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
               favorite

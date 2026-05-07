@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useRef, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
@@ -16,6 +16,20 @@ export default function GaragePage() {
   const [error, setError] = useState<string | null>(null)
   const [brandFilter, setBrandFilter] = useState('')
   const [togglingGarage, setTogglingGarage] = useState(false)
+  const [toggleError, setToggleError] = useState<string | null>(null)
+  const toggleErrorTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  function showToggleError(msg: string) {
+    if (toggleErrorTimer.current) clearTimeout(toggleErrorTimer.current)
+    setToggleError(msg)
+    toggleErrorTimer.current = setTimeout(() => setToggleError(null), 4000)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (toggleErrorTimer.current) clearTimeout(toggleErrorTimer.current)
+    }
+  }, [])
 
   useEffect(() => {
     async function load() {
@@ -33,24 +47,30 @@ export default function GaragePage() {
   }, [])
 
   async function handleToggleGarage(isPublic: boolean) {
-    if (togglingGarage) return
+    if (togglingGarage || garage?.isPublic === isPublic) return
+    const previous = garage
     setTogglingGarage(true)
+    setGarage(prev => (prev ? { ...prev, isPublic } : prev)) // optimistic
     try {
       const updated = await updateGarage({ isPublic })
       setGarage(updated)
     } catch {
-      // revert on error — no-op, state unchanged
+      setGarage(previous) // revert
+      showToggleError('No se pudo cambiar la visibilidad del garaje. Inténtalo de nuevo.')
     } finally {
       setTogglingGarage(false)
     }
   }
 
   async function handleToggleCarVisibility(carId: string, isPublic: boolean) {
+    const previous = cars
+    setCars(prev => prev.map(c => (c.carId === carId ? { ...c, isPublic } : c))) // optimistic
     try {
       const updated = await updateCar(carId, { isPublic })
       setCars(prev => prev.map(c => (c.carId === carId ? updated : c)))
     } catch {
-      // silent fail
+      setCars(previous) // revert
+      showToggleError('No se pudo cambiar la visibilidad del vehículo. Inténtalo de nuevo.')
     }
   }
 
@@ -72,6 +92,17 @@ export default function GaragePage() {
   return (
     <>
       <Header activePath="/garage" />
+
+      {/* Toggle error toast */}
+      {toggleError && (
+        <div
+          role="alert"
+          className="fixed top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-error-container border border-error/40 text-on-error-container font-body-sm text-body-sm px-4 py-3 rounded shadow-lg max-w-sm text-center"
+        >
+          <span className="material-symbols-outlined text-[18px] flex-shrink-0">error</span>
+          {toggleError}
+        </div>
+      )}
 
       <main className="max-w-[1200px] mx-auto px-5 py-10 pb-24 md:pb-10 flex flex-col md:flex-row gap-10">
 

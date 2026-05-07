@@ -33,6 +33,13 @@ export default function EditCarPage() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [serverError, setServerError] = useState<string | null>(null)
 
+  // Revoke blob URL on change and on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (photoPreview) URL.revokeObjectURL(photoPreview)
+    }
+  }, [photoPreview])
+
   useEffect(() => {
     getCar(carId)
       .then(data => {
@@ -71,11 +78,7 @@ export default function EditCarPage() {
   function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null
     setPhotoFile(file)
-    if (file) {
-      setPhotoPreview(URL.createObjectURL(file))
-    } else {
-      setPhotoPreview(null)
-    }
+    setPhotoPreview(file ? URL.createObjectURL(file) : null)
   }
 
   async function handleSubmit(e: React.FormEvent) {
