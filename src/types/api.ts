@@ -41,24 +41,40 @@ export interface CarEvent {
   eventId: string
   carId: string
   type: EventType
-  title: string
-  description?: string
-  km?: number
-  cost?: number
-  currency?: string
+  description: string
+  amount: number
+  km: number | null
   date: string
-  receiptUrl?: string
-  imageUrls?: string[]
+  photos: string[]
+  documents: string[]
   createdAt: string
   updatedAt: string
 }
 
+export interface EventsPage {
+  events: CarEvent[]
+  nextToken?: string
+}
+
+export interface CreateEventBody {
+  date: string
+  type: EventType
+  description: string
+  amount: number
+  km?: number
+  photoKeys?: string[]
+  docKeys?: string[]
+}
+
+export type UpdateEventBody = Partial<CreateEventBody>
+
 /* ── Car Summary ───────────────────────────────────────────────────────── */
 export interface CarSummary {
-  carId: string
   totalKm: number
   totalCost: number
-  byType: Record<EventType, { count: number; totalCost: number }>
+  eventCount: number
+  byType: Record<EventType, number>
+  lastKmReading: number | null
 }
 
 /* ── Upload / Download ─────────────────────────────────────────────────── */
