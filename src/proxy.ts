@@ -10,7 +10,7 @@ const PUBLIC_ROUTES = [
   '/reset-password',
 ]
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const isAuthenticated = request.cookies.has(AUTH_COOKIE)
 
