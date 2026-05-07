@@ -1,30 +1,38 @@
-/* ── Garage ────────────────────────────────────────────────────────────── */
-export interface Garage {
-  garageId: string
-  userId: string
-  name: string
-  description?: string
+/* ── Garage Settings ────────────────────────────────────────────────── */
+export interface GarageSettings {
   isPublic: boolean
-  createdAt: string
-  updatedAt: string
+  updatedAt?: string
 }
 
 /* ── Car ───────────────────────────────────────────────────────────────── */
 export interface Car {
   carId: string
-  garageId: string
-  make: string
+  userId: string
+  brand: string
   model: string
   year: number
-  vin?: string
-  licensePlate?: string
-  color?: string
+  registrationYear: number
+  totalKm: number
+  totalInvested: number
+  photoUrl: string | null
   isPublic: boolean
-  coverImageUrl?: string
-  currentKm?: number
+  likeCount: number
   createdAt: string
   updatedAt: string
 }
+
+export interface CreateCarBody {
+  brand: string
+  model: string
+  year: number
+  registrationYear: number
+  totalKm: number
+  totalInvested: number
+  photoKey?: string
+  isPublic?: boolean
+}
+
+export type UpdateCarBody = Partial<CreateCarBody>
 
 /* ── Event ─────────────────────────────────────────────────────────────── */
 export type EventType = 'mechanic' | 'fuel' | 'wash' | 'insurance' | 'other'
@@ -53,9 +61,22 @@ export interface CarSummary {
   byType: Record<EventType, { count: number; totalCost: number }>
 }
 
-/* ── Pagination ────────────────────────────────────────────────────────── */
-export interface PaginatedResponse<T> {
-  items: T[]
-  nextToken?: string
-  count: number
+/* ── Upload / Download ─────────────────────────────────────────────────── */
+export interface UploadUrlBody {
+  carId: string
+  eventId?: string
+  filename: string
+  contentType: string
+  category: 'photo' | 'document'
+}
+
+export interface UploadUrlResponse {
+  uploadUrl: string
+  fileKey: string
+  expiresIn: number
+}
+
+export interface DownloadUrlResponse {
+  downloadUrl: string
+  expiresIn: number
 }
