@@ -17,6 +17,7 @@ export interface Car {
   photoUrl: string | null
   isPublic: boolean
   likeCount: number
+  isLiked: boolean
   createdAt: string
   updatedAt: string
 }

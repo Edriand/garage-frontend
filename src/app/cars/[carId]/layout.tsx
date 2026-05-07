@@ -49,6 +49,7 @@ export default function CarLayout({ children }: { children: React.ReactNode }) {
       .then(data => {
         setCar(data)
         setLikeCount(data.likeCount)
+        setLiked(data.isLiked)
       })
       .catch(() => router.push('/garage'))
       .finally(() => setLoading(false))
