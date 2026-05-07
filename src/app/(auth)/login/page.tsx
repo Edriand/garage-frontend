@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn } from 'aws-amplify/auth'
+import { signIn, confirmSignIn } from 'aws-amplify/auth'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Input } from '@/components/ui/Input'
@@ -9,19 +9,39 @@ import { Button } from '@/components/ui/Button'
 import { Card, CardBody } from '@/components/ui/Card'
 import { setAuthCookie } from '@/lib/auth-context'
 
+type Step = 'email' | 'otp'
+
 export default function LoginPage() {
   const router = useRouter()
+  const [step, setStep] = useState<Step>('email')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [otp, setOtp] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleEmailSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     setLoading(true)
     try {
-      const { isSignedIn, nextStep } = await signIn({ username: email, password })
+      await signIn({
+        username: email,
+        options: { authFlowType: 'USER_AUTH', preferredChallenge: 'EMAIL_OTP' },
+      })
+      setStep('otp')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Error al enviar el código')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleOtpSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    try {
+      const { isSignedIn, nextStep } = await confirmSignIn({ challengeResponse: otp })
       if (isSignedIn) {
         setAuthCookie()
         router.push('/garage')
@@ -29,17 +49,56 @@ export default function LoginPage() {
         setError(`Paso adicional requerido: ${nextStep.signInStep}`)
       }
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Credenciales incorrectas')
+      setError(err instanceof Error ? err.message : 'Código incorrecto')
     } finally {
       setLoading(false)
     }
+  }
+
+  if (step === 'otp') {
+    return (
+      <Card>
+        <CardBody>
+          <h2 className="font-title-sm text-title-sm text-on-surface mb-2">Código de acceso</h2>
+          <p className="font-body-sm text-body-sm text-on-surface-variant mb-6">
+            Hemos enviado un código a <strong>{email}</strong>
+          </p>
+          <form onSubmit={handleOtpSubmit} className="flex flex-col gap-4">
+            <Input
+              label="Código"
+              type="text"
+              inputMode="numeric"
+              maxLength={6}
+              value={otp}
+              onChange={e => setOtp(e.target.value.replace(/\D/g, ''))}
+              required
+              placeholder="000000"
+              autoFocus
+            />
+            {error && <p className="font-body-sm text-body-sm text-error">{error}</p>}
+            <Button type="submit" disabled={loading || otp.length !== 6} className="w-full mt-2">
+              {loading ? 'Verificando...' : 'Entrar al garaje'}
+            </Button>
+          </form>
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => { setStep('email'); setOtp(''); setError('') }}
+              className="font-body-sm text-body-sm text-primary hover:underline cursor-pointer"
+            >
+              Cambiar correo
+            </button>
+          </div>
+        </CardBody>
+      </Card>
+    )
   }
 
   return (
     <Card>
       <CardBody>
         <h2 className="font-title-sm text-title-sm text-on-surface mb-6">Iniciar sesión</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleEmailSubmit} className="flex flex-col gap-4">
           <Input
             label="Correo electrónico"
             type="email"
@@ -48,33 +107,17 @@ export default function LoginPage() {
             required
             autoComplete="email"
           />
-          <Input
-            label="Contraseña"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-          />
           {error && <p className="font-body-sm text-body-sm text-error">{error}</p>}
           <Button type="submit" disabled={loading} className="w-full mt-2">
-            {loading ? 'Entrando...' : 'Entrar al garaje'}
+            {loading ? 'Enviando código...' : 'Continuar'}
           </Button>
         </form>
-        <div className="mt-5 flex flex-col gap-2 text-center">
-          <Link
-            href="/forgot-password"
-            className="font-body-sm text-body-sm text-primary hover:underline"
-          >
-            ¿Olvidaste tu contraseña?
+        <p className="mt-5 text-center font-body-sm text-body-sm text-on-surface-variant">
+          ¿Sin cuenta aún?{' '}
+          <Link href="/register" className="text-primary hover:underline">
+            Regístrate
           </Link>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
-            ¿Sin cuenta aún?{' '}
-            <Link href="/register" className="text-primary hover:underline">
-              Regístrate
-            </Link>
-          </p>
-        </div>
+        </p>
       </CardBody>
     </Card>
   )
