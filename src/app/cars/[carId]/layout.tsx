@@ -38,6 +38,7 @@ export default function CarLayout({ children }: { children: React.ReactNode }) {
   const [car, setCar] = useState<Car | null>(null)
   const [loading, setLoading] = useState(true)
   const [likeCount, setLikeCount] = useState(0)
+  const [liked, setLiked] = useState(false)
   const [liking, setLiking] = useState(false)
 
   const isResumen = pathname === `/cars/${carId}`
@@ -59,6 +60,7 @@ export default function CarLayout({ children }: { children: React.ReactNode }) {
     try {
       const result = await likeCar(carId)
       setLikeCount(result.likeCount)
+      setLiked(true)
     } catch {
       // ignore
     } finally {
@@ -72,6 +74,7 @@ export default function CarLayout({ children }: { children: React.ReactNode }) {
     try {
       const result = await unlikeCar(carId)
       setLikeCount(result.likeCount)
+      setLiked(false)
     } catch {
       // ignore
     } finally {
@@ -120,16 +123,19 @@ export default function CarLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="flex flex-col items-end gap-2 shrink-0">
-              {/* Like button */}
+              {/* Like toggle button */}
               <button
                 type="button"
-                onClick={handleLike}
+                onClick={liked ? handleUnlike : handleLike}
                 disabled={liking}
                 className="flex items-center gap-1.5 bg-inverse-surface/80 text-inverse-on-surface font-label-caps text-[11px] px-3 py-1.5 rounded border border-white/10 backdrop-blur-sm hover:bg-inverse-surface transition-colors disabled:opacity-50"
               >
                 <span
-                  className="material-symbols-outlined text-[16px] text-secondary-container"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
+                  className="material-symbols-outlined text-[16px]"
+                  style={{
+                    fontVariationSettings: liked ? "'FILL' 1" : "'FILL' 0",
+                    color: liked ? 'var(--color-secondary-container)' : 'currentColor',
+                  }}
                 >
                   favorite
                 </span>

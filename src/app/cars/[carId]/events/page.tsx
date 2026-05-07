@@ -16,6 +16,8 @@ const FILTERS: { key: Filter; label: string; icon: string }[] = [
   { key: 'mechanic', label: 'TALLER', icon: 'build' },
   { key: 'fuel', label: 'REPOSTAJE', icon: 'local_gas_station' },
   { key: 'wash', label: 'LAVADO', icon: 'water_drop' },
+  { key: 'insurance', label: 'SEGURO', icon: 'shield' },
+  { key: 'other', label: 'OTRO', icon: 'more_horiz' },
 ]
 
 function formatEur(n: number) {
@@ -60,6 +62,7 @@ export default function EventsPage() {
   const [nextToken, setNextToken] = useState<string | undefined>()
   const [loading, setLoading] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
+  const [loadMoreError, setLoadMoreError] = useState<string | null>(null)
   const [filter, setFilter] = useState<Filter>('all')
   const [error, setError] = useState<string | null>(null)
 
@@ -82,12 +85,13 @@ export default function EventsPage() {
   async function loadMore() {
     if (!nextToken) return
     setLoadingMore(true)
+    setLoadMoreError(null)
     try {
       const page = await getEvents(carId, nextToken)
       setEvents(prev => [...prev, ...page.events])
       setNextToken(page.nextToken)
     } catch {
-      // ignore
+      setLoadMoreError('No se pudieron cargar más registros. Inténtalo de nuevo.')
     } finally {
       setLoadingMore(false)
     }
@@ -158,7 +162,10 @@ export default function EventsPage() {
 
       {/* Pagination */}
       {nextToken && !loading && (
-        <div className="px-5">
+        <div className="px-5 flex flex-col gap-2">
+          {loadMoreError && (
+            <p className="font-body-sm text-body-sm text-error text-center">{loadMoreError}</p>
+          )}
           <Button variant="secondary" onClick={loadMore} disabled={loadingMore} className="w-full">
             {loadingMore ? <Spinner /> : 'CARGAR REGISTROS ANTERIORES'}
           </Button>

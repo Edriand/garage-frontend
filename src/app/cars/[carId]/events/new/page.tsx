@@ -1,12 +1,29 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { Spinner } from '@/components/ui/Spinner'
-import { createEvent, getPresignedUploadUrl } from '@/lib/api'
+import { createEvent } from '@/lib/api'
+import { uploadFiles } from '@/lib/upload'
 import type { EventType } from '@/types/api'
+
+function PhotoPreview({ file, onRemove }: { file: File; onRemove: () => void }) {
+  const [src, setSrc] = useState<string | null>(null)
+  useEffect(() => {
+    const url = URL.createObjectURL(file)
+    setSrc(url)
+    return () => URL.revokeObjectURL(url)
+  }, [file])
+  if (!src) return null
+  return (
+    <div className="relative w-16 h-16 rounded overflow-hidden border border-outline-variant flex-shrink-0">
+      <img src={src} alt="" className="w-full h-full object-cover" />
+      <button type="button" onClick={onRemove} className="absolute top-0 right-0 bg-inverse-surface/80 text-inverse-on-surface rounded-bl px-1 text-[10px]">✕</button>
+    </div>
+  )
+}
 
 const EVENT_TYPES: { value: EventType; label: string; icon: string }[] = [
   { value: 'mechanic', label: 'Taller / Mecánica', icon: 'build' },
@@ -15,21 +32,6 @@ const EVENT_TYPES: { value: EventType; label: string; icon: string }[] = [
   { value: 'insurance', label: 'Seguro', icon: 'shield' },
   { value: 'other', label: 'Otro', icon: 'more_horiz' },
 ]
-
-async function uploadFiles(files: File[], carId: string, category: 'photo' | 'document'): Promise<string[]> {
-  const keys: string[] = []
-  for (const file of files) {
-    const { uploadUrl, fileKey } = await getPresignedUploadUrl({
-      carId,
-      filename: file.name,
-      contentType: file.type,
-      category,
-    })
-    await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } })
-    keys.push(fileKey)
-  }
-  return keys
-}
 
 export default function NewEventPage() {
   const { carId } = useParams<{ carId: string }>()
@@ -176,16 +178,7 @@ export default function NewEventPage() {
           {photoFiles.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {photoFiles.map((f, i) => (
-                <div key={i} className="relative w-16 h-16 rounded overflow-hidden border border-outline-variant">
-                  <img src={URL.createObjectURL(f)} alt="" className="w-full h-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => setPhotoFiles(prev => prev.filter((_, j) => j !== i))}
-                    className="absolute top-0 right-0 bg-inverse-surface/80 text-inverse-on-surface rounded-bl px-1 text-[10px]"
-                  >
-                    ✕
-                  </button>
-                </div>
+                <PhotoPreview key={i} file={f} onRemove={() => setPhotoFiles(prev => prev.filter((_, j) => j !== i))} />
               ))}
             </div>
           )}
