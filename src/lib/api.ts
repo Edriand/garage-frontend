@@ -4,6 +4,11 @@ import type {
   CreateCarBody,
   UpdateCarBody,
   GarageSettings,
+  CarSummary,
+  CarEvent,
+  EventsPage,
+  CreateEventBody,
+  UpdateEventBody,
   UploadUrlBody,
   UploadUrlResponse,
   DownloadUrlResponse,
@@ -75,6 +80,45 @@ export async function getGarage(): Promise<GarageSettings> {
 
 export async function updateGarage(body: { isPublic: boolean }): Promise<GarageSettings> {
   return request<GarageSettings>('/garage', { method: 'PUT', body: JSON.stringify(body) })
+}
+
+export async function getCarSummary(carId: string): Promise<CarSummary> {
+  return request<CarSummary>(`/cars/${carId}/summary`)
+}
+
+export async function getEvents(carId: string, nextToken?: string): Promise<EventsPage> {
+  const qs = nextToken ? `?nextToken=${encodeURIComponent(nextToken)}` : ''
+  return request<EventsPage>(`/cars/${carId}/events${qs}`)
+}
+
+export async function getEvent(carId: string, eventId: string): Promise<CarEvent> {
+  return request<CarEvent>(`/cars/${carId}/events/${eventId}`)
+}
+
+export async function createEvent(carId: string, body: CreateEventBody): Promise<CarEvent> {
+  return request<CarEvent>(`/cars/${carId}/events`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function updateEvent(carId: string, eventId: string, body: UpdateEventBody): Promise<CarEvent> {
+  return request<CarEvent>(`/cars/${carId}/events/${eventId}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function deleteEvent(carId: string, eventId: string): Promise<void> {
+  await request<void>(`/cars/${carId}/events/${eventId}`, { method: 'DELETE' })
+}
+
+export async function likeCar(carId: string): Promise<{ likeCount: number }> {
+  return request<{ likeCount: number }>(`/cars/${carId}/like`, { method: 'POST' })
+}
+
+export async function unlikeCar(carId: string): Promise<{ likeCount: number }> {
+  return request<{ likeCount: number }>(`/cars/${carId}/like`, { method: 'DELETE' })
 }
 
 export async function getPresignedUploadUrl(body: UploadUrlBody): Promise<UploadUrlResponse> {
