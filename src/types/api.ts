@@ -36,7 +36,7 @@ export interface CreateCarBody {
 export type UpdateCarBody = Partial<CreateCarBody>
 
 /* ── Event ─────────────────────────────────────────────────────────────── */
-export type EventType = 'mechanic' | 'fuel' | 'wash' | 'insurance' | 'other'
+export type EventType = 'mechanic' | 'fuel' | 'wash' | 'insurance' | 'modification' | 'purchase' | 'other'
 
 export interface CarEvent {
   eventId: string

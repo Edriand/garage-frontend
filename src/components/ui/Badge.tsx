@@ -1,12 +1,14 @@
 import { HTMLAttributes } from 'react'
 
-type EventType = 'mechanic' | 'fuel' | 'wash' | 'insurance' | 'other'
+type EventType = 'mechanic' | 'fuel' | 'wash' | 'insurance' | 'modification' | 'purchase' | 'other'
 
 const eventColors: Record<EventType, string> = {
   mechanic: 'bg-primary-container text-on-primary-container',
   fuel: 'bg-secondary-container text-on-secondary-container',
   wash: 'bg-surface-container-high text-on-surface',
   insurance: 'bg-outline-variant text-on-surface',
+  modification: 'bg-tertiary-container text-on-tertiary-container',
+  purchase: 'bg-inverse-surface text-inverse-on-surface',
   other: 'bg-surface-dim text-on-surface',
 }
 
@@ -15,6 +17,8 @@ const eventLabels: Record<EventType, string> = {
   fuel: 'REPOSTAJE',
   wash: 'LAVADO',
   insurance: 'SEGURO',
+  modification: 'MODIFICACIÓN',
+  purchase: 'COMPRA',
   other: 'OTRO',
 }
 

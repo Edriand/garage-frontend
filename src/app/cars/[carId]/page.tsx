@@ -27,14 +27,16 @@ function OdometerDisplay({ km }: { km: number }) {
 }
 
 const TYPE_LABELS: Record<EventType, string> = {
+  purchase: 'COMPRA',
   mechanic: 'MECÁNICA',
+  modification: 'MODIFICACIÓN',
   fuel: 'GASOLINA',
   wash: 'LAVADOS',
   insurance: 'SEGURO',
   other: 'OTROS',
 }
 
-const ORDERED_TYPES: EventType[] = ['mechanic', 'fuel', 'wash', 'insurance', 'other']
+const ORDERED_TYPES: EventType[] = ['purchase', 'mechanic', 'modification', 'fuel', 'wash', 'insurance', 'other']
 
 function formatEur(n: number) {
   return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(n)

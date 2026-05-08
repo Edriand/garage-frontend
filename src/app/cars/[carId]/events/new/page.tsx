@@ -26,7 +26,9 @@ function PhotoPreview({ file, onRemove }: { file: File; onRemove: () => void }) 
 }
 
 const EVENT_TYPES: { value: EventType; label: string; icon: string }[] = [
+  { value: 'purchase', label: 'Compra del vehículo', icon: 'shopping_cart' },
   { value: 'mechanic', label: 'Taller / Mecánica', icon: 'build' },
+  { value: 'modification', label: 'Modificación / Mejora', icon: 'tune' },
   { value: 'fuel', label: 'Repostaje', icon: 'local_gas_station' },
   { value: 'wash', label: 'Lavado', icon: 'water_drop' },
   { value: 'insurance', label: 'Seguro', icon: 'shield' },
@@ -100,7 +102,11 @@ export default function NewEventPage() {
 
       router.push(`/cars/${carId}/events`)
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'Error al crear el registro')
+      if (err instanceof Error && (err as Error & { status?: number }).status === 409) {
+        setServerError('Este coche ya tiene un evento de compra. Solo se permite uno por vehículo.')
+      } else {
+        setServerError(err instanceof Error ? err.message : 'Error al crear el registro')
+      }
     } finally {
       setSubmitting(false)
     }
