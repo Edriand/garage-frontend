@@ -26,7 +26,9 @@ function PhotoPreview({ file, onRemove }: { file: File; onRemove: () => void }) 
 }
 
 const EVENT_TYPES: { value: EventType; label: string }[] = [
+  { value: 'purchase', label: 'Compra del vehículo' },
   { value: 'mechanic', label: 'Taller / Mecánica' },
+  { value: 'modification', label: 'Modificación / Mejora' },
   { value: 'fuel', label: 'Repostaje' },
   { value: 'wash', label: 'Lavado' },
   { value: 'insurance', label: 'Seguro' },
@@ -169,10 +171,16 @@ export default function EditEventPage() {
             <select
               value={type}
               onChange={e => setType(e.target.value as EventType)}
-              className="w-full rounded border border-outline-variant bg-surface-container-low px-3 py-2 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+              disabled={event?.type === 'purchase'}
+              className="w-full rounded border border-outline-variant bg-surface-container-low px-3 py-2 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {EVENT_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
             </select>
+            {event?.type === 'purchase' && (
+              <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                El tipo de un evento de compra no puede modificarse.
+              </span>
+            )}
           </div>
         </div>
 
