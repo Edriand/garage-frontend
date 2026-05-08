@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { fetchUserAttributes, updateUserAttributes, updatePassword } from 'aws-amplify/auth'
+import { fetchUserAttributes, updateUserAttributes } from 'aws-amplify/auth'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Input } from '@/components/ui/Input'
@@ -32,13 +32,6 @@ export default function ProfilePage() {
   const [nameSuccess, setNameSuccess] = useState(false)
   const [nameError, setNameError] = useState('')
 
-  const [currentPassword, setCurrentPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [passwordLoading, setPasswordLoading] = useState(false)
-  const [passwordSuccess, setPasswordSuccess] = useState(false)
-  const [passwordError, setPasswordError] = useState('')
-
   const [signingOut, setSigningOut] = useState(false)
 
   useEffect(() => {
@@ -66,42 +59,6 @@ export default function ProfilePage() {
       setNameError(err instanceof Error ? err.message : 'Error al actualizar el nombre')
     } finally {
       setNameLoading(false)
-    }
-  }
-
-  function validatePassword(): string | null {
-    if (newPassword === currentPassword) return 'La nueva contraseña debe ser diferente a la actual'
-    if (newPassword !== confirmPassword) return 'Las contraseñas no coinciden'
-    if (newPassword.length < 8) return 'Mínimo 8 caracteres'
-    if (!/[A-Z]/.test(newPassword)) return 'Debe incluir al menos una mayúscula'
-    if (!/[a-z]/.test(newPassword)) return 'Debe incluir al menos una minúscula'
-    if (!/[0-9]/.test(newPassword)) return 'Debe incluir al menos un número'
-    return null
-  }
-
-  async function handlePasswordChange(e: React.FormEvent) {
-    e.preventDefault()
-    setPasswordError('')
-    setPasswordSuccess(false)
-    const validationError = validatePassword()
-    if (validationError) { setPasswordError(validationError); return }
-    setPasswordLoading(true)
-    try {
-      await updatePassword({ oldPassword: currentPassword, newPassword })
-      setCurrentPassword('')
-      setNewPassword('')
-      setConfirmPassword('')
-      setPasswordSuccess(true)
-      setTimeout(() => setPasswordSuccess(false), 4000)
-    } catch (err: unknown) {
-      const errName = (err as { name?: string }).name ?? ''
-      if (errName === 'NotAuthorizedException') {
-        setPasswordError('Contraseña actual incorrecta')
-      } else {
-        setPasswordError(err instanceof Error ? err.message : 'Error al cambiar la contraseña')
-      }
-    } finally {
-      setPasswordLoading(false)
     }
   }
 
@@ -185,53 +142,6 @@ export default function ProfilePage() {
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
                 El correo es tu identificador de acceso y no puede modificarse.
               </p>
-            </SectionCard>
-
-            {/* ── Contraseña ────────────────────────────────────────── */}
-            <SectionCard title="Cambiar contraseña">
-              <form onSubmit={handlePasswordChange} className="flex flex-col gap-4">
-                <Input
-                  label="Contraseña actual"
-                  type="password"
-                  value={currentPassword}
-                  onChange={e => setCurrentPassword(e.target.value)}
-                  required
-                  autoComplete="current-password"
-                />
-                <Input
-                  label="Nueva contraseña"
-                  type="password"
-                  value={newPassword}
-                  onChange={e => setNewPassword(e.target.value)}
-                  required
-                  autoComplete="new-password"
-                />
-                <Input
-                  label="Confirmar nueva contraseña"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={e => setConfirmPassword(e.target.value)}
-                  required
-                  autoComplete="new-password"
-                />
-                {passwordError && (
-                  <p className="font-body-sm text-body-sm text-error">{passwordError}</p>
-                )}
-                {passwordSuccess && (
-                  <p className="font-body-sm text-body-sm text-primary flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[14px]">check_circle</span>
-                    Contraseña actualizada correctamente
-                  </p>
-                )}
-                <Button
-                  type="submit"
-                  disabled={passwordLoading || !currentPassword || !newPassword || !confirmPassword}
-                  className="self-start"
-                >
-                  {passwordLoading && <Spinner size={14} />}
-                  ACTUALIZAR CONTRASEÑA
-                </Button>
-              </form>
             </SectionCard>
 
             {/* ── Sesión ────────────────────────────────────────────── */}
