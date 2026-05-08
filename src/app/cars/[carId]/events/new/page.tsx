@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { Spinner } from '@/components/ui/Spinner'
-import { createEvent } from '@/lib/api'
+import { createEvent, getCarSummary } from '@/lib/api'
 import { uploadFiles } from '@/lib/upload'
 import type { EventType } from '@/types/api'
 
@@ -46,9 +46,16 @@ export default function NewEventPage() {
   const [km, setKm] = useState('')
   const [photoFiles, setPhotoFiles] = useState<File[]>([])
   const [docFiles, setDocFiles] = useState<File[]>([])
+  const [hasPurchase, setHasPurchase] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [serverError, setServerError] = useState<string | null>(null)
+
+  useEffect(() => {
+    getCarSummary(carId)
+      .then(s => setHasPurchase(s.purchaseCost > 0))
+      .catch(() => {})
+  }, [carId])
 
   function validate() {
     const e: Record<string, string> = {}
@@ -143,7 +150,7 @@ export default function NewEventPage() {
               onChange={e => setType(e.target.value as EventType)}
               className="w-full rounded border border-outline-variant bg-surface-container-low px-3 py-2 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              {EVENT_TYPES.map(t => (
+              {EVENT_TYPES.filter(t => !(t.value === 'purchase' && hasPurchase)).map(t => (
                 <option key={t.value} value={t.value}>{t.label}</option>
               ))}
             </select>
