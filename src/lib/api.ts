@@ -45,8 +45,13 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   })
 
   if (!res.ok) {
-    const body = await res.text().catch(() => res.statusText)
-    throw new ApiError(res.status, body)
+    const text = await res.text().catch(() => res.statusText)
+    let message = text
+    try {
+      const parsed = JSON.parse(text)
+      if (parsed.message) message = parsed.message
+    } catch {}
+    throw new ApiError(res.status, message)
   }
 
   if (res.status === 204) return undefined as unknown as T

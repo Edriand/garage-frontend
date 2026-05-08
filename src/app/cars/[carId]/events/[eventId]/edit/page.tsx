@@ -81,8 +81,8 @@ export default function EditEventPage() {
     const a = parseFloat(amount)
     if (amount === '' || isNaN(a) || a < 0) e.amount = 'El importe debe ser ≥ 0'
     if (km !== '') {
-      const k = parseFloat(km)
-      if (isNaN(k) || k < 0) e.km = 'Los kilómetros deben ser ≥ 0'
+      const k = Number(km)
+      if (!Number.isInteger(k) || k < 0) e.km = 'Los kilómetros deben ser un entero ≥ 0'
     }
     return e
   }
@@ -117,14 +117,19 @@ export default function EditEventPage() {
         type,
         description: description.trim(),
         amount: parseFloat(amount),
-        ...(km !== '' ? { km: parseFloat(km) } : { km: undefined }),
+        ...(km !== '' ? { km: parseInt(km, 10) } : {}),
         photoKeys: [...keptPhotos, ...newPhotoKeys],
         docKeys: [...keptDocs, ...newDocKeys],
       })
 
       router.push(`/cars/${carId}/events`)
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'Error al guardar el registro')
+      const apiErr = err as Error & { status?: number }
+      if (apiErr.status === 400 && apiErr.message?.includes('km must be greater')) {
+        setErrors(prev => ({ ...prev, km: 'El km debe ser mayor que el máximo registrado en este coche' }))
+      } else {
+        setServerError(apiErr.message ?? 'Error al guardar el registro')
+      }
     } finally {
       setSubmitting(false)
     }
@@ -197,7 +202,7 @@ export default function EditEventPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input label="Importe (€) *" type="number" min={0} step="0.01" value={amount} onChange={e => setAmount(e.target.value)} error={errors.amount} />
-          <Input label="Kilómetros (opcional)" type="number" min={0} value={km} onChange={e => setKm(e.target.value)} error={errors.km} />
+          <Input label="Kilómetros" type="number" min={0} step={1} value={km} onChange={e => setKm(e.target.value)} error={errors.km} />
         </div>
 
         {/* Existing photos */}

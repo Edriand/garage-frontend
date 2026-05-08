@@ -12,8 +12,6 @@ export interface Car {
   model: string
   year: number
   registrationYear: number
-  totalKm: number
-  totalInvested: number
   photoUrl: string | null
   isPublic: boolean
   likeCount: number
@@ -27,8 +25,6 @@ export interface CreateCarBody {
   model: string
   year: number
   registrationYear: number
-  totalKm: number
-  totalInvested: number
   photoKey?: string
   isPublic?: boolean
 }
@@ -62,7 +58,7 @@ export interface CreateEventBody {
   type: EventType
   description: string
   amount: number
-  km?: number
+  km: number
   photoKeys?: string[]
   docKeys?: string[]
 }
@@ -70,12 +66,15 @@ export interface CreateEventBody {
 export type UpdateEventBody = Partial<CreateEventBody>
 
 /* ── Car Summary ───────────────────────────────────────────────────────── */
+export type RunningCostType = Exclude<EventType, 'purchase'>
+
 export interface CarSummary {
-  totalKm: number
+  currentKm: number | null
+  purchaseCost: number
+  totalRunningCost: number
   totalCost: number
   eventCount: number
-  byType: Record<EventType, number>
-  lastKmReading: number | null
+  byType: Record<RunningCostType, number>
 }
 
 /* ── Upload / Download ─────────────────────────────────────────────────── */

@@ -84,11 +84,6 @@ export default function GaragePage() {
     [cars, brandFilter],
   )
 
-  const totalInvested = useMemo(
-    () => cars.reduce((sum, c) => sum + (c.totalInvested ?? 0), 0),
-    [cars],
-  )
-
   return (
     <>
       <Header activePath="/garage" />
@@ -271,11 +266,9 @@ export default function GaragePage() {
                 </div>
               </div>
               <div className="bg-surface border border-outline-variant p-2 flex justify-between items-center shadow-inner rounded-sm">
-                <span className="font-label-caps text-[11px] text-on-surface">VALOR ESTIMADO</span>
+                <span className="font-label-caps text-[11px] text-on-surface">MARCAS</span>
                 <div className="text-secondary font-mono text-[14px] font-bold">
-                  {totalInvested >= 1000
-                    ? `${(totalInvested / 1000).toFixed(1)}K €`
-                    : `${totalInvested} €`}
+                  {String(brands.length).padStart(2, '0')}
                 </div>
               </div>
             </div>

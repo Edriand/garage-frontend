@@ -18,8 +18,6 @@ export default function NewCarPage() {
   const [model, setModel] = useState('')
   const [year, setYear] = useState('')
   const [registrationYear, setRegistrationYear] = useState('')
-  const [totalKm, setTotalKm] = useState('')
-  const [totalInvested, setTotalInvested] = useState('')
   const [isPublic, setIsPublic] = useState(false)
   const [photoFile, setPhotoFile] = useState<File | null>(null)
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
@@ -46,10 +44,6 @@ export default function NewCarPage() {
     if (!registrationYear || isNaN(ry) || ry < 1886 || ry > CURRENT_YEAR) {
       e.registrationYear = `El año de matrícula debe estar entre 1886 y ${CURRENT_YEAR}`
     }
-    const km = parseFloat(totalKm)
-    if (totalKm === '' || isNaN(km) || km < 0) e.totalKm = 'Los kilómetros deben ser ≥ 0'
-    const inv = parseFloat(totalInvested)
-    if (totalInvested === '' || isNaN(inv) || inv < 0) e.totalInvested = 'La inversión debe ser ≥ 0'
     return e
   }
 
@@ -74,8 +68,6 @@ export default function NewCarPage() {
         model: model.trim(),
         year: parseInt(year),
         registrationYear: parseInt(registrationYear),
-        totalKm: parseFloat(totalKm),
-        totalInvested: parseFloat(totalInvested),
         isPublic,
       })
 
@@ -161,28 +153,6 @@ export default function NewCarPage() {
               placeholder={String(CURRENT_YEAR)}
               min={1886}
               max={CURRENT_YEAR}
-            />
-          </div>
-
-          {/* Km + Investment */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              label="Kilómetros actuales"
-              type="number"
-              value={totalKm}
-              onChange={e => setTotalKm(e.target.value)}
-              error={errors.totalKm}
-              placeholder="50000"
-              min={0}
-            />
-            <Input
-              label="Inversión total (€)"
-              type="number"
-              value={totalInvested}
-              onChange={e => setTotalInvested(e.target.value)}
-              error={errors.totalInvested}
-              placeholder="12000"
-              min={0}
             />
           </div>
 

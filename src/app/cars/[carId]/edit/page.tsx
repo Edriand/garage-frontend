@@ -22,8 +22,6 @@ export default function EditCarPage() {
   const [model, setModel] = useState('')
   const [year, setYear] = useState('')
   const [registrationYear, setRegistrationYear] = useState('')
-  const [totalKm, setTotalKm] = useState('')
-  const [totalInvested, setTotalInvested] = useState('')
   const [isPublic, setIsPublic] = useState(false)
   const [photoFile, setPhotoFile] = useState<File | null>(null)
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
@@ -48,8 +46,6 @@ export default function EditCarPage() {
         setModel(data.model)
         setYear(String(data.year))
         setRegistrationYear(String(data.registrationYear))
-        setTotalKm(String(data.totalKm))
-        setTotalInvested(String(data.totalInvested))
         setIsPublic(data.isPublic)
       })
       .catch(() => setServerError('No se pudo cargar el vehículo'))
@@ -64,10 +60,6 @@ export default function EditCarPage() {
     if (!year || isNaN(y) || y < 1886 || y > CURRENT_YEAR) e.year = `El año debe estar entre 1886 y ${CURRENT_YEAR}`
     const ry = parseInt(registrationYear)
     if (!registrationYear || isNaN(ry) || ry < 1886 || ry > CURRENT_YEAR) e.registrationYear = `El año de matrícula debe estar entre 1886 y ${CURRENT_YEAR}`
-    const km = parseFloat(totalKm)
-    if (totalKm === '' || isNaN(km) || km < 0) e.totalKm = 'Los kilómetros deben ser ≥ 0'
-    const inv = parseFloat(totalInvested)
-    if (totalInvested === '' || isNaN(inv) || inv < 0) e.totalInvested = 'La inversión debe ser ≥ 0'
     return e
   }
 
@@ -105,8 +97,6 @@ export default function EditCarPage() {
         model: model.trim(),
         year: parseInt(year),
         registrationYear: parseInt(registrationYear),
-        totalKm: parseFloat(totalKm),
-        totalInvested: parseFloat(totalInvested),
         isPublic,
         ...(photoKey ? { photoKey } : {}),
       })
@@ -177,11 +167,6 @@ export default function EditCarPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Año de fabricación" type="number" value={year} onChange={e => setYear(e.target.value)} error={errors.year} min={1886} max={CURRENT_YEAR} />
             <Input label="Año de matrícula" type="number" value={registrationYear} onChange={e => setRegistrationYear(e.target.value)} error={errors.registrationYear} min={1886} max={CURRENT_YEAR} />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input label="Kilómetros actuales" type="number" value={totalKm} onChange={e => setTotalKm(e.target.value)} error={errors.totalKm} min={0} />
-            <Input label="Inversión total (€)" type="number" value={totalInvested} onChange={e => setTotalInvested(e.target.value)} error={errors.totalInvested} min={0} />
           </div>
 
           <div className="flex flex-col gap-1">

@@ -6,7 +6,7 @@ import { getCarSummary } from '@/lib/api'
 import { Badge } from '@/components/ui/Badge'
 import { Card, CardBody } from '@/components/ui/Card'
 import { Spinner } from '@/components/ui/Spinner'
-import type { CarSummary, EventType } from '@/types/api'
+import type { CarSummary, EventType, RunningCostType } from '@/types/api'
 
 function OdometerDisplay({ km }: { km: number }) {
   const digits = String(Math.max(0, Math.floor(km))).padStart(6, '0').split('')
@@ -90,10 +90,10 @@ export default function CarResumenPage() {
       {/* Odómetro */}
       <div className="bg-surface-container-high border border-outline-variant rounded-xl p-5 flex flex-col items-center shadow-[0_2px_0_0_rgba(107,112,92,0.1)]">
         <span className="font-label-caps text-label-caps text-on-surface-variant w-full text-left mb-1">ODÓMETRO</span>
-        <OdometerDisplay km={summary.totalKm} />
-        {summary.lastKmReading != null && (
+        <OdometerDisplay km={summary.currentKm ?? 0} />
+        {summary.currentKm == null && (
           <span className="font-body-sm text-body-sm text-on-surface-variant text-center mt-1">
-            Último registro: {summary.lastKmReading.toLocaleString('es-ES')} km
+            Sin registros de kilómetros aún
           </span>
         )}
       </div>
@@ -108,7 +108,7 @@ export default function CarResumenPage() {
                 {TYPE_LABELS[type]}
               </span>
               <span className="font-title-sm text-title-sm text-on-surface">
-                {formatEur(summary.byType[type] ?? 0)}
+                {formatEur(type === 'purchase' ? summary.purchaseCost : summary.byType[type as RunningCostType] ?? 0)}
               </span>
             </CardBody>
           </Card>

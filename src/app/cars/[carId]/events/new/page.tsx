@@ -56,9 +56,11 @@ export default function NewEventPage() {
     if (!description.trim()) e.description = 'La descripción es obligatoria'
     const a = parseFloat(amount)
     if (amount === '' || isNaN(a) || a < 0) e.amount = 'El importe debe ser ≥ 0'
-    if (km !== '') {
-      const k = parseFloat(km)
-      if (isNaN(k) || k < 0) e.km = 'Los kilómetros deben ser ≥ 0'
+    if (km === '') {
+      e.km = 'Los kilómetros son obligatorios'
+    } else {
+      const k = Number(km)
+      if (!Number.isInteger(k) || k < 0) e.km = 'Los kilómetros deben ser un entero ≥ 0'
     }
     return e
   }
@@ -95,17 +97,20 @@ export default function NewEventPage() {
         type,
         description: description.trim(),
         amount: parseFloat(amount),
-        ...(km !== '' ? { km: parseFloat(km) } : {}),
+        km: parseInt(km, 10),
         ...(photoKeys.length > 0 ? { photoKeys } : {}),
         ...(docKeys.length > 0 ? { docKeys } : {}),
       })
 
       router.push(`/cars/${carId}/events`)
     } catch (err) {
-      if (err instanceof Error && (err as Error & { status?: number }).status === 409) {
+      const apiErr = err as Error & { status?: number }
+      if (apiErr.status === 409) {
         setServerError('Este coche ya tiene un evento de compra. Solo se permite uno por vehículo.')
+      } else if (apiErr.status === 400 && apiErr.message?.includes('km must be greater')) {
+        setErrors(prev => ({ ...prev, km: `El km debe ser mayor que el máximo registrado en este coche` }))
       } else {
-        setServerError(err instanceof Error ? err.message : 'Error al crear el registro')
+        setServerError(apiErr.message ?? 'Error al crear el registro')
       }
     } finally {
       setSubmitting(false)
@@ -169,9 +174,10 @@ export default function NewEventPage() {
             error={errors.amount}
           />
           <Input
-            label="Kilómetros (opcional)"
+            label="Kilómetros *"
             type="number"
             min={0}
+            step={1}
             value={km}
             onChange={e => setKm(e.target.value)}
             error={errors.km}
