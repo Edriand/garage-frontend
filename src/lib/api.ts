@@ -13,6 +13,8 @@ import type {
   UploadUrlResponse,
   DownloadUrlResponse,
   FeedPage,
+  FeedCar,
+  PublicGarageResponse,
 } from '@/types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
@@ -169,4 +171,16 @@ export async function getFeed(params?: {
   if (params?.nextToken) qs.set('nextToken', params.nextToken)
   const query = qs.toString() ? `?${qs.toString()}` : ''
   return publicRequest<FeedPage>(`/feed${query}`, { cache: 'no-store' } as RequestInit)
+}
+
+export async function getUserGarage(userId: string): Promise<PublicGarageResponse> {
+  return publicRequest<PublicGarageResponse>(`/users/${userId}/garage`, { cache: 'no-store' } as RequestInit)
+}
+
+export async function getUserCars(userId: string): Promise<FeedCar[]> {
+  const data = await publicRequest<{ garage: { isPublic: boolean }; cars: FeedCar[] }>(
+    `/users/${userId}/cars`,
+    { cache: 'no-store' } as RequestInit,
+  )
+  return data.cars
 }

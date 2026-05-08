@@ -77,6 +77,24 @@ export interface CarSummary {
   byType: Record<RunningCostType, number>
 }
 
+/* ── Public garage ─────────────────────────────────────────────────────── */
+export interface PublicGarageCar {
+  carId: string
+  brand: string
+  model: string
+  year: number
+  likeCount: number
+  photoUrl: string | null
+  createdAt?: string
+}
+
+export interface PublicGarageResponse {
+  userId: string
+  isPublic: boolean
+  updatedAt?: string
+  cars: PublicGarageCar[]
+}
+
 /* ── Feed ──────────────────────────────────────────────────────────────── */
 export interface FeedCar {
   carId: string
