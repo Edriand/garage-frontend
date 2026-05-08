@@ -77,6 +77,23 @@ export interface CarSummary {
   byType: Record<RunningCostType, number>
 }
 
+/* ── Feed ──────────────────────────────────────────────────────────────── */
+export interface FeedCar {
+  carId: string
+  userId: string
+  brand: string
+  model: string
+  year: number
+  likeCount: number
+  photoUrl: string | null
+  createdAt?: string
+}
+
+export interface FeedPage {
+  cars: FeedCar[]
+  nextToken?: string
+}
+
 /* ── Upload / Download ─────────────────────────────────────────────────── */
 export interface UploadUrlBody {
   carId: string

@@ -12,6 +12,7 @@ import type {
   UploadUrlBody,
   UploadUrlResponse,
   DownloadUrlResponse,
+  FeedPage,
 } from '@/types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
@@ -137,4 +138,35 @@ export async function getPresignedDownloadUrl(fileKey: string): Promise<Download
   return request<DownloadUrlResponse>(
     `/download/presigned-url?fileKey=${encodeURIComponent(fileKey)}`,
   )
+}
+
+async function publicRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const res = await fetch(`${API_URL}${path}`, {
+    headers: { 'Content-Type': 'application/json', ...options.headers },
+    ...options,
+  })
+  if (!res.ok) {
+    const text = await res.text().catch(() => res.statusText)
+    let message = text
+    try {
+      const parsed = JSON.parse(text)
+      if (parsed.message) message = parsed.message
+    } catch {}
+    throw new ApiError(res.status, message)
+  }
+  if (res.status === 204) return undefined as unknown as T
+  return res.json() as Promise<T>
+}
+
+export async function getFeed(params?: {
+  sort?: 'latest' | 'likes'
+  limit?: number
+  nextToken?: string
+}): Promise<FeedPage> {
+  const qs = new URLSearchParams()
+  if (params?.sort) qs.set('sort', params.sort)
+  if (params?.limit != null) qs.set('limit', String(params.limit))
+  if (params?.nextToken) qs.set('nextToken', params.nextToken)
+  const query = qs.toString() ? `?${qs.toString()}` : ''
+  return publicRequest<FeedPage>(`/feed${query}`, { cache: 'no-store' } as RequestInit)
 }
