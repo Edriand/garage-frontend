@@ -3,16 +3,14 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import type { FeedCar } from '@/types/api'
-import { getPresignedDownloadUrl } from '@/lib/api'
+import { resolvePublicPhoto } from '@/lib/public-photo'
 
 function CarPhoto({ photoUrl, alt, className }: { photoUrl: string | null; alt: string; className?: string }) {
   const [src, setSrc] = useState<string | null>(null)
 
   useEffect(() => {
     if (!photoUrl) return
-    getPresignedDownloadUrl(photoUrl)
-      .then(r => setSrc(r.downloadUrl))
-      .catch(() => setSrc(null))
+    resolvePublicPhoto(photoUrl).then(setSrc)
   }, [photoUrl])
 
   if (!src) {
