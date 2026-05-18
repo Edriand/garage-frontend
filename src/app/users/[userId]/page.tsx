@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { FeedCarCard } from '@/components/feed/FeedCarCard'
+import { GarageAvatar } from '@/components/garage/GarageAvatar'
 import { getUserGarage } from '@/lib/api'
 import type { FeedCar } from '@/types/api'
 
@@ -29,15 +30,18 @@ export default async function UserGaragePage({
 
         {/* ── Garage header ─────────────────────────────────────────── */}
         <div className="mb-8 pb-4 border-b-2 border-outline-variant flex flex-col md:flex-row md:items-end md:justify-between gap-3">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="font-label-caps text-label-caps bg-secondary-container text-on-secondary-container border border-secondary/20 px-2 py-0.5 rounded-sm">
-                GARAJE PÚBLICO
-              </span>
+          <div className="flex items-center gap-4">
+            <GarageAvatar photoKey={garage.photoKey} size={72} />
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-label-caps text-label-caps bg-secondary-container text-on-secondary-container border border-secondary/20 px-2 py-0.5 rounded-sm">
+                  GARAJE PÚBLICO
+                </span>
+              </div>
+              <h1 className="font-headline-md text-headline-md text-on-surface">
+                @{userId.slice(0, 8)}
+              </h1>
             </div>
-            <h1 className="font-headline-md text-headline-md text-on-surface">
-              @{userId.slice(0, 8)}
-            </h1>
           </div>
           <span className="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1">
             <span className="material-symbols-outlined text-[16px]">directions_car</span>

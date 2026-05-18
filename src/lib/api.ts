@@ -86,7 +86,7 @@ export async function getGarage(): Promise<GarageSettings> {
   return request<GarageSettings>('/garage')
 }
 
-export async function updateGarage(body: { isPublic: boolean }): Promise<GarageSettings> {
+export async function updateGarage(body: { isPublic?: boolean; photoKey?: string | null }): Promise<GarageSettings> {
   return request<GarageSettings>('/garage', { method: 'PUT', body: JSON.stringify(body) })
 }
 

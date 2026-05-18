@@ -1,6 +1,7 @@
 /* ── Garage Settings ────────────────────────────────────────────────── */
 export interface GarageSettings {
   isPublic: boolean
+  photoKey?: string | null
   updatedAt?: string
 }
 
@@ -91,6 +92,7 @@ export interface PublicGarageCar {
 export interface PublicGarageResponse {
   userId: string
   isPublic: boolean
+  photoKey?: string | null
   updatedAt?: string
   cars: PublicGarageCar[]
 }
@@ -114,11 +116,11 @@ export interface FeedPage {
 
 /* ── Upload / Download ─────────────────────────────────────────────────── */
 export interface UploadUrlBody {
-  carId: string
+  carId?: string
   eventId?: string
   filename: string
   contentType: string
-  category: 'photo' | 'document'
+  category: 'photo' | 'document' | 'avatar'
 }
 
 export interface UploadUrlResponse {
