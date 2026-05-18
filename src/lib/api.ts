@@ -142,6 +142,12 @@ export async function getPresignedDownloadUrl(fileKey: string): Promise<Download
   )
 }
 
+export async function getPublicPresignedDownloadUrl(fileKey: string): Promise<DownloadUrlResponse> {
+  return publicRequest<DownloadUrlResponse>(
+    `/public/download/presigned-url?fileKey=${encodeURIComponent(fileKey)}`,
+  )
+}
+
 async function publicRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {
     headers: { 'Content-Type': 'application/json', ...options.headers },
