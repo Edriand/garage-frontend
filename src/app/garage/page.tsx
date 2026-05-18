@@ -6,8 +6,113 @@ import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { CarCard } from '@/components/cars/CarCard'
 import { Spinner } from '@/components/ui/Spinner'
-import { getCars, getGarage, updateGarage, updateCar } from '@/lib/api'
+import { getCars, getGarage, updateGarage, updateCar, getPresignedDownloadUrl, getPresignedUploadUrl } from '@/lib/api'
 import type { Car, GarageSettings } from '@/types/api'
+
+function AvatarWidget({
+  photoKey,
+  onUpdated,
+}: {
+  photoKey: string | null | undefined
+  onUpdated: (key: string | null) => void
+}) {
+  const [src, setSrc] = useState<string | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (!photoKey) { setSrc(null); return }
+    getPresignedDownloadUrl(photoKey)
+      .then(r => setSrc(r.downloadUrl))
+      .catch(() => setSrc(null))
+  }, [photoKey])
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    e.target.value = ''
+    setUploading(true)
+    try {
+      const { uploadUrl, fileKey } = await getPresignedUploadUrl({
+        category: 'avatar',
+        filename: file.name,
+        contentType: file.type,
+      })
+      await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } })
+      const updated = await updateGarage({ photoKey: fileKey })
+      onUpdated(updated.photoKey ?? null)
+    } catch {
+      // silently fail — user can retry
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  async function handleRemove() {
+    setUploading(true)
+    try {
+      await updateGarage({ photoKey: null })
+      onUpdated(null)
+    } catch {
+      // silently fail
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  return (
+    <div className="bg-surface-container border border-outline-variant p-4 rounded-lg shadow-[0_2px_0_0_rgba(107,112,92,0.15)] relative">
+      <div className="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline-variant shadow-inner" />
+      <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline-variant shadow-inner" />
+      <h3 className="font-label-caps text-label-caps text-on-surface-variant mb-3 border-b border-outline-variant/50 pb-2 flex items-center gap-2">
+        <span className="material-symbols-outlined text-[18px]">person</span>
+        AVATAR DEL GARAJE
+      </h3>
+      <div className="flex flex-col items-center gap-3 mt-2">
+        {src ? (
+          <img
+            src={src}
+            alt="Avatar"
+            className="w-20 h-20 rounded-full object-cover border-2 border-outline-variant shadow-sm"
+          />
+        ) : (
+          <div className="w-20 h-20 rounded-full bg-surface-dim border-2 border-dashed border-outline-variant flex items-center justify-center">
+            <span className="material-symbols-outlined text-[36px] text-on-surface-variant opacity-30">person</span>
+          </div>
+        )}
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          className="hidden"
+          onChange={handleFile}
+        />
+        <div className="flex gap-2 w-full">
+          <button
+            type="button"
+            disabled={uploading}
+            onClick={() => inputRef.current?.click()}
+            className="flex-1 flex items-center justify-center gap-1 font-label-caps text-[10px] bg-gradient-to-b from-surface to-surface-variant text-on-surface border border-outline-variant border-b-2 rounded px-2 py-1.5 shadow-sm hover:from-surface-variant hover:to-surface-dim active:border-b active:translate-y-px transition-all disabled:opacity-50"
+          >
+            {uploading ? <Spinner size={12} /> : <span className="material-symbols-outlined text-[14px]">upload</span>}
+            {src ? 'CAMBIAR' : 'SUBIR'}
+          </button>
+          {src && (
+            <button
+              type="button"
+              disabled={uploading}
+              onClick={handleRemove}
+              className="flex items-center justify-center gap-1 font-label-caps text-[10px] text-error border border-error/30 rounded px-2 py-1.5 hover:bg-error/5 transition-colors disabled:opacity-50"
+            >
+              <span className="material-symbols-outlined text-[14px]">delete</span>
+              QUITAR
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function GaragePage() {
   const [cars, setCars] = useState<Car[]>([])
@@ -250,6 +355,12 @@ export default function GaragePage() {
                 : 'Tu colección es privada.'}
             </p>
           </div>
+
+          {/* Avatar */}
+          <AvatarWidget
+            photoKey={garage?.photoKey}
+            onUpdated={key => setGarage(prev => prev ? { ...prev, photoKey: key } : prev)}
+          />
 
           {/* Resumen Técnico */}
           <div className="bg-surface-container border border-outline-variant p-4 rounded-lg shadow-[0_2px_0_0_rgba(107,112,92,0.15)] relative overflow-hidden">
