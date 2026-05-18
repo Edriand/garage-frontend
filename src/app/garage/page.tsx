@@ -18,6 +18,7 @@ function AvatarWidget({
 }) {
   const [src, setSrc] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -31,6 +32,11 @@ function AvatarWidget({
     const file = e.target.files?.[0]
     if (!file) return
     e.target.value = ''
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('La imagen no puede superar 5 MB')
+      return
+    }
+    setUploadError(null)
     setUploading(true)
     try {
       const { uploadUrl, fileKey } = await getPresignedUploadUrl({
@@ -42,19 +48,20 @@ function AvatarWidget({
       const updated = await updateGarage({ photoKey: fileKey })
       onUpdated(updated.photoKey ?? null)
     } catch {
-      // silently fail — user can retry
+      setUploadError('No se pudo actualizar el avatar. Inténtalo de nuevo.')
     } finally {
       setUploading(false)
     }
   }
 
   async function handleRemove() {
+    setUploadError(null)
     setUploading(true)
     try {
       await updateGarage({ photoKey: null })
       onUpdated(null)
     } catch {
-      // silently fail
+      setUploadError('No se pudo eliminar el avatar. Inténtalo de nuevo.')
     } finally {
       setUploading(false)
     }
@@ -72,7 +79,7 @@ function AvatarWidget({
         {src ? (
           <img
             src={src}
-            alt="Avatar"
+            alt="Foto de perfil del garaje"
             className="w-20 h-20 rounded-full object-cover border-2 border-outline-variant shadow-sm"
           />
         ) : (
@@ -109,6 +116,9 @@ function AvatarWidget({
             </button>
           )}
         </div>
+        {uploadError && (
+          <p className="text-error font-body-sm text-[11px] text-center mt-1">{uploadError}</p>
+        )}
       </div>
     </div>
   )

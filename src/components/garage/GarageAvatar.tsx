@@ -33,7 +33,7 @@ export function GarageAvatar({ photoKey, size = 64, className = '' }: GarageAvat
   return (
     <img
       src={src}
-      alt="Avatar"
+      alt="Foto de perfil del garaje"
       style={{ width: size, height: size }}
       className={`rounded-full object-cover border-2 border-outline-variant flex-shrink-0 ${className}`}
     />
