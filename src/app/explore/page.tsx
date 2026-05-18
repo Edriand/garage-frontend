@@ -1,7 +1,27 @@
+import type { Metadata } from 'next'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { ExploreClient } from './ExploreClient'
 import { getFeed } from '@/lib/api'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://garage.fudex.es'
+
+export const metadata: Metadata = {
+  title: 'Explorar garajes — Ruta Mecánica',
+  description: 'Descubre los proyectos más destacados de la comunidad.',
+  alternates: { canonical: `${SITE_URL}/explore` },
+  openGraph: {
+    title: 'Explorar garajes — Ruta Mecánica',
+    description: 'Descubre los proyectos más destacados de la comunidad.',
+    url: `${SITE_URL}/explore`,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Explorar garajes — Ruta Mecánica',
+    description: 'Descubre los proyectos más destacados de la comunidad.',
+  },
+}
 
 export default async function ExplorePage() {
   const initial = await getFeed({ sort: 'latest' }).catch(() => ({ cars: [], nextToken: undefined }))

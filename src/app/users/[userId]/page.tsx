@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
@@ -5,6 +6,33 @@ import { FeedCarCard } from '@/components/feed/FeedCarCard'
 import { GarageAvatar } from '@/components/garage/GarageAvatar'
 import { getUserGarage } from '@/lib/api'
 import type { FeedCar } from '@/types/api'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://garage.fudex.es'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ userId: string }>
+}): Promise<Metadata> {
+  const { userId } = await params
+  try {
+    const garage = await getUserGarage(userId)
+    const carCount = garage.cars.length
+    const likeCount = garage.cars.reduce((sum, c) => sum + (c.likeCount ?? 0), 0)
+    const title = `Garaje de @${userId.slice(0, 8)} — Ruta Mecánica`
+    const description = `${likeCount} likes · ${carCount} coche${carCount !== 1 ? 's' : ''} público${carCount !== 1 ? 's' : ''}`
+    const canonical = `${SITE_URL}/users/${userId}`
+    return {
+      title,
+      description,
+      alternates: { canonical },
+      openGraph: { title, description, url: canonical, type: 'profile' },
+      twitter: { card: 'summary', title, description },
+    }
+  } catch {
+    return { title: 'Ruta Mecánica' }
+  }
+}
 
 export default async function UserGaragePage({
   params,
