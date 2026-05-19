@@ -7,6 +7,8 @@ import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Spinner } from '@/components/ui/Spinner'
 import { getCar, getPresignedDownloadUrl, likeCar, unlikeCar } from '@/lib/api'
+import { CarResumenPanel } from './CarResumenPanel'
+import { EventsPanel } from './EventsPanel'
 import type { Car } from '@/types/api'
 
 function HeroPhoto({ photoUrl, alt }: { photoUrl: string | null; alt: string }) {
@@ -101,7 +103,7 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
     <>
       <Header />
 
-      <main className="max-w-[800px] mx-auto pb-24 md:pb-10">
+      <main className="max-w-[1200px] mx-auto pb-24 md:pb-10">
         {/* Hero */}
         <section className="relative border-b-2 border-outline-variant overflow-hidden">
           <div className="h-64 sm:h-80 w-full bg-surface-variant relative">
@@ -155,8 +157,8 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
           </div>
         </section>
 
-        {/* Tab switcher */}
-        <div className="flex justify-center w-full px-5 py-4 border-b border-outline-variant bg-surface-container-low">
+        {/* Tab switcher — mobile only */}
+        <div className="md:hidden flex justify-center w-full px-5 py-4 border-b border-outline-variant bg-surface-container-low">
           <div className="inline-flex gap-1 p-1 bg-surface-variant rounded-lg border border-outline-variant shadow-[inset_0_2px_4px_rgba(107,112,92,0.1)]">
             <Link
               href={`/cars/${carId}`}
@@ -185,7 +187,20 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
           </div>
         </div>
 
-        {children}
+        {/* Mobile: route children */}
+        <div className="md:hidden">
+          {children}
+        </div>
+
+        {/* Desktop: two-column split */}
+        <div className="hidden md:flex border-t border-outline-variant">
+          <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-400px)] min-h-[500px]">
+            <CarResumenPanel carId={carId} />
+          </div>
+          <div className="w-2/3 overflow-y-auto max-h-[calc(100vh-400px)] min-h-[500px]">
+            <EventsPanel carId={carId} />
+          </div>
+        </div>
       </main>
 
       <BottomNav />
