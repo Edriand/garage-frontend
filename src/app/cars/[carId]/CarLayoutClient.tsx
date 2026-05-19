@@ -103,7 +103,7 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
     <>
       <Header />
 
-      <main className="max-w-[1200px] mx-auto pb-24 md:pb-10">
+      <main className="w-full pb-24 md:pb-0">
 
         {/* Mobile: compact hero with photo */}
         <section className="md:hidden relative border-b-2 border-outline-variant overflow-hidden">
@@ -188,11 +188,11 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
         </div>
 
         {/* Desktop: two-column split */}
-        <div className="hidden md:flex">
-          <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-65px)] min-h-[500px]">
+        <div className="hidden md:flex mt-3">
+          <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-80px)] min-h-[500px]">
             {/* Photo with car name + actions overlay */}
             <div className="relative border-b border-outline-variant">
-              <div className="h-56 relative overflow-hidden">
+              <div className="h-44 relative overflow-hidden">
                 <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#25190f]/80 via-[#25190f]/20 to-transparent" />
               </div>
@@ -238,7 +238,7 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
             </div>
             <CarResumenPanel carId={carId} />
           </div>
-          <div className="w-2/3 overflow-y-auto max-h-[calc(100vh-65px)] min-h-[500px]">
+          <div className="w-2/3 overflow-y-auto max-h-[calc(100vh-80px)] min-h-[500px]">
             <EventsPanel carId={carId} />
           </div>
         </div>

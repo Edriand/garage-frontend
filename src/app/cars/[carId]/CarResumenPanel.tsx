@@ -10,11 +10,11 @@ import type { CarSummary, EventType, RunningCostType } from '@/types/api'
 function OdometerDisplay({ km }: { km: number }) {
   const digits = String(Math.max(0, Math.floor(km))).padStart(6, '0').split('')
   return (
-    <div className="flex items-center gap-1 justify-center my-3">
+    <div className="flex items-center gap-1 justify-center my-3 md:my-1.5">
       {digits.map((d, i) => (
         <div
           key={i}
-          className="w-9 h-12 bg-inverse-surface text-inverse-on-surface font-mono text-xl font-bold flex items-center justify-center rounded-sm border border-outline shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
+          className="w-9 h-12 md:w-7 md:h-9 bg-inverse-surface text-inverse-on-surface font-mono text-xl md:text-sm font-bold flex items-center justify-center rounded-sm border border-outline shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
           style={{ fontFamily: 'Space Grotesk, monospace' }}
         >
           {d}
@@ -28,7 +28,7 @@ function OdometerDisplay({ km }: { km: number }) {
 const TYPE_LABELS: Record<EventType, string> = {
   purchase: 'COMPRA',
   mechanic: 'MECÁNICA',
-  modification: 'MODIFICACIÓN',
+  modification: 'MODIF.',
   fuel: 'GASOLINA',
   wash: 'LAVADOS',
   insurance: 'SEGURO',
@@ -66,18 +66,18 @@ export function CarResumenPanel({ carId }: { carId: string }) {
   }
 
   return (
-    <div className="px-5 py-8 flex flex-col gap-6">
+    <div className="px-5 py-8 md:py-4 flex flex-col gap-6 md:gap-3">
       {/* Inversión total */}
-      <div className="bg-surface-container border-2 border-outline rounded-xl p-6 relative overflow-hidden shadow-[0_4px_0_0_rgba(107,112,92,0.15)]">
+      <div className="bg-surface-container border-2 border-outline rounded-xl p-6 md:p-3 relative overflow-hidden shadow-[0_4px_0_0_rgba(107,112,92,0.15)]">
         {[['top-3 left-3'], ['top-3 right-3'], ['bottom-3 left-3'], ['bottom-3 right-3']].map(([pos]) => (
           <div key={pos} className={`absolute ${pos} w-2 h-2 rounded-full bg-outline-variant border border-outline shadow-sm`} />
         ))}
         <div className="flex flex-col items-center text-center z-10">
-          <span className="font-label-caps text-label-caps text-on-surface-variant tracking-widest flex items-center gap-2 mb-2">
+          <span className="font-label-caps text-label-caps text-on-surface-variant tracking-widest flex items-center gap-2 mb-2 md:mb-1">
             <span className="material-symbols-outlined text-[16px]">account_balance</span>
             INVERSIÓN TOTAL
           </span>
-          <span className="font-display-lg text-display-lg text-primary">{formatEur(summary.totalCost)}</span>
+          <span className="font-display-lg text-display-lg md:text-4xl text-primary">{formatEur(summary.totalCost)}</span>
           <span className="font-body-sm text-body-sm text-on-surface-variant mt-1">
             {summary.eventCount} {summary.eventCount === 1 ? 'registro' : 'registros'}
           </span>
@@ -85,7 +85,7 @@ export function CarResumenPanel({ carId }: { carId: string }) {
       </div>
 
       {/* Odómetro */}
-      <div className="bg-surface-container-high border border-outline-variant rounded-xl p-5 flex flex-col items-center shadow-[0_2px_0_0_rgba(107,112,92,0.1)]">
+      <div className="bg-surface-container-high border border-outline-variant rounded-xl p-5 md:p-3 flex flex-col items-center shadow-[0_2px_0_0_rgba(107,112,92,0.1)]">
         <span className="font-label-caps text-label-caps text-on-surface-variant w-full text-left mb-1">ODÓMETRO</span>
         <OdometerDisplay km={summary.currentKm ?? 0} />
         {summary.currentKm == null && (
@@ -96,10 +96,10 @@ export function CarResumenPanel({ carId }: { carId: string }) {
       </div>
 
       {/* Breakdown cards */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-2">
         {ORDERED_TYPES.map(type => (
           <Card key={type}>
-            <CardBody className="flex flex-col gap-2">
+            <CardBody className="flex flex-col gap-2 md:gap-1 md:p-2">
               <Badge eventType={type} />
               <span className="font-label-caps text-[10px] text-on-surface-variant tracking-wider">
                 {TYPE_LABELS[type]}
