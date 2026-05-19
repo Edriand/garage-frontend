@@ -11,7 +11,7 @@ import { CarResumenPanel } from './CarResumenPanel'
 import { EventsPanel } from './EventsPanel'
 import type { Car } from '@/types/api'
 
-function HeroPhoto({ photoUrl, alt }: { photoUrl: string | null; alt: string }) {
+function CarPhoto({ photoUrl, alt }: { photoUrl: string | null; alt: string }) {
   const [src, setSrc] = useState<string | null>(null)
 
   useEffect(() => {
@@ -104,29 +104,26 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
       <Header />
 
       <main className="max-w-[1200px] mx-auto pb-24 md:pb-10">
-        {/* Hero */}
-        <section className="relative border-b-2 border-outline-variant overflow-hidden">
-          <div className="h-64 sm:h-80 w-full bg-surface-variant relative">
-            <HeroPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
+
+        {/* Mobile: compact hero with photo */}
+        <section className="md:hidden relative border-b-2 border-outline-variant overflow-hidden">
+          <div className="h-48 w-full bg-surface-variant relative">
+            <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
             <div className="absolute inset-0 bg-gradient-to-t from-[#25190f]/80 via-[#25190f]/20 to-transparent" />
           </div>
-
-          {/* Car info overlay */}
-          <div className="absolute bottom-0 left-0 w-full px-5 pb-4 flex justify-between items-end gap-3">
+          <div className="absolute bottom-0 left-0 w-full px-5 pb-3 flex justify-between items-end gap-3">
             <div>
-              <span className="font-label-caps text-[10px] text-surface-container-high tracking-widest block mb-1">
+              <span className="font-label-caps text-[10px] text-surface-container-high tracking-widest block mb-0.5">
                 CHASIS {chassiLabel}
               </span>
               <h1
                 className="font-display-lg text-display-lg text-surface-container-lowest leading-tight"
-                style={{ textShadow: '0 2px 4px rgba(37,25,15,0.8)', fontSize: 'clamp(28px,6vw,48px)' }}
+                style={{ textShadow: '0 2px 4px rgba(37,25,15,0.8)', fontSize: 'clamp(22px,5vw,36px)' }}
               >
                 {car.brand} &apos;{String(car.year).slice(2)}
               </h1>
             </div>
-
             <div className="flex flex-col items-end gap-2 shrink-0">
-              {/* Like toggle button */}
               <button
                 type="button"
                 onClick={liked ? handleUnlike : handleLike}
@@ -144,8 +141,6 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
                 </span>
                 {likeCount}
               </button>
-
-              {/* Edit button */}
               <Link
                 href={`/cars/${carId}/edit`}
                 className="flex items-center gap-1 bg-primary-container text-on-primary-container font-label-caps text-[10px] px-3 py-1.5 rounded border-2 border-primary-fixed shadow-[0_2px_0_0_rgba(37,25,15,0.4)]"
@@ -156,6 +151,44 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
             </div>
           </div>
         </section>
+
+        {/* Desktop: compact title bar */}
+        <div className="hidden md:flex items-center justify-between px-6 py-3 border-b-2 border-outline-variant bg-surface-container-low">
+          <div>
+            <span className="font-label-caps text-[10px] text-on-surface-variant tracking-widest block mb-0.5">
+              CHASIS {chassiLabel}
+            </span>
+            <h1 className="font-headline-md text-headline-md text-on-surface leading-tight">
+              {car.brand} {car.model} &apos;{String(car.year).slice(2)}
+            </h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={liked ? handleUnlike : handleLike}
+              disabled={liking}
+              className="flex items-center gap-1.5 bg-surface text-on-surface font-label-caps text-[11px] px-3 py-2 rounded border border-outline-variant hover:bg-surface-variant transition-colors disabled:opacity-50"
+            >
+              <span
+                className="material-symbols-outlined text-[16px]"
+                style={{
+                  fontVariationSettings: liked ? "'FILL' 1" : "'FILL' 0",
+                  color: liked ? 'var(--color-error)' : 'currentColor',
+                }}
+              >
+                favorite
+              </span>
+              {likeCount}
+            </button>
+            <Link
+              href={`/cars/${carId}/edit`}
+              className="flex items-center gap-1.5 bg-primary-container text-on-primary-container font-label-caps text-[11px] px-4 py-2 rounded border-2 border-primary-fixed shadow-[0_2px_0_0_rgba(37,25,15,0.4)]"
+            >
+              <span className="material-symbols-outlined text-[14px]">edit</span>
+              EDITAR
+            </Link>
+          </div>
+        </div>
 
         {/* Tab switcher — mobile only */}
         <div className="md:hidden flex justify-center w-full px-5 py-4 border-b border-outline-variant bg-surface-container-low">
@@ -193,11 +226,15 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
         </div>
 
         {/* Desktop: two-column split */}
-        <div className="hidden md:flex border-t border-outline-variant">
-          <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-400px)] min-h-[500px]">
+        <div className="hidden md:flex">
+          <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-130px)] min-h-[500px]">
+            {/* Photo at the top of the resumen column */}
+            <div className="h-56 relative overflow-hidden border-b border-outline-variant shrink-0">
+              <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
+            </div>
             <CarResumenPanel carId={carId} />
           </div>
-          <div className="w-2/3 overflow-y-auto max-h-[calc(100vh-400px)] min-h-[500px]">
+          <div className="w-2/3 overflow-y-auto max-h-[calc(100vh-130px)] min-h-[500px]">
             <EventsPanel carId={carId} />
           </div>
         </div>
