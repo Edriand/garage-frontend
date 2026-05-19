@@ -191,48 +191,48 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
         <div className="hidden md:flex mt-3">
           <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-80px)] min-h-[500px]">
             {/* Photo with car name + actions overlay */}
-            <div className="relative border-b border-outline-variant">
-              <div className="h-44 relative overflow-hidden">
+            <div className="border-b border-outline-variant px-3 pb-3">
+              <div className="h-44 relative overflow-hidden rounded-lg">
                 <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#25190f]/80 via-[#25190f]/20 to-transparent" />
-              </div>
-              <div className="absolute bottom-0 left-0 w-full px-4 pb-3 flex justify-between items-end gap-2">
-                <div>
-                  <span className="font-label-caps text-[9px] text-surface-container-high tracking-widest block mb-0.5">
-                    CHASIS {chassiLabel}
-                  </span>
-                  <h1
-                    className="font-display-md text-surface-container-lowest leading-tight"
-                    style={{ textShadow: '0 2px 4px rgba(37,25,15,0.8)', fontSize: 'clamp(18px,1.8vw,26px)' }}
-                  >
-                    {car.brand} {car.model} &apos;{String(car.year).slice(2)}
-                  </h1>
-                </div>
-                <div className="flex flex-col items-end gap-1.5 shrink-0">
-                  <button
-                    type="button"
-                    onClick={liked ? handleUnlike : handleLike}
-                    disabled={liking}
-                    className="flex items-center gap-1.5 bg-inverse-surface/80 text-inverse-on-surface font-label-caps text-[11px] px-3 py-1.5 rounded border border-white/10 backdrop-blur-sm hover:bg-inverse-surface transition-colors disabled:opacity-50"
-                  >
-                    <span
-                      className="material-symbols-outlined text-[16px]"
-                      style={{
-                        fontVariationSettings: liked ? "'FILL' 1" : "'FILL' 0",
-                        color: liked ? 'var(--color-secondary-container)' : 'currentColor',
-                      }}
-                    >
-                      favorite
+                <div className="absolute bottom-0 left-0 w-full px-4 pb-3 flex justify-between items-end gap-2">
+                  <div>
+                    <span className="font-label-caps text-[9px] text-surface-container-high tracking-widest block mb-0.5">
+                      CHASIS {chassiLabel}
                     </span>
-                    {likeCount}
-                  </button>
-                  <Link
-                    href={`/cars/${carId}/edit`}
-                    className="flex items-center gap-1 bg-primary-container text-on-primary-container font-label-caps text-[10px] px-3 py-1.5 rounded border-2 border-primary-fixed shadow-[0_2px_0_0_rgba(37,25,15,0.4)]"
-                  >
-                    <span className="material-symbols-outlined text-[14px]">edit</span>
-                    EDITAR
-                  </Link>
+                    <h1
+                      className="font-display-md text-surface-container-lowest leading-tight"
+                      style={{ textShadow: '0 2px 4px rgba(37,25,15,0.8)', fontSize: 'clamp(18px,1.8vw,26px)' }}
+                    >
+                      {car.brand} {car.model} &apos;{String(car.year).slice(2)}
+                    </h1>
+                  </div>
+                  <div className="flex flex-col items-end gap-1.5 shrink-0">
+                    <button
+                      type="button"
+                      onClick={liked ? handleUnlike : handleLike}
+                      disabled={liking}
+                      className="flex items-center gap-1.5 bg-inverse-surface/80 text-inverse-on-surface font-label-caps text-[11px] px-3 py-1.5 rounded border border-white/10 backdrop-blur-sm hover:bg-inverse-surface transition-colors disabled:opacity-50"
+                    >
+                      <span
+                        className="material-symbols-outlined text-[16px]"
+                        style={{
+                          fontVariationSettings: liked ? "'FILL' 1" : "'FILL' 0",
+                          color: liked ? 'var(--color-secondary-container)' : 'currentColor',
+                        }}
+                      >
+                        favorite
+                      </span>
+                      {likeCount}
+                    </button>
+                    <Link
+                      href={`/cars/${carId}/edit`}
+                      className="flex items-center gap-1 bg-primary-container text-on-primary-container font-label-caps text-[10px] px-3 py-1.5 rounded border-2 border-primary-fixed shadow-[0_2px_0_0_rgba(37,25,15,0.4)]"
+                    >
+                      <span className="material-symbols-outlined text-[14px]">edit</span>
+                      EDITAR
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
