@@ -152,44 +152,6 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
           </div>
         </section>
 
-        {/* Desktop: compact title bar */}
-        <div className="hidden md:flex items-center justify-between px-6 py-3 border-b-2 border-outline-variant bg-surface-container-low">
-          <div>
-            <span className="font-label-caps text-[10px] text-on-surface-variant tracking-widest block mb-0.5">
-              CHASIS {chassiLabel}
-            </span>
-            <h1 className="font-headline-md text-headline-md text-on-surface leading-tight">
-              {car.brand} {car.model} &apos;{String(car.year).slice(2)}
-            </h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={liked ? handleUnlike : handleLike}
-              disabled={liking}
-              className="flex items-center gap-1.5 bg-surface text-on-surface font-label-caps text-[11px] px-3 py-2 rounded border border-outline-variant hover:bg-surface-variant transition-colors disabled:opacity-50"
-            >
-              <span
-                className="material-symbols-outlined text-[16px]"
-                style={{
-                  fontVariationSettings: liked ? "'FILL' 1" : "'FILL' 0",
-                  color: liked ? 'var(--color-error)' : 'currentColor',
-                }}
-              >
-                favorite
-              </span>
-              {likeCount}
-            </button>
-            <Link
-              href={`/cars/${carId}/edit`}
-              className="flex items-center gap-1.5 bg-primary-container text-on-primary-container font-label-caps text-[11px] px-4 py-2 rounded border-2 border-primary-fixed shadow-[0_2px_0_0_rgba(37,25,15,0.4)]"
-            >
-              <span className="material-symbols-outlined text-[14px]">edit</span>
-              EDITAR
-            </Link>
-          </div>
-        </div>
-
         {/* Tab switcher — mobile only */}
         <div className="md:hidden flex justify-center w-full px-5 py-4 border-b border-outline-variant bg-surface-container-low">
           <div className="inline-flex gap-1 p-1 bg-surface-variant rounded-lg border border-outline-variant shadow-[inset_0_2px_4px_rgba(107,112,92,0.1)]">
@@ -227,14 +189,56 @@ export default function CarLayoutClient({ children }: { children: React.ReactNod
 
         {/* Desktop: two-column split */}
         <div className="hidden md:flex">
-          <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-130px)] min-h-[500px]">
-            {/* Photo at the top of the resumen column */}
-            <div className="h-56 relative overflow-hidden border-b border-outline-variant shrink-0">
-              <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
+          <div className="w-1/3 border-r border-outline-variant overflow-y-auto max-h-[calc(100vh-65px)] min-h-[500px]">
+            {/* Photo with car name + actions overlay */}
+            <div className="relative border-b border-outline-variant">
+              <div className="h-56 relative overflow-hidden">
+                <CarPhoto photoUrl={car.photoUrl} alt={`${car.brand} ${car.model}`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#25190f]/80 via-[#25190f]/20 to-transparent" />
+              </div>
+              <div className="absolute bottom-0 left-0 w-full px-4 pb-3 flex justify-between items-end gap-2">
+                <div>
+                  <span className="font-label-caps text-[9px] text-surface-container-high tracking-widest block mb-0.5">
+                    CHASIS {chassiLabel}
+                  </span>
+                  <h1
+                    className="font-display-md text-surface-container-lowest leading-tight"
+                    style={{ textShadow: '0 2px 4px rgba(37,25,15,0.8)', fontSize: 'clamp(18px,1.8vw,26px)' }}
+                  >
+                    {car.brand} {car.model} &apos;{String(car.year).slice(2)}
+                  </h1>
+                </div>
+                <div className="flex flex-col items-end gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={liked ? handleUnlike : handleLike}
+                    disabled={liking}
+                    className="flex items-center gap-1.5 bg-inverse-surface/80 text-inverse-on-surface font-label-caps text-[11px] px-3 py-1.5 rounded border border-white/10 backdrop-blur-sm hover:bg-inverse-surface transition-colors disabled:opacity-50"
+                  >
+                    <span
+                      className="material-symbols-outlined text-[16px]"
+                      style={{
+                        fontVariationSettings: liked ? "'FILL' 1" : "'FILL' 0",
+                        color: liked ? 'var(--color-secondary-container)' : 'currentColor',
+                      }}
+                    >
+                      favorite
+                    </span>
+                    {likeCount}
+                  </button>
+                  <Link
+                    href={`/cars/${carId}/edit`}
+                    className="flex items-center gap-1 bg-primary-container text-on-primary-container font-label-caps text-[10px] px-3 py-1.5 rounded border-2 border-primary-fixed shadow-[0_2px_0_0_rgba(37,25,15,0.4)]"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">edit</span>
+                    EDITAR
+                  </Link>
+                </div>
+              </div>
             </div>
             <CarResumenPanel carId={carId} />
           </div>
-          <div className="w-2/3 overflow-y-auto max-h-[calc(100vh-130px)] min-h-[500px]">
+          <div className="w-2/3 overflow-y-auto max-h-[calc(100vh-65px)] min-h-[500px]">
             <EventsPanel carId={carId} />
           </div>
         </div>
